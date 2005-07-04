@@ -1,0 +1,42 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-import-keys mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-import-keys
+--- smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-import-keys	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-import-keys	2005-06-10 18:07:31.000000000 +1000
+@@ -0,0 +1,38 @@
++#!/usr/bin/perl -w
++#----------------------------------------------------------------------
++# Yum import keys
++# Copyright (C) 2005 Gordon Rowell <gordonr@gormand.com.au>
++#
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 2 of the License, or
++# (at your option) any later version.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License or more details.
++#
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software
++# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
++#----------------------------------------------------------------------
++
++use strict;
++use warnings;
++
++use constant KEYDIR => "/usr/share/rpm-gpg-keys";
++
++chdir KEYDIR or die "Couldn't chdir " . KEYDIR . "\n";
++
++opendir DIR, '.' or die "Couldn't opendir .\n";
++
++for my $key ( grep {!/^\./} readdir(DIR) )
++{
++    warn "Importing key $key\n";
++
++    system("rpm", "--import", $key) == 0 or 
++	warn "Couldn't rpm --import $key\n";
++}
++
++exit 0;

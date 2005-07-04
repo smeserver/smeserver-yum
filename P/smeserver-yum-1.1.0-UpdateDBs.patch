@@ -1,0 +1,102 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/createlinks mezzanine_patched_smeserver-yum-1.1.0/createlinks
+--- smeserver-yum-1.1.0/createlinks	2005-06-03 17:30:04.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/createlinks	2005-06-03 17:29:20.000000000 +1000
+@@ -29,49 +29,13 @@
+ for ( qw(install modify remove update) )
+ {
+     safe_symlink("/sbin/e-smith/yum_update_dbs",
+-        "root/etc/e-smith/events/yum-$_/S90yum_updates_dbs");
++        "root/etc/e-smith/events/yum-$_/S90yum_update_dbs");
+ }
+ 
++safe_symlink("/sbin/e-smith/yum_update_dbs",
++    "root/etc/e-smith/events/local/S90yum_update_dbs");
++
+ #--------------------------------------------------
+ # functions for manager panel
+ #--------------------------------------------------
+ panel_link("yum", "manager");
+-
+-# panel_link("yum-available", "manager");
+-# panel_link("yum-check", "manager");
+-# panel_link("yum-config", "manager");
+-# panel_link("yum-update", "manager");
+-# panel_link("yum-post", "manager");
+-# panel_link("yum-remove", "manager");
+-
+-# #--------------------------------------------------
+-# # actions for yum-update event
+-# #--------------------------------------------------
+-# event_link("yum-arch-repository", "yum-update", "20");
+-# 
+-# #--------------------------------------------------
+-# # actions for yum-install-available event
+-# #--------------------------------------------------
+-# event_link("yum-install-available", "yum-install-available", "00");
+-# event_link("initialize-default-databases", "yum-install-available", "10");
+-# event_link("navigation-conf-hidden", "yum-install-available", "20");
+-# 
+-# #--------------------------------------------------
+-# # actions for yum-post-install event
+-# #--------------------------------------------------
+-# event_link("initialize-default-databases", "yum-post-install", "10");
+-# event_link("navigation-conf-hidden", "yum-post-install", "20");
+-# 
+-# #--------------------------------------------------
+-# # actions for yum-install-updates event
+-# #--------------------------------------------------
+-# event_link("yum-install-updates", "yum-install-updates", "00");
+-# event_link("initialize-default-databases", "yum-install-updates", "10");
+-# event_link("navigation-conf-hidden", "yum-install-updates", "20");
+-# 
+-# #--------------------------------------------------
+-# # actions for yum-remove event
+-# #--------------------------------------------------
+-# # event_link("yum-remove", "yum-remove", "00");
+-# event_link("clean-rc7.d", "yum-remove", "10");
+-# event_link("navigation-conf-hidden", "yum-remove", "20");
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs
+--- smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-06-03 17:30:05.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-06-03 17:27:09.000000000 +1000
+@@ -19,6 +19,20 @@
+ #----------------------------------------------------------------------
+ 
+ use strict;
++use esmith::ConfigDB;
++
++my $db = esmith::ConfigDB->open_ro or die "Couldn't open ConfigDB\n";
++
++my $yum_flag = '/var/lock/subsys/yum';
++
++if ($db->get_prop('yum', 'AutoInstallUpdates') eq 'enabled')
++{
++    system('/bin/touch', $yum_flag) or warn "Couldn't touch $yum_flag\n";
++}
++else
++{
++    unlink $yum_flag;
++}
+ 
+ # XXX - WARNING - XXX
+ #
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-06-03 17:30:05.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-06-03 17:25:20.000000000 +1000
+@@ -189,17 +189,6 @@
+ 
+     }
+ 
+-    my $yum_flag = '/var/lock/subsys/yum';
+-
+-    if ($db->get_prop('yum', 'AutoInstallUpdates') eq 'enabled')
+-    {
+-	system('/bin/touch', $yum_flag) or warn "Couldn't touch $yum_flag\n";
+-    }
+-    else
+-    {
+-	unlink $yum_flag;
+-    }
+-
+     $dbs{repositories}->reload;
+ 
+     unless ( system( "/sbin/e-smith/signal-event", "yum-modify" ) == 0 )

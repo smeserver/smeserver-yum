@@ -1,0 +1,93 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/AutoInstallUpdates mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/AutoInstallUpdates
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/AutoInstallUpdates	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/AutoInstallUpdates	2005-06-03 17:04:20.000000000 +1000
+@@ -1 +1 @@
+-disabled
++enabled
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/GPGCheck	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/GPGCheck	2005-06-03 16:49:26.000000000 +1000
+@@ -1 +1 @@
+-1
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/addons/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/addons/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/addons/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/addons/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/base/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/base/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/base/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/base/GPGCheck	2005-06-03 16:50:42.000000000 +1000
+@@ -0,0 +1 @@
++1
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/centosplus/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/centosplus/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/centosplus/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/centosplus/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/contrib/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/contrib/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/contrib/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/contrib/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/extras/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/extras/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/extras/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/extras/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/GPGCheck	2005-06-03 16:50:42.000000000 +1000
+@@ -0,0 +1 @@
++1
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/GPGCheck	2005-06-03 16:50:42.000000000 +1000
+@@ -0,0 +1 @@
++1
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck	2005-06-03 16:50:05.000000000 +1000
+@@ -0,0 +1 @@
++0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/updates/GPGCheck mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/updates/GPGCheck
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/updates/GPGCheck	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/updates/GPGCheck	2005-06-03 16:50:42.000000000 +1000
+@@ -0,0 +1 @@
++1
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-06-03 17:04:40.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-06-03 17:04:03.000000000 +1000
+@@ -189,6 +189,17 @@
+ 
+     }
+ 
++    my $yum_flag = '/var/lock/subsys/yum';
++
++    if ($db->get_prop('yum', 'AutoInstallUpdates') eq 'enabled')
++    {
++	system('/bin/touch', $yum_flag) or warn "Couldn't touch $yum_flag\n";
++    }
++    else
++    {
++	unlink $yum_flag;
++    }
++
+     $dbs{repositories}->reload;
+ 
+     unless ( system( "/sbin/e-smith/signal-event", "yum-modify" ) == 0 )

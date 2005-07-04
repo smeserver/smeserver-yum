@@ -1,0 +1,83 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/createlinks mezzanine_patched_smeserver-yum-1.1.0/createlinks
+--- smeserver-yum-1.1.0/createlinks	2005-06-09 20:45:36.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/createlinks	2005-06-09 20:45:27.000000000 +1000
+@@ -28,14 +28,20 @@
+ 
+ for ( qw(install modify remove update) )
+ {
+-    safe_symlink("/sbin/e-smith/yum_update_dbs",
+-        "root/etc/e-smith/events/yum-$_/S90yum_update_dbs");
++    safe_symlink("restart", 
++	"root/etc/e-smith/events/yum-$_/services2adjust/yum");
+ }
+ 
+-safe_symlink("/sbin/e-smith/yum_update_dbs",
+-    "root/etc/e-smith/events/local/S90yum_update_dbs");
+-
+ #--------------------------------------------------
+ # functions for manager panel
+ #--------------------------------------------------
+ panel_link("yum", "manager");
++
++#--------------------------------------------------
++# init scripts
++#--------------------------------------------------
++safe_symlink("../daemontools", "root/etc/rc.d/init.d/supervise/yum");
++service_link_enhanced("yum", "S90", "7");
++service_link_enhanced("yum", "K60", "6");
++service_link_enhanced("yum", "K60", "0");
++service_link_enhanced("yum", "K60", "1");
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/var/service/yum/log/run mezzanine_patched_smeserver-yum-1.1.0/root/var/service/yum/log/run
+--- smeserver-yum-1.1.0/root/var/service/yum/log/run	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/var/service/yum/log/run	2005-06-09 20:44:31.000000000 +1000
+@@ -0,0 +1,23 @@
++#!/bin/sh
++#----------------------------------------------------------------------
++# copyright (C) 1999-2003 Mitel Networks Corporation
++# Copyright (C) 2005 Gordon Rowell <gordonr@gormand.com.au>
++#
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 2 of the License, or
++# (at your option) any later version.
++# 		
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++# 		
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software
++# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
++#----------------------------------------------------------------------
++exec					\
++    /usr/local/bin/setuidgid smelog	\
++    /usr/local/bin/multilog t s5000000	\
++    /var/log/yum
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/var/service/yum/run mezzanine_patched_smeserver-yum-1.1.0/root/var/service/yum/run
+--- smeserver-yum-1.1.0/root/var/service/yum/run	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/var/service/yum/run	2005-06-09 20:44:23.000000000 +1000
+@@ -0,0 +1,23 @@
++#!/bin/sh
++#----------------------------------------------------------------------
++# copyright (C) 1999-2003 Mitel Networks Corporation
++# Copyright (C) 2005 Gordon Rowell <gordonr@gormand.com.au>
++# 
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 2 of the License, or
++# (at your option) any later version.
++# 		
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++# 		
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software
++# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
++#----------------------------------------------------------------------
++exec 2>&1
++
++/sbin/e-smith/yum_update_dbs
++wait

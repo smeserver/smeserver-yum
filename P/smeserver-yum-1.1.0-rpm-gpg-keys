@@ -1,0 +1,108 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY mezzanine_patched_smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY
+--- smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY	2005-06-10 17:53:28.000000000 +1000
+@@ -0,0 +1,34 @@
++The following public key can be used to verify RPM packages built and
++signed by Red Hat, Inc. using `rpm -K' using the GNU GPG package. 
++Questions about this key should be sent to security@redhat.com.
++
++-----BEGIN PGP PUBLIC KEY BLOCK-----
++Version: GnuPG v1.0.0 (GNU/Linux)
++Comment: For info see http://www.gnupg.org
++
++mQGiBDfqVDgRBADBKr3Bl6PO8BQ0H8sJoD6p9U7Yyl7pjtZqioviPwXP+DCWd4u8
++HQzcxAZ57m8ssA1LK1Fx93coJhDzM130+p5BG9mYSWShLabR3N1KXdXQYYcowTOM
++GxdwYRGr1Spw8QydLhjVfU1VSl4xt6bupPbWJbyjkg5Z3P7BlUOUJmrx3wCgobNV
++EDGaWYJcch5z5B1of/41G8kEAKii6q7Gu/vhXXnLS6m15oNnPVybyngiw/23dKjS
++ZVG7rKANEK2mxg1VB+vc/uUc4k49UxJJfCZg1gu1sPFV3GSa+Y/7jsiLktQvCiLP
++lncQt1dV+ENmHR5BdIDPWDzKBVbgWnSDnqQ6KrZ7T6AlZ74VMpjGxxkWU6vV2xsW
++XCLPA/9P/vtImA8CZN3jxGgtK5GGtDNJ/cMhhuv5tnfwFg4b/VGo2Jr8mhLUqoIb
++E6zeGAmZbUpdckDco8D5fiFmqTf5+++pCEpJLJkkzel/32N2w4qzPrcRMCiBURES
++PjCLd4Y5rPoU8E4kOHc/4BuHN903tiCsCPloCrWsQZ7UdxfQ5LQiUmVkIEhhdCwg
++SW5jIDxzZWN1cml0eUByZWRoYXQuY29tPohVBBMRAgAVBQI36lQ4AwsKAwMVAwID
++FgIBAheAAAoJECGRgM3bQqYOsBQAnRVtg7B25Hm11PHcpa8FpeddKiq2AJ9aO8sB
++XmLDmPOEFI75mpTrKYHF6rkCDQQ36lRyEAgAokgI2xJ+3bZsk8jRA8ORIX8DH05U
++lMH27qFYzLbT6npXwXYIOtVn0K2/iMDj+oEB1Aa2au4OnddYaLWp06v3d+XyS0t+
++5ab2ZfIQzdh7wCwxqRkzR+/H5TLYbMG+hvtTdylfqIX0WEfoOXMtWEGSVwyUsnM3
++Jy3LOi48rQQSCKtCAUdV20FoIGWhwnb/gHU1BnmES6UdQujFBE6EANqPhp0coYoI
++hHJ2oIO8ujQItvvNaU88j/s/izQv5e7MXOgVSjKe/WX3s2JtB/tW7utpy12wh1J+
++JsFdbLV/t8CozUTpJgx5mVA3RKlxjTA+On+1IEUWioB+iVfT7Ov/0kcAzwADBQf9
++E4SKCWRand8K0XloMYgmipxMhJNnWDMLkokvbMNTUoNpSfRoQJ9EheXDxwMpTPwK
++ti/PYrrL2J11P2ed0x7zm8v3gLrY0cue1iSba+8glY+p31ZPOr5ogaJw7ZARgoS8
++BwjyRymXQp+8Dete0TELKOL2/itDOPGHW07SsVWOR6cmX4VlRRcWB5KejaNvdrE5
++4XFtOd04NMgWI63uqZc4zkRa+kwEZtmbz3tHSdRCCE+Y7YVP6IUf/w6YPQFQriWY
++FiA6fD10eB+BlIUqIw80VgjsBKmCwvKkn4jg8kibXgj4/TzQSx77uYokw1EqQ2wk
++OZoaEtcubsNMquuLCMWijYhGBBgRAgAGBQI36lRyAAoJECGRgM3bQqYOhyYAnj7h
++VDY/FJAGqmtZpwVp9IlitW5tAJ4xQApr/jNFZCTksnI+4O1765F7tA==
++=3AHZ
++-----END PGP PUBLIC KEY BLOCK-----
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-3 mezzanine_patched_smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-3
+--- smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-3	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-3	2005-06-10 17:53:28.000000000 +1000
+@@ -0,0 +1,31 @@
++-----BEGIN PGP PUBLIC KEY BLOCK-----
++Version: GnuPG v1.2.1 (GNU/Linux)
++
++mQGiBEBWEXMRBACwv6ybAZQEyqFvVXnVmTk5Pvt/k701xbdYFkh/GbolGKhvW0OQ
++zSK0zffeBXrqJHnfWGxOjXvhQVq9miOQUtTCk65s6dZF4HbXRmgQynVAj19S0Axw
++wqzVZzZAbbNz4Y5Mu/UOflR7n5WcNmES1ynFqRsmFWsypIJFrT3gGMC4gwCgmHev
++ld/ebabzVqkk1JjFMoxA0DED/3OJ0IohANLmDe7eAmT8IRIlWb+HPfi2pfhYCjYv
++/g1nc+0hBPaZtrvFuboaQfUh7vqcVza+Ti/A1kPsTwDiXClV/njzow04Qx9K2TKL
++E+Jad9kd9/mJGM2JeUFvbPYFQaIBP6ZW8pibZI7YKGQ1Rwmv6wCjlQ06ABHetIgV
++5sOcA/sHFomRwY+aTGxM4Bd0XUZW0Hjj2FP5/38yfWflhDLGSDeJPuwMk+Y5JlTz
++FfMMeNsMMdGk9Hn7vysKrQwXbZcpS+WmopA8jWg77jhHIXZKLJYdySCDlxsOixG2
++NBmRS9HQHh/d8OfCEh4tg1VLKhVmkZRpWdHcmxueJfkx3zzMX7QmQ2VudE9TLTMg
++S2V5IDxjZW50b3MtM2tleUBjYW9zaXR5Lm9yZz6IXwQTEQIAHwUCQFYRcwUJCWYB
++gAQLBwMCAxUCAwMWAgECHgECF4AACgkQcEnkTQJeUTsPjgCdFVLLKgeMpqc8gFdm
++HW9pQxtRRKoAoIYpvPOIb1nj88gpx4aYbxcw+S/5iEwEExECAAwFAkBWHykFgwll
++88oACgkQKN6I1rmRG5KRxACfQOzZp6ComvGfvkPFuJRd9QvVx48AnAvY/AqekJxd
++/y6TGOQvrmm8CoxWuQINBEBWEZEQCADQ48xpVDl9w3PlwgauoGaysDgyc8OAkzAM
++6IPb/Ma068l73y58KJXdBLCTDFbCQb/O29wE7iw8V/MXqBRl6aWzKkdnkA2RzDHo
++MqYGHrMUwO8y74l/Crw24b5gzhOkHwZGeuCEHbXyt6h1oYJBs239vyvQF/l5EIUF
++CRiaYT1Y4tGdeGoCwNEdVCOBz5r9F7ebJaT0rK+cFwMEk3mLXmxYz2w9NdKS9R8w
++ytIRZDCLY2XadmPKfcZje1tdp0b/z+jbXw1iIs1hbje0kLvC88OSp5Ss0oN0zN2H
++NZT59mdnqlLlUpNApS1Ev6pPB5ZAvdi43IJdVDKgsp+SSwCy/85TAAMFB/92Z967
++/FsFxShW+6t7ShI3Y1PF4hVyK3wDF1I83b7Ff+IwFh8YhPt2x8AWTxJRWAoIrtzh
++G+zEmUjm19dRqeB3tI3zTqNSkl15IIVGElhv8PFET9UwZblHLVW4LQEqbOIeFlTn
++jSnbdfh05Qzx0J+eJnMdgBhQajItE7R74O5Yx5Dqaat641FxT6cZUtRUcd+tQ58t
++MkIcK1ZvRiRTC6WkwfULpiRUvG4N+NhCWlfjGUfvcoMuThqkjU3qeVS3hlH2T1Mq
++JMilUUZFN5laLXv9oQFJZReF64mrQBQzueqjtkWEbVqoji1ThdPQTeLgn9SSewZf
++X584+BMZSkhNBP8ViEwEGBECAAwFAkBWEZEFCQlmAYAACgkQcEnkTQJeUTsx4wCf
++ZZPhJKRCXgwX7UB9YwDaSFQK8IgAoJgy+aCPMUCH6WUFPVRf49q56+9r
++=4XKu
++-----END PGP PUBLIC KEY BLOCK-----
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-4 mezzanine_patched_smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-4
+--- smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-4	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-4	2005-06-10 17:53:28.000000000 +1000
+@@ -0,0 +1,31 @@
++-----BEGIN PGP PUBLIC KEY BLOCK-----
++Version: GnuPG v1.2.1 (GNU/Linux)
++
++mQGiBEIfIY8RBACIjFavOQNbs4bjTtOblq4X5/oxuTJtv41nfqSFNeUAQke0qoxx
++AUlBesWxDsOXp5VppgNEA07hGjPvzoxabLAsTccQplvHMNzmRezyukYrSTVR/F7g
++ywpvlhaAFkL9jZxodXzWKk2cmBLVWvuyzlLEUBeijm2amyEHcIGAczxPawCgmVcM
++9WpA6SOKivd9qTXK2XP+9BUD/2xV4OR4L7q8CSiaDMwPLo6P6D6VDc9LpVy16Wmu
++iYPFJIcIpp309biKZhGZgd+gHDhld9EJcZ3A2v43GY/xCdJqZ7Uh5QIGDafnil87
++2AbMIBYpcOpvAshTM10S3Qj06pIQE47oONZT5A80O/hn+Yd8ySCEswpbWCmtAxnc
++iNw3A/0Qk/bKrhT6J9Um2JhMfxx/nB80mM+Jlsn58B8i4sjrIVdzc3b45Y2wbXN3
++uVGuvvAFolAco3cpVy3oY1wMVuh8UlJFNESmxZL/Z7BXyKhiKUZrNxEvQt9OtD1F
++d36ur8Ky8zFE5GL903Nx/dEVBvIDq2/2K3Wy9Yq3YIC0PW7fkrQlQ2VudE9TLTQg
++a2V5IDxjZW50b3MtNGtleUBjZW50b3Mub3JnPohfBBMRAgAfBQJCHyGPBQkSzAMA
++BAsHAwIDFQIDAxYCAQIeAQIXgAAKCRClPQurRD4YISH0AJ9zmx2JPGt8ELKo3aE0
++YoGg6EYipwCdH3kRVJHQtDeRs/5v5Ghn92XZS4KITAQTEQIADAUCQh8hxAWDEswC
++ywAKCRA4whYWOWygpCumAJwOseF0mAV+j/0kGrKXf/FKboFScgCdEITVqtB1CCyn
+++q+IqnCmgEF8rYy5Ag0EQh8hqhAIAKwNu60J+AnfVjNk0eN26sKBQOHFVQX9M3bd
++NBVWruocb7dro6DG4daPVB66ZI9RqBusll0jz5nUhBO3GZ3rn/KLVhMO2uCtvdcw
++WYtY6188lO6lOm3aYadIqafcPPiiLnF3zm/E8hI/trbPpaoW1dFBOiSlOY4bSpSC
++nTuHYd5fjYu77wQhnSsl19XfqwuvHQKW1vhXCaM2GrsLA5tgjLOlJhYJ4yPY2LTo
++yxoWC/JMMM0Vwi7BaVoa/G2uamC6sL5f6KXei5QftemUvw1uM/2fkLbuHtwETq6Z
++yUZlsL1H5K5G4h+GDVByBF6Y2P1csi7oXK13sdzhkewLaMjmah8ABAsH/3zhD0Gy
++1jlMs9dGKSi9kq3jcUE/4o3vvjOPbxqT9psJu0jMEAfUVCWX9BWgZXyE2u+nBxcY
++AnNyqdmQzs6wTgJWGeGKpyC1jIKtO888RpPShvXtt/aNF4LaoielWZY9xu5oYEhn
++mBoww3VTbVxFNaPjglZOWnTxWfysHwG0H/dnXMp1sJjfdNsiB7zNniRRurlIiy0x
++hQSkDLe4tUr9Q9u4ztZKbwVX/fBzJC/u4Smi4VYx+HfOAP3OqzcGKNcb68GpIVo3
++1RUQq1JqpPSM5U41kW8u+S5n+zhjZsb/Ix3ks18gI8wz5u5yzfGacqp65NLisqVe
++OKEf/MQ1xWytG4SITAQYEQIADAUCQh8hqgUJEswDAAAKCRClPQurRD4YIXC1AKCF
++3t5xKJnEXJfgvhvldOzDIFjajwCgkX/MZI0O0SxYQAc2hEQJqCI/LJU=
++=Qsai
++-----END PGP PUBLIC KEY BLOCK-----

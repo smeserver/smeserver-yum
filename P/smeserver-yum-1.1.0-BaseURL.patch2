@@ -1,0 +1,36 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL	2005-05-31 12:42:01.000000000 +1000
+@@ -1 +1 @@
+-http://mirror.contribs.org/smeserver/releases/7/smeaddons/$basearch
++http://mirror.contribs.org/smeserver/releases/7.0alpha/smeaddons/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/BaseURL mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/BaseURL
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/BaseURL	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smecore/BaseURL	2005-05-31 12:42:01.000000000 +1000
+@@ -1 +1 @@
+-http://mirror.contribs.org/smeserver/releases/7/smecore/$basearch
++http://mirror.contribs.org/smeserver/releases/7.0alpha/smecore/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL	2005-05-31 12:43:12.000000000 +1000
+@@ -1 +1 @@
+-http://mirror.contribs.org/smeserver/releases/7/smeunstable/$basearch
++http://mirror.contribs.org/smeserver/releases/7.0alpha/smedev/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/Name mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/Name
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/Name	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/Name	2005-05-31 12:43:16.000000000 +1000
+@@ -1 +1 @@
+-SME Server 7 - smeunstable
++SME Server 7 - smedev
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetesting/BaseURL mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetesting/BaseURL
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetesting/BaseURL	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smetesting/BaseURL	2005-05-31 12:42:01.000000000 +1000
+@@ -1 +1 @@
+-http://mirror.contribs.org/smeserver/releases/7/smetest/$basearch
++http://mirror.contribs.org/smeserver/releases/7.0alpha/smetest/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL	2005-05-27 20:34:42.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL	2005-05-31 12:42:01.000000000 +1000
+@@ -1 +1 @@
+-http://mirror.contribs.org/smeserver/releases/7/smeupdates/$basearch
++http://mirror.contribs.org/smeserver/releases/7.0alpha/smeupdates/$basearch
