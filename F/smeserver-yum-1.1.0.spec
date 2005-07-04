@@ -484,3 +484,5 @@ mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 %pre
 
 %post
+
+# Null change
