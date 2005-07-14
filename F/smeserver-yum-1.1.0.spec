@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 06
+%define release 07
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -36,6 +36,7 @@ Patch24: smeserver-yum-1.1.0-updateinlocalevent.patch5
 Patch25: smeserver-yum-1.1.0-signalonce.patch
 Patch26: smeserver-yum-1.1.0-signalonce.patch2
 Patch27: smeserver-yum-1.1.0-reponames.patch
+Patch28: smeserver-yum-1.1.0-nopidcheck.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -49,6 +50,12 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.1.0-07]
+- Remove pid file check - yum leaves stale pid files when an action
+  fails, but cleans up next time. Since we're calling yum, it can
+  do the work. Death to pid files.
+
 * Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [1.1.0-06]
 - Adjusted repository names sme{addons,core,dev,test,updates} -> 
@@ -449,6 +456,7 @@ AutoReqProv: no
 %patch25 -p1
 %patch26 -p1
 %patch27 -p1
+%patch28 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates

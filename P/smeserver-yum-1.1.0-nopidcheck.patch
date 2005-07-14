@@ -1,0 +1,21 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs
+--- smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-07-13 23:13:33.085707760 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-07-13 23:13:21.905234752 -0600
+@@ -25,8 +25,6 @@
+ 
+ use constant YUM_CRON_FLAG => '/var/lock/subsys/yum';
+ 
+-use constant YUM_PID => '/var/run/yum.pid';
+-
+ if ($db->get_prop('yum', 'AutoInstallUpdates') eq 'enabled')
+ {
+     (system('/bin/touch', YUM_CRON_FLAG) == 0) or 
+@@ -37,8 +35,6 @@
+     unlink YUM_CRON_FLAG;
+ }
+ 
+--f YUM_PID and die "$0: Another yum process is running\n";
+-
+ # XXX - WARNING - XXX
+ #
+ # For speed and to reduce log noise, we don't use 

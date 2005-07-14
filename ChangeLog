@@ -17,3 +17,8 @@ Wed Jul 13 23:09:26 2005                       Gordon Rowell (gordonr)
 Adjusting repository names
 
 ----------------------------------------------------------------------
+Wed Jul 13 23:17:01 2005                       Gordon Rowell (gordonr)
+
+Don't bother checking yum's pid file
+
+----------------------------------------------------------------------
