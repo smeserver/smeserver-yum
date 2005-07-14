@@ -22,3 +22,8 @@ Wed Jul 13 23:17:01 2005                       Gordon Rowell (gordonr)
 Don't bother checking yum's pid file
 
 ----------------------------------------------------------------------
+Wed Jul 13 23:56:52 2005                       Gordon Rowell (gordonr)
+
+Fix cron job ordering
+
+----------------------------------------------------------------------

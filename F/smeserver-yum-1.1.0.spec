@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 07
+%define release 08
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -37,6 +37,7 @@ Patch25: smeserver-yum-1.1.0-signalonce.patch
 Patch26: smeserver-yum-1.1.0-signalonce.patch2
 Patch27: smeserver-yum-1.1.0-reponames.patch
 Patch28: smeserver-yum-1.1.0-nopidcheck.patch
+Patch29: smeserver-yum-1.1.0-cronjoborder.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -50,6 +51,13 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.1.0-08]
+- Fix cron.daily ordering so yum_update_dbs gets a chance to fix
+  the yum flag file before the standard yum cron job runs [SF: 1237639]
+- Clean up various old cron jobs which are no longer used
+- Change cron job template into a shell script
+
 * Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [1.1.0-07]
 - Remove pid file check - yum leaves stale pid files when an action
@@ -457,6 +465,7 @@ AutoReqProv: no
 %patch26 -p1
 %patch27 -p1
 %patch28 -p1
+%patch29 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
@@ -480,6 +489,7 @@ mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 /bin/rm -f %{name}-%{version}-filelist
 /sbin/e-smith/genfilelist \
     --file '/sbin/e-smith/yum_update_dbs' 'attr(0700,root,root)' \
+    --file '/etc/cron.daily/smeserver-yum' 'attr(0700,root,root)' \
     --file /var/service/yum/down 'attr(0644,root,root)' \
     --file /var/service/yum/run 'attr(0755,root,root)' \
     --dir /var/service/yum/log 'attr(0755,root,root)' \
@@ -503,4 +513,6 @@ mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 %pre
 
 %post
-# Null
+rm -f /etc/cron.daily/yum-arch-repository
+rm -f /etc/cron.daily/yum-check-repository
+rm -f /etc/cron.daily/yum-update-dbs
