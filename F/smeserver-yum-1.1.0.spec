@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 08
+%define release 09
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -38,6 +38,7 @@ Patch26: smeserver-yum-1.1.0-signalonce.patch2
 Patch27: smeserver-yum-1.1.0-reponames.patch
 Patch28: smeserver-yum-1.1.0-nopidcheck.patch
 Patch29: smeserver-yum-1.1.0-cronjoborder.patch
+Patch30: smeserver-yum-1.1.0-francais.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -51,6 +52,10 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.1.0-09]
+- French localisation - Merci Didier Rambeau [SF: 1234929]
+
 * Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [1.1.0-08]
 - Fix cron.daily ordering so yum_update_dbs gets a chance to fix
@@ -466,6 +471,7 @@ AutoReqProv: no
 %patch27 -p1
 %patch28 -p1
 %patch29 -p1
+%patch30 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates

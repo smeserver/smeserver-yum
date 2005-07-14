@@ -1,0 +1,279 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum	2005-07-14 00:13:35.274508344 -0600
+@@ -0,0 +1,275 @@
++<lexicon lang="fr"> 
++    <!-- vim: ft=xml:
++    -->
++    <entry>
++        <base>FORM_TITLE</base>
++        <trans>Mise à jour logicielle</trans>
++    </entry>
++
++    <entry>
++	<base>Configuration</base>
++	<trans>Configuration</trans>
++    </entry>
++
++    <entry>
++	<base>Software installer</base>
++	<trans>Mise à jour logicielle</trans>
++    </entry>
++
++    <entry>
++        <base>SUCCESS</base>
++        <trans>Les nouveaux paramètres ont étés enregistrés.</trans>
++    </entry>
++
++    <entry>
++	<base>HEADER_CONFIGURATION</base>
++	<trans>
++            <![CDATA[
++	    <h2>Il manque du texte ICI</h2>
++	    ]]>
++	</trans>
++    </entry>
++
++    <entry>
++        <base>LABEL_YUM_STATUS</base>
++        <trans>Vérification quotidienne des mises à jour</trans>
++    </entry>
++
++    <entry>
++	<base>LABEL_YUM_AUTOINSTALLUPDATES</base>
++	<trans>Installer automatiquement les mises à jour</trans>
++   </entry>
++
++    <entry>
++	<base>LABEL_YUM_PACKAGEFUNCTIONS</base>
++	<trans>Gestion individuelle des paquetages</trans>
++    </entry>
++
++    <entry>
++	<base>DESC_YUM_PACKAGEFUNCTIONS</base>
++	<trans>
++		La mise à jour logicielle peut gérer des groupes de
++		paquetages apparentés ou des paquetages individuels.
++		Par défaut, seuls les groupes de paquetages sont affichés.
++		Si vous souhaitez gérer des paquetages individuels, 
++		activez cette option. Cela ne doit être utilisé que
++		par les administrateurs expérimentés.
++	</trans>
++    </entry>
++
++    <entry>
++	<base>LABEL_ENABLED_REPOSITORIES</base>
++	<trans>Activer les sites de téléchargement</trans>
++    </entry>
++
++    <entry>
++	<base>DESC_ENABLED_REPOSITORIES</base>
++	<trans>
++		La mise à jour logicielle peut installer des logiciels
++		à partir de n'importe quelle site de téléchargement. Pour activer
++		un site de téléchargement, selectionnez le dans la liste. 
++		Pour désactiver un site de téléchargement, désélectionnez le dans la liste.
++		Par défaut, seule les version stables, des logiciels testés sont disponibles
++		pour la mise à jour.
++	</trans>
++    </entry>
++
++    <entry>
++        <base>DESC_UPDATES_AVAILABLE</base>
++        <trans>
++            <![CDATA[
++            <div class="success">
++                <h2>Mise &agrave; jour disponible</h2>
++
++                Il y a des mises à jour disponibles pour votre système.
++                Ces mises &agrave; jour devraient &ecirc;tre install&eacute;es
++                d&egrave;s que possible.
++            </div>
++            ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>LABEL_AVAILABLE_UPDATES</base>
++        <trans>Mises à jour disponibles</trans>
++    </entry>
++
++    <entry>
++        <base>DESC_AVAILABLE_UPDATES</base>
++        <trans>
++            Les mises à jour suivantes sont disponibles pour votre système. 
++            Vous devriez normalement installer toutes les mises à jour disponibles. 
++            Si vous ne souhaitez pas installer certaines mises à jour, désélectionnez
++            les dans la liste ci-dessous.
++        </trans>
++    </entry>
++
++    <entry>
++        <base>INSTALL_UPDATES</base>
++        <trans>Installer les mises à jours sélectionnées</trans>
++    </entry>
++
++    <entry>
++        <base>DESC_BUTTON_INSTALL_UPDATES</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="yum?page=0&page_stack=&Next=Next&wherenext=YUM_PAGE_INSTALL_UPDATES">Installer les mises à jour disponibles</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++	<base>HEADER_AVAILABLE_SOFTWARE</base>
++	<trans>
++            <![CDATA[
++	    <h2>XXX - FIXME - WARNING REQUIRED HERE</h2>
++	    Les mises à jour suivantes sont disponibles pour &ecirc;tre install&eacute;es 
++	    sur votre système. 
++	    ]]>
++	</trans>
++    </entry>
++
++    <entry>
++	<base>DESC_AVAILABLE_GROUPS</base>
++	<trans>
++	    Vous pouvez sélectionner des groupes de mises à jour
++	    à installer à partir de la liste ci-dessous.
++	</trans>
++    </entry>
++
++    <entry>
++	<base>LABEL_AVAILABLE_GROUPS</base>
++	<trans>Groupes disponibles</trans>
++    </entry>
++
++    <entry>
++	<base>DESC_AVAILABLE_PACKAGES</base>
++	<trans>
++	    Vous pouvez aussi sélectionner des paquetages individuels 
++	    à installer dans la liste ci-dessous.
++	</trans>
++    </entry>
++
++    <entry>
++	<base>LABEL_AVAILABLE_PACKAGES</base>
++	<trans>Paquetages disponibles</trans>
++    </entry>
++
++    <entry>
++	<base>INSTALL_SOFTWARE</base>
++	<trans>Installer</trans>
++    </entry>
++
++    <entry>
++	<base>HEADER_INSTALLED_SOFTWARE</base>
++	<trans>
++            <![CDATA[
++	    <h2>XXX - FIXME - WARNING REQUIRED HERE</h2>
++	    Les mises à jour suivantes sont installées 
++	    sur ce syst&egrave;me. 
++	    ]]>
++	</trans>
++    </entry>
++
++    <entry>
++	<base>DESC_INSTALLED_GROUPS</base>
++	<trans>
++	    Vous pouvez sélectionner des groupes de mises à jour
++	    à désinstaller dans la liste ci-dessous.
++	</trans>
++    </entry>
++
++    <entry>
++	<base>LABEL_INSTALLED_GROUPS</base>
++	<trans>Groupes de mises à jour installées</trans>
++    </entry>
++
++    <entry>
++	<base>DESC_INSTALLED_PACKAGES</base>
++	<trans>
++		Vous pouvez aussi sélectionner les paquetages individuels 
++		que vous voulez retirer dans la liste ci-dessous.
++	</trans>
++    </entry>
++
++    <entry>
++	<base>LABEL_INSTALLED_PACKAGES</base>
++	<trans>Paquetages installés</trans>
++    </entry>
++
++    <entry>
++	<base>REMOVE_SOFTWARE</base>
++	<trans>Retirer</trans>
++    </entry>
++
++    <entry>
++        <base>DESC_BUTTON_CONFIGURATION</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="yum?page=0&page_stack=&Next=Next&wherenext=YUM_PAGE_CONFIGURATION">Modifier les paramètres de mise à jour</a>
++                ]]>
++        </trans>
++    </entry>
++
++    <entry>
++        <base>DESC_BUTTON_INSTALL_AVAILABLE</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="yum?page=0&page_stack=&Next=Next&wherenext=YUM_PAGE_INSTALL_AVAILABLE">Installer une mise à jour additionelle</a>
++                ]]>
++	</trans>
++    </entry>
++
++    <entry>
++        <base>DESC_BUTTON_REMOVE</base>
++        <trans>
++            <![CDATA[
++            <a class="button-like"
++                href="yum?page=0&page_stack=&Next=Next&wherenext=YUM_PAGE_REMOVE">Retirer une mise à jour installée</a>
++                ]]>
++	</trans>
++    </entry>
++
++    <entry>
++        <base>DESC_SECTIONBAR</base>
++        <trans>
++            <![CDATA[
++            <hr class="sectionbar"/>
++            ]]>
++        </trans>
++    </entry>
++
++    <entry>
++	<base>HEADER_POSTUPGRADE_REQUIRED</base>
++	<trans>
++		Le système doit être reconfiguré
++		après l'ajout ou le retrait de paquetages, 
++		ou l'application de mise à jour. Un redémarrage sera
++		nécessaire après ce processus de reconfiguration.
++	</trans>
++     </entry>
++
++    <entry>
++	<base>POST_UPGRADE</base>
++	<trans>Reconfigurer</trans>
++    </entry>
++
++    <entry>
++	<base>ENABLED</base>
++	<trans>Activé</trans>
++    </entry>
++
++    <entry>
++	<base>DISABLED</base>
++	<trans>Désactivé</trans>
++    </entry>
++
++    <entry>
++	<base>SAVE</base>
++	<trans>Enregistrer</trans>
++    </entry>
++
++</lexicon>
