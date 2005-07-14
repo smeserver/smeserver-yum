@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 05
+%define release 06
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -35,6 +35,7 @@ Patch23: smeserver-yum-1.1.0-centos4.patch2
 Patch24: smeserver-yum-1.1.0-updateinlocalevent.patch5
 Patch25: smeserver-yum-1.1.0-signalonce.patch
 Patch26: smeserver-yum-1.1.0-signalonce.patch2
+Patch27: smeserver-yum-1.1.0-reponames.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -48,6 +49,15 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Jul 14 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.1.0-06]
+- Adjusted repository names sme{addons,core,dev,test,updates} -> 
+  addons,os,dev,test,updates
+- Added updates-testing
+- Changed BaseURL to use mirror.contribs.org/pub/smeserver for consistency
+  across mirrors
+- Drop /7.0alpha/ to /7/
+
 * Sat Jul 2 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [1.1.0-05]
 - Fix creation of event links
@@ -438,6 +448,7 @@ AutoReqProv: no
 %patch24 -p1
 %patch25 -p1
 %patch26 -p1
+%patch27 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
