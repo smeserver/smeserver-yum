@@ -1,0 +1,1392 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-available mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-available
+--- smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-available	2004-02-29 11:40:12.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-available	1969-12-31 17:00:00.000000000 -0700
+@@ -1,170 +0,0 @@
+-#!/usr/bin/perl -wT
+-
+-#----------------------------------------------------------------------
+-# heading     : Yum Update Manager
+-# description : Install available rpms
+-# navigation  : 8000 8040
+-#
+-# Copyright (c) 2003 Darrell May <dmay@myezserver.com>
+-#----------------------------------------------------------------------
+-
+-package esmith;
+-
+-use strict;
+-use CGI ':all';
+-use CGI::Carp qw(fatalsToBrowser);
+-
+-use esmith::cgi;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-sub perform ($);
+-sub showInitial ($$);
+-
+-BEGIN
+-{
+-    # Clear PATH and related environment variables so that calls to
+-    # external programs do not cause results to be tainted. See
+-    # "perlsec" manual page for details.
+-
+-    $ENV {'PATH'} = '';
+-    $ENV {'SHELL'} = '/bin/bash';
+-    delete $ENV {'ENV'};
+-}
+-
+-esmith::util::setRealToEffective ();
+-
+-$CGI::POST_MAX=1024 * 100;  # max 100K posts
+-$CGI::DISABLE_UPLOADS = 1;  # no uploads
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-system("/usr/bin/yum list available | /bin/grep -e \"athlon\" -e \"i386\" -e \"i586\" -e \"i686\" -e \"noarch\" | /bin/awk -F\" \" \'\{print \$1\}\' > /tmp/yum-list-available");
+-my $List = (`/bin/cat /tmp/yum-list-available`) || "";
+-
+-#------------------------------------------------------------
+-# examine state parameter and display the appropriate form
+-#------------------------------------------------------------
+-
+-my $q = new CGI;
+-
+-if (! grep (/^state$/, $q->param))
+-{
+-    showInitial ($q, '');
+-}
+-
+-elsif ($q->param ('state') eq "perform")
+-{
+-    perform ($q);
+-}
+-
+-else
+-{
+-    esmith::cgi::genStateError ($q, \%conf);
+-}
+-
+-exit (0);
+-
+-#------------------------------------------------------------
+-# subroutine to display initial form
+-#------------------------------------------------------------
+-
+-sub showInitial ($$)
+-{
+-my ($q, $msg) = @_;
+-
+-#------------------------------------------------------------
+-# If there's a message, we just finished an operation so show the
+-# status report. If no message, showInitial.
+-#------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-	esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Install available (new) rpms');
+-    }
+-    else
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-        print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    print $q->startform (-method => 'POST', -action => $q->url (-absolute => 1));
+-
+-    print $q->startform (-method => 'POST',
+-    			 -action => $q->url (-absolut => 1));
+-
+-    print $q->table ({border => 1, cellspacing => 1, cellpadding => 4});
+-
+-    print $q->p ("<BR>");
+-
+-    if ($List eq "")
+-    {
+-    print '</table>';
+-    print $q->p ("No rpms are available.");
+-    }
+-    else
+-    {
+-    print $q->Tr (esmith::cgi::genSmallCell ($q, $q->b ('Name')),
+-		  esmith::cgi::genSmallCell ($q, $q->b ('Select')));
+-
+-    foreach (`/bin/cat /tmp/yum-list-available`)
+-    {
+-    chomp;
+-    my $key = "$_";
+-    my $enabledChk = ();  ## 'checked' turns on
+-    print $q->Tr (esmith::cgi::genSmallCell ($q, "$key"),
+-                  esmith::cgi::genSmallCell ($q,
+-                        $q->checkbox(-name => "$key",
+-                                     -label => '',
+-                                     -checked => "$enabledChk")));
+-    }
+-
+-    print $q->hidden (-name => 'state',
+-    		      -override => 1,
+-		      -default => 'perform');
+-        
+-    print '</table>';
+-
+-    print $q->p ("<BR>");
+-
+-    print $q->submit (-name => 'action',
+-		      -value => 'Proceed');
+-    }
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-}
+-
+-sub perform ($)
+-{
+-    my ($q) = @_;
+-    my $msg;
+-
+-    my $key = ();
+-    my @packages = ();
+-
+-    foreach (`/bin/cat /tmp/yum-list-available`)
+-    {
+-    chomp;
+-    my $key = "$_";
+-
+-    if ($q->param ($key) eq "on")
+-        {
+-	push @packages, $key;
+-	}
+-    }
+-
+-    esmith::util::backgroundCommand (8, "/sbin/e-smith/signal-event", "yum-install-available", "@packages");
+-
+-    esmith::cgi::genHeaderNonCacheable
+-          ($q, \%conf, "Yum available rpm installs launched successfully");
+-
+-    print $q->p ('Please be patient as installing the available rpms may take a while to complete.',
+-                 'Use the View log files panel to review the yum/yum-install-available.log report.');
+-
+-    esmith::cgi::genFooter ($q);
+-    return;
+-}
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-check mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-check
+--- smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-check	2004-02-29 11:40:12.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-check	1969-12-31 17:00:00.000000000 -0700
+@@ -1,131 +0,0 @@
+-#!/usr/bin/perl -wT
+-
+-#----------------------------------------------------------------------
+-# heading     : Yum Update Manager
+-# description : Check repository
+-# navigation  : 8000 8020
+-# 
+-# Copyright (c) 2003 dmay@myezserver.com 
+-#----------------------------------------------------------------------
+-
+-package esmith;
+-
+-use strict;
+-use CGI ':all';
+-use CGI::Carp qw(fatalsToBrowser);
+-
+-use esmith::cgi;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-sub showInitial ($$);
+-
+-BEGIN
+-{
+-    # Clear PATH and related environment variables so that calls to
+-    # external programs do not cause results to be tainted. See
+-    # "perlsec" manual page for details.
+-
+-    $ENV {'PATH'} = '';
+-    $ENV {'SHELL'} = '/bin/bash';
+-    delete $ENV {'ENV'};
+-}
+-
+-esmith::util::setRealToEffective ();
+-
+-$CGI::POST_MAX=1024 * 100;  # max 100K posts
+-$CGI::DISABLE_UPLOADS = 1;  # no uploads
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-#------------------------------------------------------------
+-# examine state parameter and display the appropriate form
+-#------------------------------------------------------------
+-
+-my $q = new CGI;
+-
+-if (! grep (/^state$/, $q->param))
+-{
+-    showInitial ($q, '');
+-}
+-else
+-{
+-    esmith::cgi::genStateError ($q, \%conf);
+-}
+-
+-exit (0);
+-
+-#------------------------------------------------------------
+-# subroutine to display initial form
+-#------------------------------------------------------------
+-
+-sub showInitial ($$)
+-{
+-    my ($q, $msg) = @_;
+-
+-    #------------------------------------------------------------
+-    # If there's a message, we just finished an operation so show the
+-    # status report. If no message, showInitial.
+-    #------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Yum check repository report');
+-    }
+-    else
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-        print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    system ("/usr/bin/yum info updates > /var/log/yum-info-updates.log") == 0
+-        or die ("Error running yum info updates.\n");
+-
+-    system ("/usr/bin/yum info available > /var/log/yum-info-available.log") == 0
+-        or die ("Error running yum info available.\n");
+-
+-    print $q->p ("<BR>");
+-    print $q->table ({border => 0, cellspacing => 0, cellpadding => 4});
+-
+-        if ( -f "/var/log/yum-info-updates.log" )
+-        {
+-        print "<HR>";
+-	print $q->p ("<B>The following rpms are available for updating your server:</B>");
+-        print $q->p ("<BR>");
+-        print "<PRE>";
+-        open (INF, "/var/log/yum-info-updates.log")
+-                or die ("Can't open /var/log/yum-info-updates.log file. $1");
+-
+-        while (<INF>)
+-        {
+-        print "$_";
+-        }
+-        print "</PRE>";
+-        close INF;
+-        }
+-
+-        if ( -f "/var/log/yum-info-available.log" )
+-        {
+-        print "<HR>";
+-        print $q->p ("<B>The following new rpms are available for installing on your server:</B>");
+-        print $q->p ("<BR>");
+-        print "<PRE>";
+-        open (INF, "/var/log/yum-info-available.log")
+-                or die ("Can't open /var/log/yum-info-available.log file. $1");
+-
+-        while (<INF>)
+-        {
+-        print "$_";
+-        }
+-        print "</PRE>";
+-        close INF;
+-        }
+-
+-    print "</table>";
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-}
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-config mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-config
+--- smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-config	2004-03-01 15:22:39.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-config	1969-12-31 17:00:00.000000000 -0700
+@@ -1,624 +0,0 @@
+-#!/usr/bin/perl -wT
+-
+-#----------------------------------------------------------------------
+-# heading     : Yum Update Manager
+-# description : Configuration
+-# navigation  : 8000 8010
+-#
+-# Copyright (c) 2004 dmay@myezserver.com
+-#----------------------------------------------------------------------
+-
+-package esmith;
+-
+-use strict;
+-use CGI ':all';
+-use CGI::Carp qw(fatalsToBrowser);
+-
+-use esmith::cgi;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-sub showInitial ($$);
+-sub addRepository ($);
+-sub performAdd ($);
+-sub removeRepository ($);
+-sub performRemove ($);
+-sub perform ($);
+-
+-sub showAdvanced ($);
+-sub addArchive ($);
+-sub performAddArchive ($);
+-sub removeArchive ($);
+-sub performRemoveArchive ($);
+-
+-BEGIN
+-{
+-    # Clear PATH and related environment variables so that calls to
+-    # external programs do not cause results to be tainted. See
+-    # "perlsec" manual page for details.
+-
+-    $ENV {'PATH'} = '';
+-    $ENV {'SHELL'} = '/bin/bash';
+-    delete $ENV {'ENV'};
+-}
+-
+-esmith::util::setRealToEffective ();
+-
+-$CGI::POST_MAX=1024 * 100;  # max 100K posts
+-$CGI::DISABLE_UPLOADS = 1;  # no uploads
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-my $Repository = db_get_prop(\%conf, "yum", "Repository") || "";
+-my @Repository = sort(split(/,/ , $Repository));
+-
+-my $Archive = db_get_prop(\%conf, "yum", "Archive") || "";
+-my @Archive = sort(split(/,/ , $Archive));
+-
+-my %yesnoLabels = ('enabled' => 'Enabled',
+-                   'disabled'  => 'Disabled');
+-
+-#------------------------------------------------------------
+-# examine state parameter and display the appropriate form
+-#------------------------------------------------------------
+-
+-my $q = new CGI;
+-
+-if (! grep (/^state$/, $q->param))
+-{
+-    showInitial ($q, '');
+-}
+-
+-elsif ($q->param ('state') eq "addRepository")
+-{
+-    addRepository ($q);
+-}
+-
+-elsif ($q->param ('state') eq "performAdd")
+-{
+-    performAdd ($q);
+-}
+-
+-elsif ($q->param ('state') eq "delete")
+-{
+-    removeRepository ($q);
+-}
+-
+-elsif ($q->param ('state') eq "performDelete")
+-{
+-    performRemove ($q);
+-}
+-
+-elsif ($q->param ('state') eq "showAdvanced")
+-{
+-    showAdvanced ($q);
+-}
+-
+-elsif ($q->param ('state') eq "addArchive")
+-{
+-    addArchive ($q);
+-}
+-
+-elsif ($q->param ('state') eq "performAddArchive")
+-{
+-    performAddArchive ($q);
+-}
+-
+-elsif ($q->param ('state') eq "removeArchive")
+-{
+-    removeArchive ($q);
+-}
+-
+-elsif ($q->param ('state') eq "performRemoveArchive")
+-{
+-    performRemoveArchive ($q);
+-}
+-
+-elsif ($q->param ('state') eq "perform")
+-{
+-    performAndShowResult ($q);
+-}
+-
+-else
+-{
+-    esmith::cgi::genStateError ($q, \%conf);
+-}
+-
+-exit (0);
+-
+-#------------------------------------------------------------
+-# subroutine to display initial form
+-#------------------------------------------------------------
+-
+-sub showInitial ($$)
+-{
+-    my ($q, $msg) = @_;
+-
+-    #------------------------------------------------------------
+-    # If there's a message, we just finished an operation so show the
+-    # status report. If no message, this is a new list of domains.
+-    #------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-	esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Yum configuration');
+-    }
+-    else
+-    {
+-	esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-	print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    #------------------------------------------------------------
+-    # Look up yum repositories and display
+-    #------------------------------------------------------------
+-
+-    print $q->p ('Yum is an Update Manager that facilitates keeping your SME Server up to date with the 
+-latest available packages. If yum is enabled, a check for updates will occur daily at approximately 4:00am 
+-and a report will be e-mailed to the admin for review.');
+-
+-    print $q->p ($q->a ({href => $q->url (-absolute => 1) . "?state=addRepository"},
+-			'Click here'),
+-		 'to add a new yum repository to check.');
+-    
+-    print $q->p ($q->a ({href => $q->url (-absolute => 1) . "?state=showAdvanced"},
+-                        'Click here'),
+-                 'for advanced options.');
+-
+-    if ("$Repository" eq "")
+-    {
+-	print $q->p ($q->b ('There are no yum repositories defined in the system.'));
+-        print $q->hr;
+-    }
+-    else
+-    {
+-	print $q->p ($q->b ('Current list of yum repositories:'));
+-        print $q->p (<BR>);
+-
+-	print $q->table ({border => 1, cellspacing => 1, cellpadding => 4});
+-
+-	print $q->Tr (esmith::cgi::genSmallCell ($q, $q->b ('Name')),
+-		      esmith::cgi::genSmallCell ($q, $q->b ('URL')),
+-		      $q->td ('&nbsp;'));
+-
+-	foreach $Repository (@Repository)
+-        {
+-        (my $RepositoryName, my $RepositoryURL) = split(/\+/, $Repository);
+-
+-        print $q->Tr (esmith::cgi::genSmallCell ($q, "$RepositoryName"),
+-                      esmith::cgi::genSmallCell ($q, "$RepositoryURL"),
+-                      esmith::cgi::genSmallCell ($q,
+-                                                 $q->a ({href => $q->url (-absolute => 1)
+-                                                                 . "?state=delete&RepositoryName="
+-                                                                     . $RepositoryName}, 'Remove')));
+-        }
+-
+-    }
+-    {
+-    print '</table>';
+-
+-    print $q->startform (-method => 'POST',
+-                         -action => $q->url (-absolute => 1));
+-
+-    print $q->table ({border => 0, cellspacing => 0, cellpadding => 4},
+-
+-    esmith::cgi::genWidgetRow ($q, "Yum is currently",
+-                               $q->popup_menu (-name    => "CheckRepository",
+-                                               -values  => ['disabled', 'enabled'],
+-                                               -default => db_get_prop(\%conf, 'yum', 'CheckRepository') || 'disabled',
+-                                               -labels  => \%yesnoLabels)),
+-
+-    esmith::cgi::genTextRow ($q,
+-           $q->p ('After you have completed defining your yum repositories above',
+-                  'you must save your settings.')),
+-
+-    esmith::cgi::genButtonRow ($q,
+-                               $q->submit (-name => 'action', -value => 'Save')));
+-
+-    print $q->hidden (-name => 'state', -override => 1, -default => 'perform');
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-    return
+-    }
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to addRepository
+-#------------------------------------------------------------
+-
+-sub addRepository ($)
+-{
+-    my ($q, $msg) = @_;
+-
+-    #------------------------------------------------------------
+-    # If there's a message, we just finished an operation so show the
+-    # status report. If no message, this is a new list of domains.
+-    #------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Add yum repository');
+-    }
+-    else
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-        print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    print $q->startform (-method => 'POST', -action => $q->url (-absolute => 1));
+-
+-        print $q->table ({border => 0, cellspacing => 0, cellpadding => 4},
+-
+-        esmith::cgi::genTextRow ($q,
+-            $q->p ('To utilize a yum repository, please enter a descriptive name and the URL',
+-                   'for the yum repository below.')),
+-
+-        esmith::cgi::genNameValueRow ($q,
+-                                      "Name",
+-                                      "Name",
+-                                      ""),
+-
+-        esmith::cgi::genNameValueRow ($q,
+-                                      "URL",
+-                                      "URL",
+-                                      ""),
+-
+-        esmith::cgi::genButtonRow ($q,
+-                                   $q->submit (-name => 'action', -value => 'Add')));
+-
+-    print $q->hidden (-name => 'state', -override => 1, -default => 'performAdd');
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to performAdd and display result
+-#------------------------------------------------------------
+-
+-sub performAdd ($)
+-{
+-    my ($q) = @_;
+-    my $Name = ();
+-    my $URL = ();
+-    my $Repository = ();
+-
+-    my $Name = $q->param ('Name');
+-    my $URL = $q->param ('URL');
+-    my $Repository = db_get_prop(\%conf, "yum", "Repository");
+-
+-    if ($Repository)
+-        {
+-	db_set_prop(\%conf, "yum", "Repository", "$Repository,$Name\+$URL")
+-	         or warn("Error adding repository.\n");
+-	}
+-	else
+-        {
+-        db_set_prop(\%conf, "yum", "Repository", "$Name\+$URL")
+-                 or warn("Error adding repository.\n");
+-        }
+-
+-    showInitial ($q, "<B>$Name, $URL</B> added successfully. [ <a href=yum-config>refresh</a> ]");
+-    return;
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to removeRepository and display result
+-#------------------------------------------------------------
+-
+-sub removeRepository ($)
+-{
+-    my ($q) = @_;
+-
+-    esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Remove yum repository');
+-
+-    print $q->startform (-method => 'POST', -action => $q->url (-absolute => 1));
+-
+-    my $RepositoryName = $q->param ('RepositoryName');
+-
+-    if ($RepositoryName)
+-    {
+-        print $q->p ("You are about to remove the yum repository entry for: <B>$RepositoryName</B>");
+-        print $q->p ($q->b ("Are you sure?<BR><BR>"));
+-
+-        print $q->submit (-name => 'action', -value => 'Remove');
+-        print $q->hidden (-name => 'RepositoryName', -override => 1, -default => $RepositoryName);
+-
+-        print $q->hidden (-name     => 'state',
+-                          -override => 1,
+-                          -default  => 'performDelete');
+-    }
+-
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-    return;
+-}
+-
+-#------------------------------------------------------------
+-# sub performRemove
+-#------------------------------------------------------------
+-
+-sub performRemove ($)
+-{
+-    my ($q) = @_;
+-    my $RepositoryName = ();
+-    my @RepositoryList = ();
+-    my @RepositoryOut = ();
+-    my @remove = ();
+-
+-    my $RepositoryName = $q->param ('RepositoryName');
+-
+-    if ($RepositoryName)
+-    {
+-    foreach $Repository (@Repository)
+-        {
+-        my @remove = split(/\+/, $Repository);
+-        unless ("$RepositoryName" eq "$remove[0]") { push(@RepositoryOut, "$Repository") }
+-        @RepositoryList = join(',', @RepositoryOut);
+-        }
+-
+-    db_set_prop(\%conf, "yum", "Repository", "@RepositoryList")
+-     or warn("Error occured updating configuration db.\n");
+-
+-    showInitial ($q, "Successfully removed repository entry for <B>$RepositoryName</B>. [ <a href=yum-config>refresh</a> ]");
+-    return;
+-    }
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to showAdvanced
+-#------------------------------------------------------------
+-
+-sub showAdvanced ($)
+-{
+-    my ($q, $msg) = @_;
+-
+-    esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Yum advanced configuration');
+-
+-    #------------------------------------------------------------
+-    # Look up yum archives and display
+-    #------------------------------------------------------------
+-
+-    print $q->p ('Yum permits you to set up and manage your own local yum repository.',
+-                 'This is an option that only experienced admins should configure and enable.',
+-                 'If enabled, each panel save updates the yum headers for any newly uploaded rpms.');
+-
+-    print $q->p ($q->a ({href => $q->url (-absolute => 1) . "?state=addArchive"},
+-			'Click here'),
+-		 'to add a new yum archive.');
+-    
+-    if ("$Archive" eq "")
+-    {
+-	print $q->p ($q->b ('There are no yum archives defined in the system.'));
+-        print $q->hr;
+-    }
+-    else
+-    {
+-	print $q->p ($q->b ('Current list of yum archives:'));
+-        print $q->p (<BR>);
+-
+-	print $q->table ({border => 1, cellspacing => 1, cellpadding => 4});
+-
+-	print $q->Tr (esmith::cgi::genSmallCell ($q, $q->b ('Name')),
+-		      esmith::cgi::genSmallCell ($q, $q->b ('URL')),
+-		      $q->td ('&nbsp;'));
+-
+-	foreach $Archive (@Archive)
+-        {
+-        (my $ArchiveName, my $ArchiveURL) = split(/\+/, $Archive);
+-
+-        print $q->Tr (esmith::cgi::genSmallCell ($q, "$ArchiveName"),
+-                      esmith::cgi::genSmallCell ($q, "$ArchiveURL"),
+-                      esmith::cgi::genSmallCell ($q,
+-                                                 $q->a ({href => $q->url (-absolute => 1)
+-                                                                 . "?state=removeArchive&ArchiveName="
+-                                                                     . $ArchiveName}, 'Remove')));
+-        }
+-
+-    }
+-    {
+-    print '</table>';
+-
+-    print $q->startform (-method => 'POST',
+-                         -action => $q->url (-absolute => 1));
+-
+-    print $q->table ({border => 0, cellspacing => 0, cellpadding => 4},
+-
+-    esmith::cgi::genWidgetRow ($q, "Yum archive is currently",
+-                               $q->popup_menu (-name    => "ArchRepository",
+-                                               -values  => ['disabled', 'enabled'],
+-                                               -default => db_get_prop(\%conf, 'yum', 'ArchRepository') || 'disabled',
+-                                               -labels  => \%yesnoLabels)),
+-
+-    esmith::cgi::genTextRow ($q,
+-           $q->p ('After you have completed defining your yum archives above',
+-                  'you must save your settings.')),
+-
+-    esmith::cgi::genButtonRow ($q,
+-                               $q->submit (-name => 'action', -value => 'Save')));
+-
+-    print $q->hidden (-name => 'state', -override => 1, -default => 'perform');
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-    return
+-    }
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to addArchive
+-#------------------------------------------------------------
+-
+-sub addArchive ($)
+-{
+-    my ($q, $msg) = @_;
+-
+-    #------------------------------------------------------------
+-    # If there's a message, we just finished an operation so show the
+-    # status report. If no message, this is a new list of domains.
+-    #------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Add yum archive');
+-    }
+-    else
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-        print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    print $q->startform (-method => 'POST', -action => $q->url (-absolute => 1));
+-
+-        print $q->table ({border => 0, cellspacing => 0, cellpadding => 4},
+-
+-        esmith::cgi::genTextRow ($q,
+-            $q->p ('To add a yum archive, please enter the name and URL for the yum archive below.')),
+-
+-        esmith::cgi::genNameValueRow ($q,
+-                                      "Name",
+-                                      "Name",
+-                                      ""),
+-
+-        esmith::cgi::genNameValueRow ($q,
+-                                      "URL",
+-                                      "URL",
+-                                      ""),
+-
+-        esmith::cgi::genButtonRow ($q,
+-                                   $q->submit (-name => 'action', -value => 'Add')));
+-
+-    print $q->hidden (-name => 'state', -override => 1, -default => 'performAddArchive');
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to performAddArchive and display result
+-#------------------------------------------------------------
+-
+-sub performAddArchive ($)
+-{
+-    my ($q) = @_;
+-    my $Name = ();
+-    my $URL = ();
+-    my $Archive = ();
+-
+-    my $Name = $q->param ('Name');
+-    my $URL = $q->param ('URL');
+-    my $Archive = db_get_prop(\%conf, "yum", "Archive");
+-
+-    if ($Archive)
+-	{
+-	db_set_prop(\%conf, "yum", "Archive", "$Archive,$Name\+$URL")
+-	         or warn("Error adding archive.\n");
+-	}
+-	else
+-        {
+-        db_set_prop(\%conf, "yum", "Archive", "$Name\+$URL")
+-                 or warn("Error adding archive.\n");
+-        }
+-
+-    showInitial ($q, "<B>$Name, $URL</B> added successfully. [ <a href=yum-config?state=showAdvanced>refresh</a> ]");
+-    return;
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to removeArchive and display result
+-#------------------------------------------------------------
+-
+-sub removeArchive ($)
+-{
+-    my ($q) = @_;
+-    my $ArchiveName = ();
+-
+-    esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Remove yum archive');
+-
+-    print $q->startform (-method => 'POST', -action => $q->url (-absolute => 1));
+-
+-    my $ArchiveName = $q->param ('ArchiveName');
+-
+-    if ($ArchiveName)
+-    {
+-        print $q->p ("You are about to remove the yum archive entry for: <B>$ArchiveName</B>");
+-        print $q->p ($q->b ("Are you sure?<BR><BR>"));
+-
+-        print $q->submit (-name => 'action', -value => 'Remove');
+-        print $q->hidden (-name => 'ArchiveName', -override => 1, -default => $ArchiveName);
+-
+-        print $q->hidden (-name     => 'state',
+-                          -override => 1,
+-                          -default  => 'performRemoveArchive');
+-    }
+-
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-    return;
+-}
+-
+-#------------------------------------------------------------
+-# sub performRemoveArchive
+-#------------------------------------------------------------
+-
+-sub performRemoveArchive ($)
+-{
+-    my ($q) = @_;
+-    my $ArchiveName = ();
+-    my @ArchiveList = ();
+-    my @ArchiveOut = ();
+-    my @remove = ();
+-
+-    my $ArchiveName = $q->param ('ArchiveName');
+-
+-    if ($ArchiveName)
+-    {
+-    foreach $Archive (@Archive)
+-        {
+-        my @remove = split(/\+/, $Archive);
+-        unless ("$ArchiveName" eq "$remove[0]") { push(@ArchiveOut, "$Archive") }
+-        @ArchiveList = join(',', @ArchiveOut);
+-        }
+-
+-    db_set_prop(\%conf, "yum", "Archive", "@ArchiveList")
+-     or warn("Error occured updating configuration db.\n");
+-
+-    showInitial ($q, "Successfully removed archive entry for <B>$ArchiveName</B>. [ <a href=yum-config?state=showAdvanced>refresh</a> ]");
+-    return;
+-    }
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to perform actions and display result
+-#------------------------------------------------------------
+-
+-sub performAndShowResult ($)
+-{
+-    my ($q) = @_;
+-    my $archRepository = ();
+-    my $checkRepository = ();
+-
+-    my $archRepository = $q->param ('ArchRepository');
+-    my $checkRepository = $q->param ('CheckRepository');
+-
+-    if ($archRepository)
+-    {
+-    db_set_prop(\%conf, 'yum', 'ArchRepository', "$archRepository");
+-    }
+-
+-    if ($checkRepository)
+-    {
+-    db_set_prop(\%conf, 'yum', 'CheckRepository', "$checkRepository");
+-    }
+-
+-    system ("/sbin/e-smith/signal-event", "yum-update") == 0
+-        or die ("Error occurred during yum-update event.\n");
+-
+-    showInitial ($q, "Yum updated successfully.");
+-    return;
+-}
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-post mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-post
+--- smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-post	2004-02-29 11:40:12.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-post	1969-12-31 17:00:00.000000000 -0700
+@@ -1,125 +0,0 @@
+-#!/usr/bin/perl -wT
+-
+-#----------------------------------------------------------------------
+-# heading     : Yum Update Manager
+-# description : post-upgrade & reboot
+-# navigation  : 8000 8060
+-#
+-# Copyright (c) 2003 Darrell May <dmay@myezserver.com>
+-#----------------------------------------------------------------------
+-
+-package esmith;
+-
+-use strict;
+-use CGI ':all';
+-use CGI::Carp qw(fatalsToBrowser);
+-
+-use esmith::cgi;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-sub perform ($);
+-sub showInitial ($$);
+-
+-BEGIN
+-{
+-    # Clear PATH and related environment variables so that calls to
+-    # external programs do not cause results to be tainted. See
+-    # "perlsec" manual page for details.
+-
+-    $ENV {'PATH'} = '';
+-    $ENV {'SHELL'} = '/bin/bash';
+-    delete $ENV {'ENV'};
+-}
+-
+-esmith::util::setRealToEffective ();
+-
+-$CGI::POST_MAX=1024 * 100;  # max 100K posts
+-$CGI::DISABLE_UPLOADS = 1;  # no uploads
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-#------------------------------------------------------------
+-# examine state parameter and display the appropriate form
+-#------------------------------------------------------------
+-
+-my $q = new CGI;
+-
+-if (! grep (/^state$/, $q->param))
+-{
+-    showInitial ($q, '');
+-}
+-
+-elsif ($q->param ('state') eq "perform")
+-{
+-    perform ($q);
+-}
+-
+-else
+-{
+-    esmith::cgi::genStateError ($q, \%conf);
+-}
+-
+-exit (0);
+-
+-#------------------------------------------------------------
+-# subroutine to display initial form
+-#------------------------------------------------------------
+-
+-sub showInitial ($$)
+-{
+-my ($q, $msg) = @_;
+-
+-#------------------------------------------------------------
+-# If there's a message, we just finished an operation so show the
+-# status report. If no message, showInitial.
+-#------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-	esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'post-upgrade & reboot');
+-    }
+-    else
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-        print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    print $q->startform (-method => 'POST', -action => $q->url (-absolute => 1));
+-
+-    print $q->startform (-method => 'POST',
+-    			 -action => $q->url (-absolut => 1));
+-
+-    print $q->p ("<BR>");
+-
+-    print $q->p ('After updating your server you must issue the post-upgrade event',
+-                 'and then reboot your server. When you are ready, click the button below.');
+-
+-    print $q->hidden (-name => 'state',
+-    		      -override => 1,
+-		      -default => 'perform');
+-        
+-    print $q->p ("<BR>");
+-
+-    print $q->submit (-name => 'action',
+-		      -value => 'Proceed');
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-}
+-
+-sub perform ($)
+-{
+-    system("/sbin/e-smith/signal-event", "post-upgrade");
+-
+-    esmith::cgi::genHeaderNonCacheable
+-          ($q, \%conf, "Post-upgrade event completed successfully. Your server will now reboot");
+-
+-    esmith::util::backgroundCommand (8, "/sbin/e-smith/signal-event", "reboot");
+-
+-    esmith::cgi::genFooter ($q);
+-    return;
+-}
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-remove mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-remove
+--- smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-remove	2004-02-29 11:40:12.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-remove	1969-12-31 17:00:00.000000000 -0700
+@@ -1,148 +0,0 @@
+-#!/usr/bin/perl -wT
+-
+-#----------------------------------------------------------------------
+-# heading     : Yum Update Manager
+-# description : View & remove rpms
+-# navigation  : 8000 8050
+-# 
+-# Copyright (c) 2003 dmay@myezserver.com 
+-#----------------------------------------------------------------------
+-
+-package esmith;
+-
+-use strict;
+-use CGI ':all';
+-use CGI::Carp qw(fatalsToBrowser);
+-
+-use esmith::cgi;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-sub showInitial ($$);
+-sub performAndShowResult ($);
+-
+-BEGIN
+-{
+-    # Clear PATH and related environment variables so that calls to
+-    # external programs do not cause results to be tainted. See
+-    # "perlsec" manual page for details.
+-
+-    $ENV {'PATH'} = '';
+-    $ENV {'SHELL'} = '/bin/bash';
+-    delete $ENV {'ENV'};
+-}
+-
+-esmith::util::setRealToEffective ();
+-
+-$CGI::POST_MAX=1024 * 100;  # max 100K posts
+-$CGI::DISABLE_UPLOADS = 1;  # no uploads
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-my @rpmlist = "";
+-    foreach(`/bin/rpm -qa | /bin/sort`)
+-    {
+-        chomp;
+-        push(@rpmlist, $_);
+-    }
+-
+-#------------------------------------------------------------
+-# examine state parameter and display the appropriate form
+-#------------------------------------------------------------
+-
+-my $q = new CGI;
+-
+-if (! grep (/^state$/, $q->param))
+-{
+-    showInitial ($q, '');
+-}
+-
+-elsif ($q->param ('state') eq "perform")
+-{
+-    performAndShowResult ($q);
+-}
+-
+-else
+-{
+-    esmith::cgi::genStateError ($q, \%conf);
+-}
+-
+-exit (0);
+-
+-#------------------------------------------------------------
+-# subroutine to display initial form
+-#------------------------------------------------------------
+-
+-sub showInitial ($$)
+-{
+-    my ($q, $msg) = @_;
+-
+-    #------------------------------------------------------------
+-    # If there's a message, we just finished an operation so show the
+-    # status report. If no message, showInitial.
+-    #------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'View & remove rpms');
+-    }
+-    else
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-        print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    print $q->start_multipart_form (
+-                    -method => 'POST',
+-                    -action => $q->url (-absolute => 1));
+-
+-    print $q->table ({border => 0, cellspacing => 0, cellpadding => 4},
+-
+-    esmith::cgi::genWidgetRow ($q, "Click down arrow to view",
+-                               $q->popup_menu (-name    => "RemoveRpm",
+-                                               -values  => [ @rpmlist ],
+-                                               -default => "none")),
+-
+-    esmith::cgi::genTextRow
+-        ($q, $q->p ('From the drop down list above you may view all installed rpms.',
+-                    'To remove an rpm, select the rpm or package you 
+-wish to remove.',
+-                    'When you are ready to proceed, click the button below to remove the rpm selected.')),
+-
+-    esmith::cgi::genButtonRow ($q,
+-                               $q->submit (-name => 'action', -value => 'Remove')));
+-
+-    print $q->hidden (-name => 'state', -override => 1, -default => 'perform');
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-    return;
+-}
+-
+-#------------------------------------------------------------
+-# subroutine to perform actions and display result
+-#------------------------------------------------------------
+-
+-sub performAndShowResult ($)
+-{
+-    my ($q) = @_;
+-
+-    my $RPM = $q->param ('RemoveRpm');
+-    (my $RpmName, my $RpmRelease) = split(/-[0-9]/, $RPM);
+-    
+-    if ("$RPM" ne "")
+-    {
+-    system ("/sbin/e-smith/signal-event", "yum-remove", "$RpmName") == 0
+-      or die ("Error occurred during yum-remove event.\n");
+-
+-    showInitial ($q, "Yum has successfully removed the $RpmName rpm.");
+-    }
+-    else
+-    {
+-    showInitial ($q, "No rpm was selected for removal. Please try again.");
+-    }
+-    return;
+-}
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-update mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-update
+--- smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-update	2004-02-29 11:40:12.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum-update	1969-12-31 17:00:00.000000000 -0700
+@@ -1,170 +0,0 @@
+-#!/usr/bin/perl -wT
+-
+-#----------------------------------------------------------------------
+-# heading     : Yum Update Manager
+-# description : Install updated rpms
+-# navigation  : 8000 8030
+-#
+-# Copyright (c) 2003 Darrell May <dmay@myezserver.com>
+-#----------------------------------------------------------------------
+-
+-package esmith;
+-
+-use strict;
+-use CGI ':all';
+-use CGI::Carp qw(fatalsToBrowser);
+-
+-use esmith::cgi;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-sub perform ($);
+-sub showInitial ($$);
+-
+-BEGIN
+-{
+-    # Clear PATH and related environment variables so that calls to
+-    # external programs do not cause results to be tainted. See
+-    # "perlsec" manual page for details.
+-
+-    $ENV {'PATH'} = '';
+-    $ENV {'SHELL'} = '/bin/bash';
+-    delete $ENV {'ENV'};
+-}
+-
+-esmith::util::setRealToEffective ();
+-
+-$CGI::POST_MAX=1024 * 100;  # max 100K posts
+-$CGI::DISABLE_UPLOADS = 1;  # no uploads
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-system("/usr/bin/yum list updates | /bin/grep -e \"athlon\" -e \"i386\" -e \"i586\" -e \"i686\" -e \"noarch\" | /bin/awk -F\" \" \'\{print \$1\}\' > /tmp/yum-list-updates");
+-my $List = (`/bin/cat /tmp/yum-list-updates`) || "";
+-
+-#------------------------------------------------------------
+-# examine state parameter and display the appropriate form
+-#------------------------------------------------------------
+-
+-my $q = new CGI;
+-
+-if (! grep (/^state$/, $q->param))
+-{
+-    showInitial ($q, '');
+-}
+-
+-elsif ($q->param ('state') eq "perform")
+-{
+-    perform ($q);
+-}
+-
+-else
+-{
+-    esmith::cgi::genStateError ($q, \%conf);
+-}
+-
+-exit (0);
+-
+-#------------------------------------------------------------
+-# subroutine to display initial form
+-#------------------------------------------------------------
+-
+-sub showInitial ($$)
+-{
+-my ($q, $msg) = @_;
+-
+-#------------------------------------------------------------
+-# If there's a message, we just finished an operation so show the
+-# status report. If no message, showInitial.
+-#------------------------------------------------------------
+-
+-    if ($msg eq '')
+-    {
+-	esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Install updated rpms');
+-    }
+-    else
+-    {
+-        esmith::cgi::genHeaderNonCacheable ($q, \%conf, 'Operation status report');
+-        print $q->p ($msg);
+-        esmith::cgi::genFooter ($q);
+-        return;
+-    }
+-
+-    print $q->startform (-method => 'POST', -action => $q->url (-absolute => 1));
+-
+-    print $q->startform (-method => 'POST',
+-    			 -action => $q->url (-absolut => 1));
+-
+-    print $q->table ({border => 1, cellspacing => 1, cellpadding => 4});
+-
+-    print $q->p ("<BR>");
+-
+-    if ($List eq "")
+-    {
+-    print '</table>';
+-    print $q->p ("No updates are available.");
+-    }
+-    else
+-    {
+-    print $q->Tr (esmith::cgi::genSmallCell ($q, $q->b ('Name')),
+-		  esmith::cgi::genSmallCell ($q, $q->b ('Select')));
+-
+-    foreach (`/bin/cat /tmp/yum-list-updates`)
+-    {
+-    chomp;
+-    my $key = "$_";
+-    my $enabledChk = ();  ## 'checked' turns on
+-    print $q->Tr (esmith::cgi::genSmallCell ($q, "$key"),
+-                  esmith::cgi::genSmallCell ($q,
+-                        $q->checkbox(-name => "$key",
+-                                     -label => '',
+-                                     -checked => "$enabledChk")));
+-    }
+-
+-    print $q->hidden (-name => 'state',
+-    		      -override => 1,
+-		      -default => 'perform');
+-        
+-    print '</table>';
+-
+-    print $q->p ("<BR>");
+-
+-    print $q->submit (-name => 'action',
+-		      -value => 'Proceed');
+-    }
+-    print $q->endform;
+-    esmith::cgi::genFooter ($q);
+-}
+-
+-sub perform ($)
+-{
+-    my ($q) = @_;
+-    my $msg;
+-
+-    my $key = ();
+-    my @packages = ();
+-
+-    foreach (`/bin/cat /tmp/yum-list-updates`)
+-    {
+-    chomp;
+-    my $key = "$_";
+-
+-    if ($q->param ($key) eq "on")
+-        {
+-	push @packages, $key;
+-	}
+-    }
+-
+-    esmith::util::backgroundCommand (8, "/sbin/e-smith/signal-event", "yum-install-updates", "@packages");
+-
+-    esmith::cgi::genHeaderNonCacheable
+-          ($q, \%conf, "Yum updates launched successfully");
+-
+-    print $q->p ('Please be patient as installing the updates may take a while to complete.',
+-                 'Use the View log files panel to review the yum/yum-install-updates.log report.');
+-
+-    esmith::cgi::genFooter ($q);
+-    return;
+-}

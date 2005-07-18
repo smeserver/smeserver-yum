@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 10
+%define release 11
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -40,6 +40,7 @@ Patch28: smeserver-yum-1.1.0-nopidcheck.patch
 Patch29: smeserver-yum-1.1.0-cronjoborder.patch
 Patch30: smeserver-yum-1.1.0-francais.patch
 Patch31: smeserver-yum-1.1.0-movedbs.patch
+Patch32: smeserver-yum-1.1.0-removeoldpanels.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -53,6 +54,11 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.1.0-11]
+- Removed the old pre-FM panels, which we haven't used or displayed for
+  a while
+
 * Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [1.1.0-10]
 - Relocate dbs to /home/e-smith/db. Note yum_update_dbs avoids the
@@ -480,6 +486,7 @@ AutoReqProv: no
 %patch29 -p1
 %patch30 -p1
 %patch31 -p1
+%patch32 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
