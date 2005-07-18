@@ -1,0 +1,121 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-arch-repository mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-arch-repository
+--- smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-arch-repository	2004-02-03 00:51:29.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-arch-repository	1969-12-31 17:00:00.000000000 -0700
+@@ -1,24 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-package esmith;
+-
+-use strict;
+-use Errno;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-my $ArchRepository = db_get_prop(\%conf, 'yum', 'ArchRepository') || "";
+-
+-if ("$ArchRepository" eq "enabled")
+-	{
+-	if ("-f /etc/cron.daily/yum-arch-repository")
+-		{
+-		system("/etc/cron.daily/yum-arch-repository");
+-		}
+-	}
+-
+-exit (0);
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-check-repository mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-check-repository
+--- smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-check-repository	2004-02-03 00:51:29.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-check-repository	1969-12-31 17:00:00.000000000 -0700
+@@ -1,29 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-package esmith;
+-
+-use strict;
+-use Errno;
+-use esmith::config;
+-use esmith::util;
+-use esmith::db;
+-
+-my %conf;
+-tie %conf, 'esmith::config';
+-
+-my $OPT = $ARGV[0] || "";
+-my $CheckRepository = db_get_prop(\%conf, 'yum', 'CheckRepository') || "";
+-
+-if ("$CheckRepository" eq "enabled")
+-	{
+-	if (("-f /etc/cron.daily/yum-check-repository") && ("$OPT" eq "--nomail"))
+-		{
+-		system("/etc/cron.daily/yum-check-repository", "--nomail");
+-		}
+-		else
+-                {
+-                system("/etc/cron.daily/yum-check-repository");
+-                }
+-	}
+-
+-exit (0);
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-available mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-available
+--- smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-available	2004-02-07 12:11:26.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-available	1969-12-31 17:00:00.000000000 -0700
+@@ -1,16 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-# -----------------------------------------------
+-# The following command installs update rpms
+-# without user Y/N prompting.  Use with caution!
+-# -----------------------------------------------
+-
+-my $Event = $ARGV[0] || "";
+-my $Packages = $ARGV[1] || "";
+-
+-if (("$Event" eq "yum-install-available") && ("$Packages" ne ""))
+-	{
+-	system("/usr/bin/yum -y install $Packages > /var/log/yum/yum-install-available.log");
+-	}
+-
+-exit (0);
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-updates mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-updates
+--- smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-updates	2004-02-08 13:39:33.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-install-updates	1969-12-31 17:00:00.000000000 -0700
+@@ -1,16 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-# -----------------------------------------------
+-# The following command installs update rpms
+-# without user Y/N prompting.  Use with caution!
+-# -----------------------------------------------
+-
+-my $Event = $ARGV[0] || "";
+-my $Packages = $ARGV[1] || "";
+-
+-if (("$Event" eq "yum-install-updates") && ("$Packages" ne ""))
+-	{
+-	system("/usr/bin/yum -y update $Packages > /var/log/yum/yum-install-updates.log");
+-	}
+-
+-exit (0);
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-remove mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-remove
+--- smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-remove	2004-02-08 13:38:57.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/events/actions/yum-remove	1969-12-31 17:00:00.000000000 -0700
+@@ -1,16 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-# -----------------------------------------------
+-# The following command removes a selected rpm
+-# without user Y/N prompting.  Use with caution!
+-# -----------------------------------------------
+-
+-my $Event = $ARGV[0] || "";
+-my $RpmName = $ARGV[1] || "";
+-
+-if (("$Event" eq "yum-remove") && ("$RpmName" ne ""))
+-	{
+-	system("/usr/bin/yum -y remove $RpmName > /var/log/yum/yum-remove.log");
+-	}
+-
+-exit (0);
