@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 13
+%define release 14
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -49,13 +49,16 @@ Requires: yum => 1.0.3-1_73
 Requires: rpm-python => 4.0.4-7x.18
 Requires: e-smith-formmagick
 Requires: perl(CGI::FormMagick) >= 0.91-26
-Requires: rpmdb
+Requires: rpmdb-CentOS
 Provides: yumconf
 AutoReqProv: no
 %description
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Aug 17 2005 Charlie Brady <charlieb@e-smith.com> 1.1.0-14
+- Change dependency to rpmdb-CentOS
+
 * Mon Aug 15 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [1.1.0-13]
 - Add dependency on rpmdb package
