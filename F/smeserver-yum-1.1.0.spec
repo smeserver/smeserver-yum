@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 14
+%define release 15
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -42,6 +42,7 @@ Patch30: smeserver-yum-1.1.0-francais.patch
 Patch31: smeserver-yum-1.1.0-movedbs.patch
 Patch32: smeserver-yum-1.1.0-removeoldpanels.patch
 Patch33: smeserver-yum-1.1.0-removeoldactions.patch
+Patch34: smeserver-yum-1.1.0-yumcron.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -56,6 +57,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Aug 24 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-15
+- Fix status check in yum cron job - Thanks Filippo Carletti [SF: 1266967]
+
 * Wed Aug 17 2005 Charlie Brady <charlieb@e-smith.com> 1.1.0-14
 - Change dependency to rpmdb-CentOS
 
@@ -501,6 +505,7 @@ AutoReqProv: no
 %patch31 -p1
 %patch32 -p1
 %patch33 -p1
+%patch34 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
