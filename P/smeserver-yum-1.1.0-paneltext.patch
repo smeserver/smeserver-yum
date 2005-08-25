@@ -1,0 +1,64 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.1.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2005-08-24 21:33:25.324772016 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2005-08-24 21:30:59.780898048 -0600
+@@ -22,15 +22,6 @@
+     </entry>
+ 
+     <entry>
+-	<base>HEADER_CONFIGURATION</base>
+-	<trans>
+-            <![CDATA[
+-	    <h2>XXX - FIXME - TEXT REQUIRED HERE</h2>
+-	    ]]>
+-	</trans>
+-    </entry>
+-
+-    <entry>
+         <base>LABEL_YUM_STATUS</base>
+         <trans>Check for updates daily</trans>
+     </entry>
+@@ -121,11 +112,10 @@
+     <entry>
+ 	<base>HEADER_AVAILABLE_SOFTWARE</base>
+ 	<trans>
+-            <![CDATA[
+-	    <h2>XXX - FIXME - WARNING REQUIRED HERE</h2>
+ 	    The following software is available to be installed 
+-	    onto your system. 
+-	    ]]>
++	    onto your system. You should only install additional
++            software onto this system if you are aware
++            of the consequences of doing so.
+ 	</trans>
+     </entry>
+ 
+@@ -163,11 +153,10 @@
+     <entry>
+ 	<base>HEADER_INSTALLED_SOFTWARE</base>
+ 	<trans>
+-            <![CDATA[
+-	    <h2>XXX - FIXME - WARNING REQUIRED HERE</h2>
+ 	    The following software is installed 
+-	    on this system. 
+-	    ]]>
++	    on this system. You should only remove
++	    software from this system if you are aware
++	    of the consequences of doing so.
+ 	</trans>
+     </entry>
+ 
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum	2005-08-24 21:33:25.649722616 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/web/functions/yum	2005-08-24 21:31:51.218078408 -0600
+@@ -201,11 +201,6 @@
+         post-event="change_settings">
+ 
+ 	<field
+-	    type="literal">
+-	    <description>HEADER_CONFIGURATION</description>
+-	</field>
+-
+-	<field
+             type="select"
+             id="yum_status"
+ 	    options="'disabled' => 'DISABLED', 'enabled' => 'ENABLED'"
