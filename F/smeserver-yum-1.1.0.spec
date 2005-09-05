@@ -62,7 +62,7 @@ AutoReqProv: no
 * Mon Sep 5 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-17
 - Change centos BaseURL entries from /centos/4/ to /centos/4.1/ as
   it appears that some mirrors aren't following the symlinks correctly
-- Mover BaseURL settings into force fragments as they will need to u
+- Move BaseURL settings into force fragments as they will need to
   change as we update the base [SF: 1272438]
 
 * Wed Aug 24 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-16
