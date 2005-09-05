@@ -62,3 +62,8 @@ Wed Aug 24 21:46:13 2005                       Gordon Rowell (gordonr)
 Fix XXX panel text
 
 ----------------------------------------------------------------------
+Mon Sep  5 00:32:02 2005                       Gordon Rowell (gordonr)
+
+Hard-code versions in centos URLs, and use force fragments
+
+----------------------------------------------------------------------

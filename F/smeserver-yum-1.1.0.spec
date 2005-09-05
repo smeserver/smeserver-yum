@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 16
+%define release 17
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -44,6 +44,7 @@ Patch32: smeserver-yum-1.1.0-removeoldpanels.patch
 Patch33: smeserver-yum-1.1.0-removeoldactions.patch
 Patch34: smeserver-yum-1.1.0-yumcron.patch
 Patch35: smeserver-yum-1.1.0-paneltext.patch
+Patch36: smeserver-yum-1.1.0-ForceBaseURL.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -58,6 +59,12 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Sep 5 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-17
+- Change centos BaseURL entries from /centos/4/ to /centos/4.1/ as
+  it appears that some mirrors aren't following the symlinks correctly
+- Mover BaseURL settings into force fragments as they will need to u
+  change as we update the base [SF: 1272438]
+
 * Wed Aug 24 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-16
 - Remove XXX entries from panel text [SF: 1267315]
 
@@ -511,6 +518,7 @@ AutoReqProv: no
 %patch33 -p1
 %patch34 -p1
 %patch35 -p1
+%patch36 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
