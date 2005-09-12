@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 17
+%define release 18
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -48,8 +48,8 @@ Patch36: smeserver-yum-1.1.0-ForceBaseURL.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
-Requires: yum => 1.0.3-1_73 
-Requires: rpm-python => 4.0.4-7x.18
+Requires: yum >= 1.0.3-1_73 
+Requires: rpm-python >= 4.0.4-7x.18
 Requires: e-smith-formmagick
 Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpmdb-CentOS
@@ -59,6 +59,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Sep 12 2005 chris burnat <cburnat@burnat.com> 1.1.0-18
+- Fix equal greater than (=>) to (>=) in two instances in spec file.
+
 * Mon Sep 5 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-17
 - Change centos BaseURL entries from /centos/4/ to /centos/4.1/ as
   it appears that some mirrors aren't following the symlinks correctly
