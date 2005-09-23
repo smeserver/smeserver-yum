@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 18
+%define release 19
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -45,6 +45,7 @@ Patch33: smeserver-yum-1.1.0-removeoldactions.patch
 Patch34: smeserver-yum-1.1.0-yumcron.patch
 Patch35: smeserver-yum-1.1.0-paneltext.patch
 Patch36: smeserver-yum-1.1.0-ForceBaseURL.patch
+Patch37: smeserver-yum-1.1.0-frfix.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -59,6 +60,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Sep 23 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-19
+- French L10N fix [SF: 1266152]
+
 * Mon Sep 12 2005 chris burnat <cburnat@burnat.com> 1.1.0-18
 - Fix equal greater than (=>) to (>=) in two instances in spec file.
 
@@ -522,6 +526,7 @@ AutoReqProv: no
 %patch34 -p1
 %patch35 -p1
 %patch36 -p1
+%patch37 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
