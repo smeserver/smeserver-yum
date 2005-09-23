@@ -1,0 +1,27 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum	2005-09-23 15:10:28.928772536 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/yum	2005-09-23 15:09:58.346421760 -0600
+@@ -122,11 +122,8 @@
+     <entry>
+ 	<base>HEADER_AVAILABLE_SOFTWARE</base>
+ 	<trans>
+-            <![CDATA[
+-	    <h2>XXX - FIXME - WARNING REQUIRED HERE</h2>
+ 	    Les mises à jour suivantes sont disponibles pour &ecirc;tre install&eacute;es 
+ 	    sur votre système. 
+-	    ]]>
+ 	</trans>
+     </entry>
+ 
+@@ -164,11 +161,8 @@
+     <entry>
+ 	<base>HEADER_INSTALLED_SOFTWARE</base>
+ 	<trans>
+-            <![CDATA[
+-	    <h2>XXX - FIXME - WARNING REQUIRED HERE</h2>
+ 	    Les mises à jour suivantes sont installées 
+ 	    sur ce syst&egrave;me. 
+-	    ]]>
+ 	</trans>
+     </entry>
+ 

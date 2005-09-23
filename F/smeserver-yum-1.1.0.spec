@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 19
+%define release 20
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -46,6 +46,7 @@ Patch34: smeserver-yum-1.1.0-yumcron.patch
 Patch35: smeserver-yum-1.1.0-paneltext.patch
 Patch36: smeserver-yum-1.1.0-ForceBaseURL.patch
 Patch37: smeserver-yum-1.1.0-frfix.patch
+Patch38: smeserver-yum-1.1.0-RemoveXXXfr.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -60,6 +61,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Sep 23 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-20
+- Remove XXX - FIXMEs from French lexicon [SF: 1301044]
+
 * Fri Sep 23 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-19
 - French L10N fix [SF: 1266152]
 
@@ -527,6 +531,7 @@ AutoReqProv: no
 %patch35 -p1
 %patch36 -p1
 %patch37 -p1
+%patch38 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
