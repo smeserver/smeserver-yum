@@ -1,0 +1,17 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-09-25 17:32:12.703409312 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-09-25 17:30:48.276244192 -0600
+@@ -141,8 +141,11 @@
+ 
+     my @options;
+ 
+-    push @options, $_->key 
+-	for ($dbs{$yumdb}->get_all_by_prop(type => $type));
++    for ($dbs{$yumdb}->get_all_by_prop(type => $type))
++    {
++        push @options, $_->key . " " . $_->prop("Version") . " - " .
++            $_->prop("Repo");
++    }
+ 
+     return \@options;
+ }

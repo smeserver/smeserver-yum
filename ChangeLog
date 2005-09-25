@@ -92,3 +92,8 @@ Fix up FR lexicon
 Change 0/1 to no/yes 
 (Should have been two mzputs)
 ----------------------------------------------------------------------
+Sun Sep 25 17:38:06 2005                       Gordon Rowell (growell)
+
+Display version and repo in picklists
+
+----------------------------------------------------------------------
