@@ -86,3 +86,9 @@ Fri Sep 23 15:12:25 2005                       Gordon Rowell (growell)
 Remove XXX tags from fr lexicon
 
 ----------------------------------------------------------------------
+Sun Sep 25 15:38:03 2005                       Gordon Rowell (growell)
+
+Fix up FR lexicon
+Change 0/1 to no/yes 
+(Should have been two mzputs)
+----------------------------------------------------------------------

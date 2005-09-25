@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 20
+%define release 22
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -47,6 +47,8 @@ Patch35: smeserver-yum-1.1.0-paneltext.patch
 Patch36: smeserver-yum-1.1.0-ForceBaseURL.patch
 Patch37: smeserver-yum-1.1.0-frfix.patch
 Patch38: smeserver-yum-1.1.0-RemoveXXXfr.patch
+Patch39: smeserver-yum-1.1.0-frcdata.patch
+Patch40: smeserver-yum-1.1.0-Useyesno.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -61,6 +63,13 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sun Sep 25 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-22
+- Change 1/0 values for GPGCheck and EnableGroups to yes/no
+  It's more readable in the DB and also works around a bug [SF: 1303885]
+
+* Sun Sep 25 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-21
+- Wrap HTML escapes n Fr lexicon in CDATA blocks [SF: 1302289]
+
 * Fri Sep 23 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-20
 - Remove XXX - FIXMEs from French lexicon [SF: 1301044]
 
@@ -532,6 +541,8 @@ AutoReqProv: no
 %patch36 -p1
 %patch37 -p1
 %patch38 -p1
+%patch39 -p1
+%patch40 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
