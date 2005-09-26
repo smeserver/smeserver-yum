@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.0
-%define release 25
+%define release 26
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -52,6 +52,7 @@ Patch40: smeserver-yum-1.1.0-Useyesno.patch
 Patch41: smeserver-yum-1.1.0-DisplayVersions.patch
 Patch42: smeserver-yum-1.1.0-DisplayVersions.patch2
 Patch43: smeserver-yum-1.1.0-IncreaseDebug.patch
+Patch44: smeserver-yum-1.1.0-AddSpace.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -66,6 +67,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sun Sep 25 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-26
+- Typo fix - add space between 'yum' and options
+
 * Sun Sep 25 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.0-25
 - Increase debug and error level so we at least capture yum output
   in the messages log [SF: 1218082]
@@ -559,6 +563,7 @@ AutoReqProv: no
 %patch41 -p1
 %patch42 -p1
 %patch43 -p1
+%patch44 -p1
 
 rmdir root/etc/e-smith/events/yum-post-install
 rmdir root/etc/e-smith/events/yum-install-updates
