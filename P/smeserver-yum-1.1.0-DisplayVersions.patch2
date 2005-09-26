@@ -1,0 +1,39 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay	2005-09-25 18:12:11.149790040 -0600
+@@ -0,0 +1 @@
++120
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs
+--- smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-09-25 18:57:31.774192264 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-09-25 18:23:08.824808240 -0600
+@@ -42,7 +42,7 @@
+ 
+ # XXX - FIXME - We should add -R xxx to sleep for a while
+ 
+-use constant YUM_CMD => "/usr/bin/yum -d 0 -e 0 ";
++use constant YUM_CMD => "/usr/bin/yum -d 0 -e 0";
+ 
+ my $tmp_file;
+ 
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-09-25 18:57:31.847181168 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-09-25 18:55:32.342348664 -0600
+@@ -139,15 +139,15 @@
+ {
+     my ($fm, $yumdb, $type) = @_;
+ 
+-    my @options;
++    my %options;
+ 
+     for ($dbs{$yumdb}->get_all_by_prop(type => $type))
+     {
+-        push @options, $_->key . " " . $_->prop("Version") . " - " .
++        $options{$_->key} = $_->key . " " . $_->prop("Version") . " - " .
+             $_->prop("Repo");
+     }
+ 
+-    return \@options;
++    return \%options;
+ }
+ 
+ sub get_avail
