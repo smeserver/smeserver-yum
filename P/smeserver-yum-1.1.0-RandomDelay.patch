@@ -1,0 +1,20 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay
+--- smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.0/root/etc/e-smith/db/configuration/defaults/yum/RandomDelay	2005-09-25 18:12:11.149790040 -0600
+@@ -0,0 +1 @@
++120
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs
+--- smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-09-25 18:15:54.254872912 -0600
++++ mezzanine_patched_smeserver-yum-1.1.0/root/sbin/e-smith/yum_update_dbs	2005-09-25 18:15:24.971324688 -0600
+@@ -40,9 +40,8 @@
+ # For speed and to reduce log noise, we don't use 
+ # the esmith::DB routines here
+ 
+-# XXX - FIXME - We should add -R xxx to sleep for a while
+-
+-use constant YUM_CMD => "/usr/bin/yum -d 0 -e 0 ";
++use constant YUM_CMD => "/usr/bin/yum -d 0 -e 0 -R " .
++	$db->get_prop('yum', 'RandomDelay');
+ 
+ my $tmp_file;
+ 
