@@ -1,0 +1,5 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.1/root/etc/e-smith/templates/etc/yum.conf/10main_obsoletes mezzanine_patched_smeserver-yum-1.1.1/root/etc/e-smith/templates/etc/yum.conf/10main_obsoletes
+--- smeserver-yum-1.1.1/root/etc/e-smith/templates/etc/yum.conf/10main_obsoletes	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.1.1/root/etc/e-smith/templates/etc/yum.conf/10main_obsoletes	2005-09-29 01:28:49.760606344 -0600
+@@ -0,0 +1 @@
++obsoletes

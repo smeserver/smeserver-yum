@@ -125,3 +125,8 @@ Sun Sep 25 20:42:12 2005                       Gordon Rowell (growell)
 Rolled new tarball, and added German L10N
 
 ----------------------------------------------------------------------
+Thu Sep 29 01:31:51 2005                       Gordon Rowell (growell)
+
+Add obsoletes flag to /etc/yum.conf
+
+----------------------------------------------------------------------
