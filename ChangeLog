@@ -130,3 +130,8 @@ Thu Sep 29 01:31:51 2005                       Gordon Rowell (growell)
 Add obsoletes flag to /etc/yum.conf
 
 ----------------------------------------------------------------------
+Thu Sep 29 01:35:07 2005                       Gordon Rowell (growell)
+
+Add obsoletes=1 to yum.conf
+
+----------------------------------------------------------------------

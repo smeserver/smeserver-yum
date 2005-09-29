@@ -2,13 +2,14 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.1
-%define release 02
+%define release 03
 Version: %{version}
 Release: %{release}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
 Patch0: smeserver-yum-1.1.1-obsoletes.patch2
+Patch1: smeserver-yum-1.1.1-obsoletes.patch3
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -23,6 +24,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Sep 29 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.1-03
+- It's obsoletes=1 [SF: 1306265]
+
 * Thu Sep 29 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.1-02
 - Added obsoletes option to yum.conf  [SF: 1306265]
 
@@ -483,6 +487,7 @@ AutoReqProv: no
 %prep
 %setup
 %patch0 -p1
+%patch1 -p1
 
 %build
 perl createlinks
