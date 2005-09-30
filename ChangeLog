@@ -135,3 +135,8 @@ Thu Sep 29 01:35:07 2005                       Gordon Rowell (growell)
 Add obsoletes=1 to yum.conf
 
 ----------------------------------------------------------------------
+Fri Sep 30 01:39:33 2005                       Gordon Rowell (growell)
+
+Added lots of RPM GPG keys
+
+----------------------------------------------------------------------
