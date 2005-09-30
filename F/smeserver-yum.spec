@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.1
-%define release 05
+%define release 06
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -12,6 +12,7 @@ Patch0: smeserver-yum-1.1.1-obsoletes.patch2
 Patch1: smeserver-yum-1.1.1-obsoletes.patch3
 Patch2: smeserver-yum-1.1.1-rpmkeys.patch
 Patch3: smeserver-yum-1.1.1-italian.patch
+Patch4: smeserver-yum-1.1.1-french.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -26,6 +27,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Sep 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.1-06
+- Correction to French L10N - Thanks Didier Rambeau [SF: 1301044]
+
 * Fri Sep 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.1-05
 - Added Italian L10N - Thanks Filippo Carletti [SF: 1309266]
 
@@ -498,6 +502,7 @@ AutoReqProv: no
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 perl createlinks
