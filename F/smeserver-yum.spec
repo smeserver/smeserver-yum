@@ -1,18 +1,14 @@
 Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
-%define version 1.1.1
-%define release 06
+%define version 1.1.2
+%define release 02
 Version: %{version}
 Release: %{release}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
-Patch0: smeserver-yum-1.1.1-obsoletes.patch2
-Patch1: smeserver-yum-1.1.1-obsoletes.patch3
-Patch2: smeserver-yum-1.1.1-rpmkeys.patch
-Patch3: smeserver-yum-1.1.1-italian.patch
-Patch4: smeserver-yum-1.1.1-french.patch
+Patch0: smeserver-yum-1.1.2-requiresignatures.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -27,6 +23,15 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Oct 7 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-02
+- Require GPG signatures on all yum packages
+
+* Fri Oct 7 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-01
+- Roll new tarball, patches to 1.1.1-07
+
+* Fri Sep 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.1-07
+- And another [SF: 1301044]
+
 * Fri Sep 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.1-06
 - Correction to French L10N - Thanks Didier Rambeau [SF: 1301044]
 
@@ -499,10 +504,6 @@ AutoReqProv: no
 %prep
 %setup
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 perl createlinks
