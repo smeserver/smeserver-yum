@@ -1,0 +1,20 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/createlinks mezzanine_patched_smeserver-yum-1.1.2/createlinks
+--- smeserver-yum-1.1.2/createlinks	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/createlinks	2005-10-10 11:07:53.899721213 +1000
+@@ -14,7 +14,7 @@
+ {
+     event_link("yum-action", "yum-$_", "20");
+     event_link("initialize-default-databases", "yum-$_", "50");
+-    event_link("navigation-conf-hidden", "yum-$_", "80");
++    event_link("navigation-conf", "yum-$_", "80");
+     event_link("yum-update-dbs", "yum-$_", "90");
+ }
+ 
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/events/actions/navigation-conf-hidden mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/events/actions/navigation-conf-hidden
+--- smeserver-yum-1.1.2/root/etc/e-smith/events/actions/navigation-conf-hidden	2004-02-03 18:51:29.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/events/actions/navigation-conf-hidden	1970-01-01 10:00:00.000000000 +1000
+@@ -1,4 +0,0 @@
+-#!/usr/bin/perl -w
+-
+-system("/etc/e-smith/events/actions/navigation-conf  >/dev/null 2>&1");
+-exit (0);

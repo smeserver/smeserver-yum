@@ -2,13 +2,14 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 02
+%define release 03
 Version: %{version}
 Release: %{release}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
 Patch0: smeserver-yum-1.1.2-requiresignatures.patch
+Patch1: smeserver-yum-1.1.2-navigationconf.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -23,6 +24,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Oct 10 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-03
+- Remove navigation-conf-hidden [SF: 1315730]
+
 * Fri Oct 7 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-02
 - Require GPG signatures on all yum packages
 
@@ -504,6 +508,7 @@ AutoReqProv: no
 %prep
 %setup
 %patch0 -p1
+%patch1 -p1
 
 %build
 perl createlinks
