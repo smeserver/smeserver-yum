@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 03
+%define release 05
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -10,6 +10,7 @@ Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
 Patch0: smeserver-yum-1.1.2-requiresignatures.patch
 Patch1: smeserver-yum-1.1.2-navigationconf.patch
+Patch2: smeserver-yum-1.1.2-enabledupdates.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -24,6 +25,12 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Oct 14 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-05
+- Move all L10Ns to smeserver-locale [SF: 1309520]
+
+* Mon Oct 10 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-04
+- Fix up auto-selection of all updates [SF: 1321887]
+
 * Mon Oct 10 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-03
 - Remove navigation-conf-hidden [SF: 1315730]
 
@@ -509,6 +516,11 @@ AutoReqProv: no
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+rm -rf root/etc/e-smith/locale/de
+rm -rf root/etc/e-smith/locale/fr
+rm -rf root/etc/e-smith/locale/es
+rm -rf root/etc/e-smith/locale/it
 
 %build
 perl createlinks
