@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 05
+%define release 06
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -11,6 +11,7 @@ Source: %{name}-%{version}.tar.gz
 Patch0: smeserver-yum-1.1.2-requiresignatures.patch
 Patch1: smeserver-yum-1.1.2-navigationconf.patch
 Patch2: smeserver-yum-1.1.2-enabledupdates.patch
+Patch3: smeserver-yum-1.1.2-repovisibility.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -25,6 +26,11 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Oct 28 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-06
+- Change CentOS BaseURL values back to /centos/4 [SF: 1334861]
+- Generate all repositories in /etc/yum.conf with enabled=0/1 [SF: 1332624]
+- Only display "Visible" repositories in the server-manager panel [SF: 1332624]
+
 * Fri Oct 14 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-05
 - Move all L10Ns to smeserver-locale [SF: 1309520]
 
@@ -517,6 +523,7 @@ AutoReqProv: no
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es

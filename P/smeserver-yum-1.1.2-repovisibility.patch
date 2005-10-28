@@ -1,0 +1,145 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/addons/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/addons/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/addons/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/addons/Visible	2005-10-28 21:11:34.341389745 +1000
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/base/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/base/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/base/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/base/Visible	2005-10-28 21:11:34.341389745 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/centosplus/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/centosplus/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/centosplus/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/centosplus/Visible	2005-10-28 21:11:34.341389745 +1000
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/contrib/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/contrib/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/contrib/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/contrib/Visible	2005-10-28 21:11:34.341389745 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/extras/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/extras/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/extras/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/extras/Visible	2005-10-28 21:11:34.341389745 +1000
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/Visible	2005-10-28 21:11:34.341389745 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/Visible	2005-10-28 21:11:34.342389576 +1000
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/Visible	2005-10-28 21:11:34.342389576 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/Visible	2005-10-28 21:11:34.342389576 +1000
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/Visible	2005-10-28 21:11:34.342389576 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible	2005-10-28 21:11:34.342389576 +1000
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible	2005-10-28 21:11:34.342389576 +1000
+@@ -0,0 +1 @@
++no
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/updates/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/updates/Visible
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/updates/Visible	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/updates/Visible	2005-10-28 21:11:34.342389576 +1000
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/addons/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/addons/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/addons/BaseURL	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/addons/BaseURL	2005-10-28 21:09:23.457851870 +1000
+@@ -1 +1 @@
+-http://mirror.centos.org/centos/4.1/addons/$basearch
++http://mirror.centos.org/centos/4/addons/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/base/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/base/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/base/BaseURL	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/base/BaseURL	2005-10-28 21:09:26.434339837 +1000
+@@ -1 +1 @@
+-http://mirror.centos.org/centos/4.1/os/$basearch
++http://mirror.centos.org/centos/4/os/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/centosplus/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/centosplus/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/centosplus/BaseURL	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/centosplus/BaseURL	2005-10-28 21:09:29.295847580 +1000
+@@ -1 +1 @@
+-http://mirror.centos.org/centos/4.1/centosplus/$basearch
++http://mirror.centos.org/centos/4/centosplus/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/contrib/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/contrib/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/contrib/BaseURL	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/contrib/BaseURL	2005-10-28 21:09:32.414311117 +1000
+@@ -1 +1 @@
+-http://mirror.centos.org/centos/4.1/contrib/$basearch
++http://mirror.centos.org/centos/4/contrib/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/extras/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/extras/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/extras/BaseURL	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/extras/BaseURL	2005-10-28 21:09:35.148840698 +1000
+@@ -1 +1 @@
+-http://mirror.centos.org/centos/4.1/extras/$basearch
++http://mirror.centos.org/centos/4/extras/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/testing/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/testing/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/testing/BaseURL	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/testing/BaseURL	2005-10-28 21:09:45.791009909 +1000
+@@ -1 +1 @@
+-http://mirror.centos.org/centos/4.1/testing/$basearch
++http://mirror.centos.org/centos/4/testing/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/updates/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/updates/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/updates/BaseURL	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/force/updates/BaseURL	2005-10-28 21:09:50.498200111 +1000
+@@ -1 +1 @@
+-http://mirror.centos.org/centos/4.1/updates/$basearch
++http://mirror.centos.org/centos/4/updates/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/templates/etc/yum.conf/20repositories mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/templates/etc/yum.conf/20repositories
+--- smeserver-yum-1.1.2/root/etc/e-smith/templates/etc/yum.conf/20repositories	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/templates/etc/yum.conf/20repositories	2005-10-28 21:13:51.746156699 +1000
+@@ -6,12 +6,13 @@
+ 
+     for my $repos ( $ydb->get_all_by_prop('type' => 'repository') )
+     {
+-        next unless ($repos->prop('status') eq 'enabled');
+-
+ 	my %props = ($DB->get('yum')->props(), $repos->props());
+ 
+ 	$OUT .= "[" . $repos->key . "]\n";
+ 
++        $OUT .= "enabled=" . (($repos->prop('status') eq 'enabled') ? 1 : 0)
++			 . "\n";
++
+ 	for my $prop (qw(Name BaseURL))
+ 	{
+ 	    $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-10-28 21:18:59.670020327 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2005-10-28 21:16:47.362433843 +1000
+@@ -246,6 +246,7 @@
+     foreach my $repos (
+ 	$dbs{repositories}->get_all_by_prop(type => "repository") )
+     {
++	next unless $repos->prop('Visible') eq 'yes';
+         $options{$repos->key} = $repos->prop('Name');
+     }
+ 
+@@ -261,6 +262,7 @@
+     foreach my $repos ( 
+ 	$dbs{repositories}->get_all_by_prop( type => "repository" ) )
+     {
++	next unless $repos->prop('Visible') eq 'yes';
+         push @selected, $repos->key if ($repos->prop('status') eq 'enabled');
+     }
+ 
