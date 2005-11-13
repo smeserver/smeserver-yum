@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 07
+%define release 09
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -13,6 +13,7 @@ Patch1: smeserver-yum-1.1.2-navigationconf.patch
 Patch2: smeserver-yum-1.1.2-enabledupdates.patch
 Patch3: smeserver-yum-1.1.2-repovisibility.patch
 Patch4: smeserver-yum-1.1.2-gpgkey.patch 
+Patch5: smeserver-yum-1.1.2-noreboot.patch 
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -22,11 +23,19 @@ Requires: e-smith-formmagick
 Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpmdb-CentOS
 Provides: yumconf
+Conflicts: centos-yumconf
 AutoReqProv: no
 %description
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Nov 14 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-09
+- Add Conflicts: centos-yumconf [SF: 1356006]
+
+* Tue Nov 8 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-08
+- Don't force a post-upgrade/reboot after changes. We don't need to
+  do it in most cases [SF: 1304387, 1349946]
+
 * Fri Oct 28 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-07
 - Allow optional GPGKey property [SF: 1332624]
 
@@ -529,6 +538,7 @@ AutoReqProv: no
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es

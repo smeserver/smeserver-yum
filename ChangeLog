@@ -170,3 +170,7 @@ Fri Oct 28 21:29:29 2005                       Gordon Rowell (gordonr)
 
 Added optional GPGKey property
 ----------------------------------------------------------------------
+Mon Nov 14 10:32:24 2005                       Gordon Rowell (gordonr)
+
+Add Conflicts with centos-yumconf
+----------------------------------------------------------------------
