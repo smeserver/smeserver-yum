@@ -178,3 +178,7 @@ Mon Nov 21 18:19:09 2005                       Gordon Rowell (gordonr)
 
 Disable auto updates by default
 ----------------------------------------------------------------------
+Mon Nov 21 18:37:31 2005                       Gordon Rowell (gordonr)
+
+Disable CentOS repos by default. We don't want to blindly accept updates
+----------------------------------------------------------------------

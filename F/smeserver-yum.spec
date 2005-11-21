@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 10
+%define release 12
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -15,6 +15,8 @@ Patch3: smeserver-yum-1.1.2-repovisibility.patch
 Patch4: smeserver-yum-1.1.2-gpgkey.patch 
 Patch5: smeserver-yum-1.1.2-noreboot.patch 
 Patch6: smeserver-yum-1.1.2-disableautoupdates.patch
+Patch7: smeserver-yum-1.1.2-showenabledorvisible.patch
+Patch8: smeserver-yum-1.1.2-disablecentosrepos.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -30,6 +32,12 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Nov 21 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-12
+- Disable centos base/updates/contrib repos by default [SF: 1362528]
+
+* Mon Nov 21 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-11
+- Show repositories which are either Visible or enabled [SF: 1362529]
+
 * Mon Nov 21 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-10
 - Disable automatic updates by default [SF: 1362526]
 
@@ -544,6 +552,8 @@ AutoReqProv: no
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
+%patch8 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
