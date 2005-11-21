@@ -174,3 +174,7 @@ Mon Nov 14 10:32:24 2005                       Gordon Rowell (gordonr)
 
 Add Conflicts with centos-yumconf
 ----------------------------------------------------------------------
+Mon Nov 21 18:19:09 2005                       Gordon Rowell (gordonr)
+
+Disable auto updates by default
+----------------------------------------------------------------------

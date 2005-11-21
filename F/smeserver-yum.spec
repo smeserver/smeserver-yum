@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 09
+%define release 10
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -14,6 +14,7 @@ Patch2: smeserver-yum-1.1.2-enabledupdates.patch
 Patch3: smeserver-yum-1.1.2-repovisibility.patch
 Patch4: smeserver-yum-1.1.2-gpgkey.patch 
 Patch5: smeserver-yum-1.1.2-noreboot.patch 
+Patch6: smeserver-yum-1.1.2-disableautoupdates.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -29,6 +30,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Nov 21 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-10
+- Disable automatic updates by default [SF: 1362526]
+
 * Mon Nov 14 2005 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-09
 - Add Conflicts: centos-yumconf [SF: 1356006]
 
@@ -539,6 +543,7 @@ AutoReqProv: no
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
