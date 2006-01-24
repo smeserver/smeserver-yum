@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 15
+%define release 16
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -20,6 +20,7 @@ Patch8: smeserver-yum-1.1.2-disablecentosrepos.patch
 Patch9: smeserver-yum-1.1.2-disablecentosrepos.patch2
 Patch10: smeserver-yum-1.1.2-NoAutoInstallUpdates.patch
 Patch11: smeserver-yum-1.1.2-yumwrapper.patch
+Patch12: smeserver-yum-1.1.2-reboot.patch 
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -35,6 +36,10 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-16
+- Bring back post-upgrade page after performing updates [SME: 199]
+- Force a reboot after the post-upgrade command [SME: 199]
+
 * Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-15
 - Add wrapper /sbin/e-smith/yum to remind people to 
   post-upgrade/reboot [SME: 199]
@@ -564,13 +569,14 @@ AutoReqProv: no
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
+# %patch5 -p1
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
