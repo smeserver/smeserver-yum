@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 16
+%define release 17
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -21,6 +21,7 @@ Patch9: smeserver-yum-1.1.2-disablecentosrepos.patch2
 Patch10: smeserver-yum-1.1.2-NoAutoInstallUpdates.patch
 Patch11: smeserver-yum-1.1.2-yumwrapper.patch
 Patch12: smeserver-yum-1.1.2-reboot.patch 
+Patch13: smeserver-yum-1.1.2-wording.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -36,6 +37,10 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-17
+- And change "A reboot will be required" to 
+  "A reboot will be initiated" in the post-upgrade panel [SME: 199]
+
 * Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-16
 - Bring back post-upgrade page after performing updates [SME: 199]
 - Force a reboot after the post-upgrade command [SME: 199]
@@ -577,6 +582,7 @@ AutoReqProv: no
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
