@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 14
+%define release 15
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -19,6 +19,7 @@ Patch7: smeserver-yum-1.1.2-showenabledorvisible.patch
 Patch8: smeserver-yum-1.1.2-disablecentosrepos.patch
 Patch9: smeserver-yum-1.1.2-disablecentosrepos.patch2
 Patch10: smeserver-yum-1.1.2-NoAutoInstallUpdates.patch
+Patch11: smeserver-yum-1.1.2-yumwrapper.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -34,6 +35,10 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-15
+- Add wrapper /sbin/e-smith/yum to remind people to 
+  post-upgrade/reboot [SME: 199]
+
 * Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-14
 - Force yum{AutoInstallUpdates} to disabled and remove toggle from
   panel for now [SME: 525]
@@ -565,6 +570,7 @@ AutoReqProv: no
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
@@ -588,6 +594,7 @@ mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 /bin/rm -f %{name}-%{version}-filelist
 /sbin/e-smith/genfilelist \
     --file '/sbin/e-smith/yum_update_dbs' 'attr(0700,root,root)' \
+    --file '/sbin/e-smith/yum' 'attr(0755,root,root)' \
     --file '/etc/cron.daily/smeserver-yum' 'attr(0700,root,root)' \
     --file /var/service/yum/down 'attr(0644,root,root)' \
     --file /var/service/yum/run 'attr(0755,root,root)' \
