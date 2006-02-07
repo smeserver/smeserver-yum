@@ -1,0 +1,30 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/sbin/e-smith/yum mezzanine_patched_smeserver-yum-1.1.2/root/sbin/e-smith/yum
+--- smeserver-yum-1.1.2/root/sbin/e-smith/yum	2006-02-07 13:04:29.042731770 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/sbin/e-smith/yum	2006-02-07 13:04:16.642889203 +1100
+@@ -1,16 +1,20 @@
+ #!/bin/sh
+ 
+-echo "==========================================================="
+-echo "WARNING: Additional commands are required after running yum"
+-echo "==========================================================="
++echo "=============================================================="
++echo "WARNING: Additional commands may be required after running yum"
++echo "=============================================================="
+ 
+ /usr/bin/yum $@
+ status=$?
+ 
+-echo "==========================================================="
+-echo "WARNING: You now need to run BOTH of the following comands"
++echo "=============================================================="
++echo "WARNING: You now need to run BOTH of the following commands"
++echo "to ensure consistent system state:"
+ echo
+ echo "signal-event post-upgrade; signal-event reboot"
+-echo "=========================================================="
++echo
++echo "You should run these commands unless you are certain that"
++echo "yum made no changes to your system."
++echo "=============================================================="
+ 
+ exit $status
