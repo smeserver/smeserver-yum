@@ -1,0 +1,42 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/events/actions/yum-action mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/events/actions/yum-action
+--- smeserver-yum-1.1.2/root/etc/e-smith/events/actions/yum-action	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/events/actions/yum-action	2006-02-16 16:24:43.768642427 +1100
+@@ -1,7 +1,7 @@
+ #!/usr/bin/perl -w
+ #----------------------------------------------------------------------
+ # Yum actions
+-# Copyright (C) 2005 Gordon Rowell <gordonr@gormand.com.au>
++# Copyright (C) 2005-2006 Gordon Rowell <gordonr@gormand.com.au>
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+@@ -31,7 +31,8 @@
+ my $function = $event;
+ $function =~ s/yum-//;
+ 
+-die "Unknown function $function" unless ($function =~ /install|update|remove/);
++die "Unknown function $function\n" 
++    unless ($function =~ /install|update|remove/);
+ 
+ # XXX - FIXME - For groupremove, we need to do a grouplist on the group
+ # and then work out what to do
+@@ -42,8 +43,16 @@
+ my @packages = split(',',
+             ($db->get_prop_and_delete('yum', 'SelectedPackages') || ''));
+ 
+-system(YUM_CMD, "group$function", @groups) if (@groups);
+-
+-system(YUM_CMD, $function, @packages) if (@packages);
++if (@groups)
++{
++    system(YUM_CMD, "group$function", @groups) == 0 or
++	die "yum group$function @groups failed: $?\n";
++}
++
++if (@packages)
++{
++    system(YUM_CMD, $function, @packages) == 0 or
++	die "yum $function @packages failed: $?\n";
++}
+ 
+ exit 0;
