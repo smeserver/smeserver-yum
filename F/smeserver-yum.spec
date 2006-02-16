@@ -47,7 +47,7 @@ AutoReqProv: no
 - Catch error return status from yum commands [SME: 611]
 
 * Tue Feb 7 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-18
-- Adjust wording in yum wrapper {SME: 676]
+- Adjust wording in yum wrapper [SME: 676]
 
 * Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-17
 - And change "A reboot will be required" to 
