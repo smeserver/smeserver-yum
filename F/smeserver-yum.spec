@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 21
+%define release 22
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -25,7 +25,8 @@ Patch13: smeserver-yum-1.1.2-wording.patch
 Patch14: smeserver-yum-1.1.2-yumwrapper.patch2
 Patch15: smeserver-yum-1.1.2-exitstatus.patch
 Patch16: smeserver-yum-1.1.2-AddErrorL10N.patch
-Patch17: smeserver-yum-1.1.2-yumwrapper.patch3
+Patch17: smeserver-yum-1.1.2-RebootBehaviour.patch
+Patch18: smeserver-yum-1.1.2-yumwrapper.patch3
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -41,10 +42,16 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Thu Feb 16 2006 Charlie Brady <charlie_brady@mitel.com> 1.1.2-21
+* Thu Feb 16 2006 Charlie Brady <charlie_brady@mitel.com> 1.1.2-22
 - Do not suggest post-upgrade/reboot if no rpms were installed or
   removed. [SME: 676]
-  
+
+* Thu Feb 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-21
+- Run post-upgrade and reboot in the background so that the front page
+  can be displayed without the "Your system needs to be rebooted"
+  warning - it's already getting one by then. [SME: 611]
+- Adjust reconfiguration wording [SME: 611]
+
 * Thu Feb 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-20
 - And add L10N for newly exposed unlocalised message [SME: 611]
 
@@ -603,11 +610,12 @@ AutoReqProv: no
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
 rm -rf root/etc/e-smith/locale/it
-%patch17 -p1
+%patch18 -p1
 
 %build
 perl createlinks

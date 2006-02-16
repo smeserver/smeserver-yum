@@ -1,0 +1,80 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.1.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2006-02-16 18:24:16.058744545 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2006-02-16 18:23:40.619910504 +1100
+@@ -233,11 +233,17 @@
+     <entry>
+ 	<base>HEADER_POSTUPGRADE_REQUIRED</base>
+ 	<trans>
+-		The system needs to be reconfigured
+-		after adding or removing software, 
+-		or applying updates. A reboot will be
+-		initiated after this reconfiguration process.
+-	</trans>
++		<![CDATA[
++	       The system needs to be reconfigured
++	       after adding or removing software,
++	       or applying updates. 
++
++	       <p>	
++	       <b>An automatic reboot will be
++	       initiated as part of this reconfiguration process</b>
++		</p>
++		]]>
++       </trans>
+      </entry>
+ 
+     <entry>
+@@ -265,4 +271,12 @@
+ 	<trans>An error occurred while updating the system.</trans>
+     </entry>
+ 
++    <entry>
++	<base>SYSTEM_BEING_RECONFIGURED</base>
++	<trans>
++		Your system is being automatically rebooted to 
++		complete the reconfiguraton process.
++	</trans>
++    </entry>
++
+ </lexicon>
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.1.2/root/etc/e-smith/web/functions/yum	2006-02-16 18:24:16.049746111 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/web/functions/yum	2006-02-16 18:11:13.874835756 +1100
+@@ -225,7 +225,7 @@
+ 
+     <page name="YUM_PAGE_POSTUPGRADE" 
+ 	pre-event="turn_off_buttons"
+-        post-event="post_upgrade">
++        post-event="post_upgrade_reboot">
+ 
+ 	<field
+ 	    type="literal">
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-02-16 18:24:16.052745589 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-02-16 18:24:01.293313564 +1100
+@@ -272,22 +272,12 @@
+     return \@selected;
+ }
+ 
+-sub post_upgrade
++sub post_upgrade_reboot
+ {
+     my $fm = shift;
+ 
+-    unless (system( "/sbin/e-smith/signal-event", "post-upgrade") == 0)
+-    {
+-	$fm->error('ERROR_UPDATING');
+-	return undef;
+-    }
++    system( "( /sbin/e-smith/signal-event post-upgrade ; /sbin/e-smith/signal-event reboot ) &" );
+ 
+-    unless (system( "/sbin/e-smith/signal-event", "reboot") == 0)
+-    {
+-	$fm->error('ERROR_UPDATING');
+-	return undef;
+-    }
+-
+-    $fm->success('SUCCESS');
++    $fm->success('SYSTEM_BEING_RECONFIGURED');
+ }
+ 1;
