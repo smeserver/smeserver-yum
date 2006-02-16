@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 19
+%define release 20
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -24,6 +24,7 @@ Patch12: smeserver-yum-1.1.2-reboot.patch
 Patch13: smeserver-yum-1.1.2-wording.patch
 Patch14: smeserver-yum-1.1.2-yumwrapper.patch2
 Patch15: smeserver-yum-1.1.2-exitstatus.patch
+Patch16: smeserver-yum-1.1.2-AddErrorL10N.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -39,6 +40,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Feb 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-20
+- And add L10N for newly exposed unlocalised message [SME: 611]
+
 * Thu Feb 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-19
 - Catch error return status from yum commands [SME: 611]
 
@@ -593,6 +597,7 @@ AutoReqProv: no
 %patch13 -p1
 %patch14 -p1
 %patch15 -p1
+%patch16 -p1
 rm -rf root/etc/e-smith/locale/de
 rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
