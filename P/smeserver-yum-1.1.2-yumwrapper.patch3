@@ -1,0 +1,40 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/sbin/e-smith/yum mezzanine_patched_smeserver-yum-1.1.2/root/sbin/e-smith/yum
+--- smeserver-yum-1.1.2/root/sbin/e-smith/yum	2006-02-16 15:13:58.000000000 -0500
++++ mezzanine_patched_smeserver-yum-1.1.2/root/sbin/e-smith/yum	2006-02-16 15:13:33.000000000 -0500
+@@ -4,17 +4,27 @@
+ echo "WARNING: Additional commands may be required after running yum"
+ echo "=============================================================="
+ 
++BEFORE=$(rpm -qa | md5sum)
++
+ /usr/bin/yum $@
+ status=$?
+ 
+-echo "=============================================================="
+-echo "WARNING: You now need to run BOTH of the following commands"
+-echo "to ensure consistent system state:"
+-echo
+-echo "signal-event post-upgrade; signal-event reboot"
+-echo
+-echo "You should run these commands unless you are certain that"
+-echo "yum made no changes to your system."
+-echo "=============================================================="
++AFTER=$(rpm -qa | md5sum)
++if [ "$BEFORE" = "$AFTER" ]
++then
++  echo "================================================================"
++  echo "No new rpms were installed. No additional commands are required."
++  echo "================================================================"
++else
++  echo "=============================================================="
++  echo "WARNING: You now need to run BOTH of the following commands"
++  echo "to ensure consistent system state:"
++  echo
++  echo "signal-event post-upgrade; signal-event reboot"
++  echo
++  echo "You should run these commands unless you are certain that"
++  echo "yum made no changes to your system."
++  echo "=============================================================="
++fi
+ 
+ exit $status
