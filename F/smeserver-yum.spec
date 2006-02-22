@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 22
+%define release 23
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -27,6 +27,7 @@ Patch15: smeserver-yum-1.1.2-exitstatus.patch
 Patch16: smeserver-yum-1.1.2-AddErrorL10N.patch
 Patch17: smeserver-yum-1.1.2-RebootBehaviour.patch
 Patch18: smeserver-yum-1.1.2-yumwrapper.patch3
+Patch19: smeserver-yum-1.1.2-DisplayUpdatesRepo.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -42,6 +43,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Feb 22 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-23
+- Default smeupdates-testing repository to Visible, disabled [SME: 846]
+
 * Thu Feb 16 2006 Charlie Brady <charlie_brady@mitel.com> 1.1.2-22
 - Do not suggest post-upgrade/reboot if no rpms were installed or
   removed. [SME: 676]
@@ -616,6 +620,7 @@ rm -rf root/etc/e-smith/locale/fr
 rm -rf root/etc/e-smith/locale/es
 rm -rf root/etc/e-smith/locale/it
 %patch18 -p1
+%patch19 -p1
 
 %build
 perl createlinks
