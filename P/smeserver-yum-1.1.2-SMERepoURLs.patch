@@ -1,0 +1,36 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL	2006-03-06 16:17:25.983443812 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL	2006-03-06 16:16:46.388029655 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/pub/smeserver/releases/7/addons/$basearch
++http://mirror.contribs.org/pub/smeserver/releases/7/smeaddons/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL	2006-03-06 16:17:25.983443812 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL	2006-03-06 16:16:49.282548215 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/pub/smeserver/releases/7/dev/$basearch
++http://mirror.contribs.org/pub/smeserver/releases/7/smedev/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/BaseURL	2006-03-06 16:17:25.983443812 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeos/BaseURL	2006-03-06 16:16:51.833123981 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/pub/smeserver/releases/7/os/$basearch
++http://mirror.contribs.org/pub/smeserver/releases/7/smeos/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/BaseURL	2006-03-06 16:17:25.983443812 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smetest/BaseURL	2006-03-06 16:16:54.526675967 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/pub/smeserver/releases/7/test/$basearch
++http://mirror.contribs.org/pub/smeserver/releases/7/smetest/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL	2006-03-06 16:17:25.984443646 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL	2006-03-06 16:16:57.775135656 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/pub/smeserver/releases/7/updates/$basearch
++http://mirror.contribs.org/pub/smeserver/releases/7/smeupdates/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/BaseURL mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/BaseURL
+--- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/BaseURL	2006-03-06 16:17:25.984443646 +1100
++++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/BaseURL	2006-03-06 16:17:02.367371836 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/pub/smeserver/releases/7/updates-testing/$basearch
++http://mirror.contribs.org/pub/smeserver/releases/7/smeupdates-testing/$basearch
