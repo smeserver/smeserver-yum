@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.1.2
-%define release 25
+%define release 26
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -30,6 +30,7 @@ Patch18: smeserver-yum-1.1.2-yumwrapper.patch3
 Patch19: smeserver-yum-1.1.2-DisplayUpdatesRepo.patch
 Patch20: smeserver-yum-1.1.2-DontForceBaseURL.patch 
 Patch21: smeserver-yum-1.1.2-SMERepoURLs.patch
+Patch22: smeserver-yum-1.1.2-MigrateSMERepoURLs.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -45,6 +46,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Mar 6 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-26
+- And migrate old SME repo URLs to new paths [SME: 951]
+
 * Wed Mar 6 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-25
 - Change SME Server repo URLs to match repo names so we avoid confusion
   with CentOS repos and can remove the symlinks [SME: 951]
@@ -632,6 +636,7 @@ rm -rf root/etc/e-smith/locale/it
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 perl createlinks
