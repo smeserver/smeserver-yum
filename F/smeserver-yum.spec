@@ -1,36 +1,13 @@
 Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
-%define version 1.1.2
-%define release 26
+%define version 1.2.0
+%define release 01
 Version: %{version}
 Release: %{release}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
-Patch0: smeserver-yum-1.1.2-requiresignatures.patch
-Patch1: smeserver-yum-1.1.2-navigationconf.patch
-Patch2: smeserver-yum-1.1.2-enabledupdates.patch
-Patch3: smeserver-yum-1.1.2-repovisibility.patch
-Patch4: smeserver-yum-1.1.2-gpgkey.patch 
-Patch5: smeserver-yum-1.1.2-noreboot.patch 
-Patch6: smeserver-yum-1.1.2-disableautoupdates.patch
-Patch7: smeserver-yum-1.1.2-showenabledorvisible.patch
-Patch8: smeserver-yum-1.1.2-disablecentosrepos.patch
-Patch9: smeserver-yum-1.1.2-disablecentosrepos.patch2
-Patch10: smeserver-yum-1.1.2-NoAutoInstallUpdates.patch
-Patch11: smeserver-yum-1.1.2-yumwrapper.patch
-Patch12: smeserver-yum-1.1.2-reboot.patch 
-Patch13: smeserver-yum-1.1.2-wording.patch
-Patch14: smeserver-yum-1.1.2-yumwrapper.patch2
-Patch15: smeserver-yum-1.1.2-exitstatus.patch
-Patch16: smeserver-yum-1.1.2-AddErrorL10N.patch
-Patch17: smeserver-yum-1.1.2-RebootBehaviour.patch
-Patch18: smeserver-yum-1.1.2-yumwrapper.patch3
-Patch19: smeserver-yum-1.1.2-DisplayUpdatesRepo.patch
-Patch20: smeserver-yum-1.1.2-DontForceBaseURL.patch 
-Patch21: smeserver-yum-1.1.2-SMERepoURLs.patch
-Patch22: smeserver-yum-1.1.2-MigrateSMERepoURLs.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -46,6 +23,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Mar 15 2006 Charlie Brady <charlie_brady@mitel.com> 1.2.0-01
+- Roll stable stream version. [SME: 1016]
+
 * Wed Mar 6 2006 Gordon Rowell <gordonr@gormand.com.au> 1.1.2-26
 - And migrate old SME repo URLs to new paths [SME: 951]
 
@@ -610,33 +590,6 @@ AutoReqProv: no
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-# %patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-rm -rf root/etc/e-smith/locale/de
-rm -rf root/etc/e-smith/locale/fr
-rm -rf root/etc/e-smith/locale/es
-rm -rf root/etc/e-smith/locale/it
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
 
 %build
 perl createlinks
