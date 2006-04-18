@@ -2,13 +2,14 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 02
+%define release 03
 Version: %{version}
 Release: %{release}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
 Patch0: smeserver-yum-1.2.0-DisplayStatus.patch
+Patch1: smeserver-yum-1.2.0-ModifyUpdateDBs.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -24,6 +25,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Apr 18 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-03
+- Update the yum dbs in yum-modify in case the repos have changed [SME: 1261]
+
 * Tue Apr 18 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-02
 - Capture and display yum output [SME: 1269]
 
@@ -595,6 +599,7 @@ AutoReqProv: no
 %prep
 %setup
 %patch0 -p1
+%patch1 -p1
 
 %build
 perl createlinks
