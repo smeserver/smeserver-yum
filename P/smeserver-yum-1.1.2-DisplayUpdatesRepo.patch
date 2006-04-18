@@ -1,6 +1,0 @@
-diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible
---- smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible	2006-02-22 16:07:20.865321190 +1100
-+++ mezzanine_patched_smeserver-yum-1.1.2/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible	2006-02-22 16:07:02.106584999 +1100
-@@ -1 +1 @@
--no
-+yes
