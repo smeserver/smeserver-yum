@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 04
+%define release 05
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -26,6 +26,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon May  1 2006 Charlie Brady <charlieb@e-smith.com> 1.2.0-05
+- Remove stray yum.pm.orig file. [SME: 1350]
+
 * Tue Apr 18 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-04
 - Also display yum output if the yum command fails, e.g. due to an
   existing yum lock. [SME: 1110]
@@ -606,6 +609,7 @@ AutoReqProv: no
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 
 %build
 perl createlinks
