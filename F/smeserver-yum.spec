@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 05
+%define release 06
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -11,6 +11,7 @@ Source: %{name}-%{version}.tar.gz
 Patch0: smeserver-yum-1.2.0-DisplayStatus.patch
 Patch1: smeserver-yum-1.2.0-ModifyUpdateDBs.patch
 Patch2: smeserver-yum-1.2.0-DisplayStatus.patch2
+Patch3: smeserver-yum-1.2.0-quoting.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -26,6 +27,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Sep  1 2006 Charlie Brady <charlieb@e-smith.com> 1.2.0-06
+- Fix quoting in yum wrapper script. [SME: 1894]
+
 * Mon May  1 2006 Charlie Brady <charlieb@e-smith.com> 1.2.0-05
 - Remove stray yum.pm.orig file. [SME: 1350]
 
@@ -610,6 +614,7 @@ AutoReqProv: no
 %patch1 -p1
 %patch2 -p1
 rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
+%patch3 -p1
 
 %build
 perl createlinks

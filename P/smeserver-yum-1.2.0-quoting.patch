@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/sbin/e-smith/yum mezzanine_patched_smeserver-yum-1.2.0/root/sbin/e-smith/yum
+--- smeserver-yum-1.2.0/root/sbin/e-smith/yum	2006-03-16 01:22:21.000000000 -0500
++++ mezzanine_patched_smeserver-yum-1.2.0/root/sbin/e-smith/yum	2006-09-01 20:39:49.000000000 -0400
+@@ -6,7 +6,7 @@
+ 
+ BEFORE=$(rpm -qa | md5sum)
+ 
+-/usr/bin/yum $@
++/usr/bin/yum "$@"
+ status=$?
+ 
+ AFTER=$(rpm -qa | md5sum)
