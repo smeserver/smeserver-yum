@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 08
+%define release 09
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -14,6 +14,7 @@ Patch2: smeserver-yum-1.2.0-DisplayStatus.patch2
 Patch3: smeserver-yum-1.2.0-quoting.patch
 Patch4: smeserver-yum-1.2.0-reposdir.patch
 Patch5: smeserver-yum-1.2.0-MirrorList.patch
+Patch6: smeserver-yum-1.2.0-MirrorList.patch2
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -29,6 +30,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Nov  9 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-09
+- Allow MirrorList property to be optional [SME: 1163]
+
 * Thu Nov  9 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-08
 - Add mirrorlist option to CentOS repos via MirrorList db property [SME: 1163]
 - TODO: Create mirrorlist for SME repos.
@@ -626,6 +630,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 perl createlinks
