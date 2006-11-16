@@ -1,0 +1,217 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_plugins mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_plugins
+--- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_plugins	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_plugins	2006-11-16 18:48:25.576928853 +1100
+@@ -0,0 +1 @@
++plugins=1
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-11-16 18:49:13.435593159 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-11-16 18:48:25.576928853 +1100
+@@ -33,6 +33,13 @@
+ use esmith::TestUtils;
+ use esmith::FormMagick::Panel::yum;
+ my $f = esmith::FormMagick::Panel::yum->new();
++
++if (-e "/var/run/yum.pid")
++{
++    print_yum_status_page();
++    exit(0);
++}
++
+ $f->display();
+ 
+ =head1 TESTING
+@@ -126,6 +133,8 @@
+             <description>DESC_AVAILABLE_UPDATES</description>
+         </field>
+ 
++        <subroutine src="print_skip_header()" />
++
+         <subroutine src="print_button('INSTALL_UPDATES')" />
+     </page>
+ 
+@@ -156,6 +165,8 @@
+             <description>DESC_AVAILABLE_PACKAGES</description>
+         </field>
+ 
++        <subroutine src="print_skip_header()" />
++
+         <subroutine src="print_button('INSTALL_SOFTWARE')" />
+     </page>
+ 
+@@ -186,6 +197,8 @@
+             <description>DESC_INSTALLED_PACKAGES</description>
+         </field>
+ 
++        <subroutine src="print_skip_header()" />
++
+         <subroutine src="print_button('REMOVE_SOFTWARE')" />
+     </page>
+ 
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/yum/pluginconf.d/smeserver.conf mezzanine_patched_smeserver-yum-1.2.0/root/etc/yum/pluginconf.d/smeserver.conf
+--- smeserver-yum-1.2.0/root/etc/yum/pluginconf.d/smeserver.conf	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/yum/pluginconf.d/smeserver.conf	2006-11-16 18:48:25.576928853 +1100
+@@ -0,0 +1,3 @@
++[main]
++enabled=1
++
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-11-16 18:49:13.435593159 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-11-16 18:48:25.577928679 +1100
+@@ -35,7 +35,7 @@
+ 
+ our @ISA = qw(esmith::FormMagick Exporter);
+ 
+-our @EXPORT = qw();
++our @EXPORT = qw( print_yum_status_page );
+ 
+ our $VERSION = sprintf '%d.%03d', q$Revision: 1.0 $ =~ /: (\d+).(\d+)/;
+ our $db = esmith::ConfigDB->open or
+@@ -217,21 +217,63 @@
+ 	$db->set_prop("yum", $_, join(',', ($q->param($_) )));
+     }
+ 
+-    my $system_status = system("/sbin/e-smith/signal-event", "yum-$function");
++#    my $system_status = system("/sbin/e-smith/signal-event", "yum-$function");
++
++    esmith::util::backgroundCommand(0,
++        "/sbin/e-smith/signal-event", "yum-$function");
+ 
+     $db->reload;
+ 
+-    my $page = ($function eq 'modify') ? 'First' 
+-				       : 'YUM_PAGE_POSTUPGRADE';
++#    my $page = ($function eq 'modify') ? 'First' 
++#				       : 'YUM_PAGE_POSTUPGRADE';
+ 
+-    if ($system_status == 0)
+-    {
+-        $fm->success('SUCCESS', $page);
+-    }
+-    else
+-    {
+-        $fm->error('ERROR_UPDATING', $page);
+-    }
++#    $fm->success('SUCCESS', 'YUM_PAGE_EVENTINPROGRESS');
++    print_yum_status_page();
++
++#    if ($system_status == 0)
++#    {
++#        $fm->success('SUCCESS', $page);
++#    }
++#    else
++#    {
++#        $fm->error('ERROR_UPDATING', $page);
++#    }
++}
++
++sub print_skip_header
++{
++    return "<INPUT TYPE=\"hidden\" NAME=\"skip_header\" VALUE=\"1\">\n";
++}
++
++sub print_yum_status_page
++{
++    my ($yum_stat);
++
++    open(YUM_STATUS, "</var/run/yum.status");
++    while (<YUM_STATUS>) { $yum_stat = $_; }
++    close(YUM_STATUS);
++
++    my $page_output = << "EOF";
++Expires: 0
++Refresh: 10; URL=/server-manager/cgi-bin/yum
++Content-type: text/html
++
++<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
++
++<HTML>
++<HEAD>
++  <META HTTP-EQUIV="refresh" CONTENT="10;URL=/server-manager/cgi-bin/yum">
++  <TITLE>server manager</TITLE>
++  <LINK REL="stylesheet" TYPE="text/css"
++  HREF="/server-common/css/sme_core.css">
++  </HEAD>
++  <BODY TOPMARGIN="0" LEFTMARGIN="0" MARGINHEIGHT="0" MARGINWIDTH="0">
++  <BR><center><H2>Please Wait - Yum Running ($yum_stat)</H2></center>
++  </BODY>
++</HTML>
++EOF
++
++    print $page_output;
+ }
+ 
+ sub package_functions_enabled
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/usr/lib/yum-plugins/smeserver.py mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/yum-plugins/smeserver.py
+--- smeserver-yum-1.2.0/root/usr/lib/yum-plugins/smeserver.py	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/yum-plugins/smeserver.py	2006-11-16 18:48:25.577928679 +1100
+@@ -0,0 +1,70 @@
++# vim: noexpandtab tabstop=4
++
++import os
++from yum.constants import *
++from yum.plugins import PluginYumExit
++from yum.plugins import TYPE_CORE
++
++requires_api_version = '2.1'
++plugin_type = (TYPE_CORE,)
++
++events_path  = '/etc/e-smith/events';
++initialize_database = events_path + '/actions/initialize-default-databases';
++navigation_conf = events_path + '/actions/navigation-conf';
++signal_event = '/sbin/e-smith/signal-event';
++status_file  = '/var/run/yum.status';
++
++def report_yum_status(status):
++	fileHandle = open(status_file, 'w');
++	fileHandle.write(status);
++	fileHandle.close();
++
++def config_hook(conduit):
++	report_yum_status('config');
++
++def init_hook(conduit):
++	report_yum_status('init');
++
++def predownload_hook(conduit):
++	report_yum_status('predownload');
++
++def postdownload_hook(conduit):
++	report_yum_status('postdownload');
++
++def prereposetup_hook(conduit):
++	report_yum_status('prereposetup');
++
++def postreposetup_hook(conduit):
++	report_yum_status('postreposetup');
++
++def exclude_hook(conduit):
++	report_yum_status('exclude');
++
++def preresolve_hook(conduit):
++	report_yum_status('preresolve');
++
++def postresolve_hook(conduit):
++	report_yum_status('postresolve');
++
++def pretrans_hook(conduit):
++	report_yum_status('pretrans');
++	ts = conduit.getTsInfo()
++	for tsmem in ts.getMembers():
++		print "smeserver trap pre-install: " + tsmem.name
++
++def posttrans_hook(conduit):
++	report_yum_status('posttrans');
++	os.spawnl(os.P_WAIT, initialize_database, initialize_database)
++	os.spawnl(os.P_WAIT, navigation_conf, navigation_conf);
++	ts = conduit.getTsInfo()
++	for tsmem in ts.getMembers():
++		print "smeserver trap post-install: " + tsmem.name
++		smeevent = 'yum-reconfigure-' + tsmem.name;
++		if os.path.isdir(events_path + '/' + smeevent):
++			print "smeservers signal-event: " + smeevent
++			os.spawnl(os.P_WAIT,
++				signal_event, signal_event, smeevent)
++
++def close_hook(conduit):
++	os.unlink('/var/run/yum.status')
++
