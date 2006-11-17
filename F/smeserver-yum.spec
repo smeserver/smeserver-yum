@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 12
+%define release 13
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -18,6 +18,7 @@ Patch6: smeserver-yum-1.2.0-MirrorList.patch2
 Patch7: smeserver-yum-1.2.0-distroverpkg.patch 
 Patch8: smeserver-yum-1.2.0-yumplugin.patch
 Patch9: smeserver-yum-1.2.0-yumplugin.patch2
+Patch10: smeserver-yum-1.2.0-yumplugin.patch3
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -33,6 +34,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Nov 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-13
+- Put back missed patch for post-upgrade [SME: 2071]
+
 * Fri Nov 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-12
 - Re-add post-upgrade handling [SME: 2071]
 - Display yum output
@@ -649,6 +653,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 perl createlinks
