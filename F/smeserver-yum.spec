@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 13
+%define release 15
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -19,21 +19,30 @@ Patch7: smeserver-yum-1.2.0-distroverpkg.patch
 Patch8: smeserver-yum-1.2.0-yumplugin.patch
 Patch9: smeserver-yum-1.2.0-yumplugin.patch2
 Patch10: smeserver-yum-1.2.0-yumplugin.patch3
+Patch11: smeserver-yum-1.2.0-mirrorlists.patch 
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
-Requires: yum >= 1.0.3-1_73 
-Requires: rpm-python >= 4.0.4-7x.18
 Requires: e-smith-formmagick
 Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpmdb-CentOS
+Requires: rpm-python >= 4.0.4-7x.18
+Requires: yum >= 1.0.3-1_73 
 Provides: yumconf
+Requires: yum-plugin-fastestmirror
 Conflicts: centos-yumconf
 AutoReqProv: no
 %description
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Nov 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-15
+- Add dependency on yum-plugin-fastestmirror [SME: 1163]
+- Alpha sort dependencies
+
+* Fri Nov 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-14
+- Add MirrorList options to each of the SME repos [SME: 1163]
+
 * Fri Nov 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-13
 - Put back missed patch for post-upgrade [SME: 2071]
 
@@ -654,6 +663,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 perl createlinks
