@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 15
+%define release 16
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -20,6 +20,7 @@ Patch8: smeserver-yum-1.2.0-yumplugin.patch
 Patch9: smeserver-yum-1.2.0-yumplugin.patch2
 Patch10: smeserver-yum-1.2.0-yumplugin.patch3
 Patch11: smeserver-yum-1.2.0-mirrorlists.patch 
+Patch12: smeserver-yum-1.2.0-reconfigurepage.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -36,6 +37,12 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Nov 21 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-16
+- Fix post-upgrade page handling [SME: 2077]
+- TODO: Add persistent RebootRequired handling so that the reconfigure
+  page is displayed from other sessions
+- TODO: Re-add display of LogFile prior to reconfigure
+
 * Fri Nov 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-15
 - Add dependency on yum-plugin-fastestmirror [SME: 1163]
 - Alpha sort dependencies
@@ -664,6 +671,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 perl createlinks

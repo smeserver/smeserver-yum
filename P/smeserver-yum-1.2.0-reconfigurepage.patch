@@ -1,0 +1,56 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-11-21 12:18:06.156161003 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-11-21 12:00:32.593663306 +1100
+@@ -42,12 +42,7 @@
+ 
+ if ($f->get_prop('yum', 'LogFile'))
+ {
+-    $f->success('HEADER_POSTUPGRADE_REQUIRED', 'YUM_PAGE_POSTUPGRADE');
+-
+-    $f->{cgi}->param(-name => "page",       -value => 0);
+-    $f->{cgi}->param(-name => "page_stack", -value => '');
+-    $f->{cgi}->param(-name => "Next",       -value => 'Next');
+-    $f->{cgi}->param(-name => "wherenext",  -value =>'YUM_PAGE_POSTUPGRADE');
++    $f->skip_to_postupgrade();
+ }
+ 
+ $f->display();
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-11-21 12:18:06.154161352 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-11-21 12:15:11.454589327 +1100
+@@ -322,9 +322,15 @@
+ {
+     my $fm = shift;
+ 
+-    $db->delete_prop('yum', 'LogFile');
++    $db->get_prop_and_delete('yum', 'LogFile');
+ 
+-    system( "( /sbin/e-smith/signal-event post-upgrade ; /sbin/e-smith/signal-event reboot ) &" );
++    $db->reload;
++
++    if (fork == 0)
++    {
++        exec "/sbin/e-smith/signal-event post-upgrade; /sbin/e-smith/signal-event reboot";
++        die "Exec failed";
++    }
+ 
+     $fm->success('SYSTEM_BEING_RECONFIGURED');
+ }
+@@ -346,4 +352,17 @@
+     return;
+ }
+ 
++sub skip_to_postupgrade
++{
++    my $fm = shift;
++
++    $db->get_prop_and_delete("yum", "LogFile");
++    $fm->success('HEADER_POSTUPGRADE_REQUIRED', 'YUM_PAGE_POSTUPGRADE');
++
++    $fm->{cgi}->param(-name => "page",       -value => 0);
++    $fm->{cgi}->param(-name => "page_stack", -value => '');
++    $fm->{cgi}->param(-name => "Next",       -value => 'Next');
++    $fm->{cgi}->param(-name => "wherenext",  -value =>'YUM_PAGE_POSTUPGRADE');
++}
++
+ 1;
