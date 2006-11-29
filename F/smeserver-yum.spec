@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 17
+%define release 20
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -22,6 +22,9 @@ Patch10: smeserver-yum-1.2.0-yumplugin.patch3
 Patch11: smeserver-yum-1.2.0-mirrorlists.patch 
 Patch12: smeserver-yum-1.2.0-reconfigurepage.patch
 Patch13: smeserver-yum-1.2.0-reconfigurepage.patch2
+Patch14: smeserver-yum-1.2.0-wording.patch
+Patch15: smeserver-yum-1.2.0-centosrepos.patch
+Patch16: smeserver-yum-1.2.0-Refresh10.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -38,6 +41,16 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Nov 29 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-20
+- Revert to 10s panel refresh [SME: 2097]
+
+* Fri Nov 23 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-19
+- Make CentOS base and updates enabled/Visible by default [SME: 1849]
+- Migrate CentOS base and updates to Visible, but leave status [SME: 1849]
+
+* Fri Nov 23 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-18
+- Adjust wording on post-upgrade page [SME: 2076]
+
 * Tue Nov 21 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-17
 - Clean up post-upgrade page LogFile display [SME: 2077]
 
@@ -677,6 +690,9 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
+%patch15 -p1
+%patch16 -p1
 
 %build
 perl createlinks

@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-11-29 00:19:18.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-11-29 00:19:00.000000000 -0700
+@@ -260,7 +260,7 @@
+ 
+     my $page_output = << "EOF";
+ Expires: 0
+-Refresh: 3; URL=/server-manager/cgi-bin/yum
++Refresh: 10; URL=/server-manager/cgi-bin/yum
+ Content-type: text/html
+ 
+ <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
