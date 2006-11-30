@@ -26,6 +26,7 @@ Patch14: smeserver-yum-1.2.0-wording.patch
 Patch15: smeserver-yum-1.2.0-centosrepos.patch
 Patch16: smeserver-yum-1.2.0-Refresh10.patch
 Patch17: smeserver-yum-1.2.0-SMEMirrorLists.patch
+Patch18: smeserver-yum-1.2.0-SMEMirrorLists.patch2
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -42,6 +43,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Nov 30 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-22
+- Correct typos in last patch [SME: 2050]
+
 * Thu Nov 30 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-21
 - Create local SME Server mirrorlists during build of package
 - Refer to these mirrorlists from yum.conf
@@ -700,6 +704,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
+%patch18 -p1
 
 %build
 perl createlinks
@@ -719,8 +724,8 @@ do
     cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
 http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/7/$repo/\$basearch
 ftp://ftp.planetmirror.com/pub/smeserver/releases/7/$repo/\$basearch
-http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/7/$repo/$basearch
-http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/7/$repo/$basearch
+http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
+http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
 END_OF_HERE
 
 done
