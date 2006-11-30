@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 21
+%define release 22
 Version: %{version}
 Release: %{release}
 License: GPL
