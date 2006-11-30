@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 20
+%define release 21
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -25,6 +25,7 @@ Patch13: smeserver-yum-1.2.0-reconfigurepage.patch2
 Patch14: smeserver-yum-1.2.0-wording.patch
 Patch15: smeserver-yum-1.2.0-centosrepos.patch
 Patch16: smeserver-yum-1.2.0-Refresh10.patch
+Patch17: smeserver-yum-1.2.0-SMEMirrorLists.patch
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -41,6 +42,11 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Nov 30 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-21
+- Create local SME Server mirrorlists during build of package
+- Refer to these mirrorlists from yum.conf
+- Comment out baseurl if a MirrorList is defined [SME: 2050]
+
 * Wed Nov 29 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-20
 - Revert to 10s panel refresh [SME: 2097]
 
@@ -693,6 +699,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
 
 %build
 perl createlinks
@@ -705,6 +712,18 @@ mkdir -p root/var/service/yum/log/supervise
 mkdir -p root/var/log/yum
 
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
+
+mkdir -p root/etc/yum.repos.d/
+for repo in smeaddons smedev smeos smetest smeupdates smeupdates-testing
+do
+    cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
+http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/7/$repo/\$basearch
+ftp://ftp.planetmirror.com/pub/smeserver/releases/7/$repo/\$basearch
+http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/7/$repo/$basearch
+http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/7/$repo/$basearch
+END_OF_HERE
+
+done
 
 %install
 /bin/rm -rf $RPM_BUILD_ROOT

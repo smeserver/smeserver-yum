@@ -1,0 +1,71 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList	2006-11-30 12:42:36.238734870 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList	2006-11-30 12:39:30.770950534 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/mirrorlists/smeaddons
++file:///etc/yum.repos.d/mirrors-smeaddons
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList	2006-11-30 12:42:36.238734870 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList	2006-11-30 12:39:30.770950534 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/mirrorlists/smedev
++file:///etc/yum.repos.d/mirrors-smedev
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList	2006-11-30 12:42:36.239734696 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList	2006-11-30 12:39:30.770950534 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/mirrorlists/smeos
++file:///etc/yum.repos.d/mirrors-smeos
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList	2006-11-30 12:42:36.239734696 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList	2006-11-30 12:39:30.770950534 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/mirrorlists/smetest
++file:///etc/yum.repos.d/mirrors-smetest
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList	2006-11-30 12:42:36.239734696 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList	2006-11-30 12:39:30.770950534 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/mirrorlists/smeupdates
++file:///etc/yum.repos.d/mirrors-smeupdates
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList	2006-11-30 12:42:36.239734696 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList	2006-11-30 12:39:30.770950534 +1100
+@@ -1 +1 @@
+-http://mirror.contribs.org/mirrorlists/smeupdates-testing
++file:///etc/yum.repos.d/mirrors-smeupdates-testing
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories
+--- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-30 12:42:36.230736258 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-30 12:42:14.065582969 +1100
+@@ -13,7 +13,17 @@
+         $OUT .= "enabled=" . (($repos->prop('status') eq 'enabled') ? 1 : 0)
+ 			 . "\n";
+ 
+-	for my $prop (qw(Name BaseURL))
++	if ( exists $props{MirrorList} )
++        {
++            $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
++            $OUT .= '#baseurl=' . $props{BaseURL} . "\n";
++        }
++        else
++        {
++	    $OUT .= 'baseurl=' . $props{BaseURL} . "\n";
++        }
++
++	for my $prop (qw(Name))
+ 	{
+ 	    $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
+ 	}
+@@ -23,12 +33,6 @@
+ 	    $OUT .= lc($prop) . '=' . ($props{$prop} eq "yes" ? 1 : 0) . "\n";
+ 	}
+ 
+-	for my $prop (qw(MirrorList))
+-        {
+-	    next unless exists $props{$prop};
+-            $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
+-        }
+-
+ 	if (exists $props{Exclude})
+ 	{
+ 	    $OUT .= "exclude=" . join(' ', split(/,/, $props{Exclude})) . "\n";
