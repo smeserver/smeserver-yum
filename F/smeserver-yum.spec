@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 23
+%define release 24
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -28,6 +28,7 @@ Patch16: smeserver-yum-1.2.0-Refresh10.patch
 Patch17: smeserver-yum-1.2.0-SMEMirrorLists.patch
 Patch18: smeserver-yum-1.2.0-SMEMirrorLists.patch2
 Patch19: smeserver-yum-1.2.0-includepkgs.patch
+Patch20: smeserver-yum-1.2.0-includepkgs.patch2
 Packager: Gordon Rowell <gordonr@gormand.com.au>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -44,6 +45,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Nov 30 2006 Greg Swallow <greg@runlevel7.ca> 1.2.0-24
+- Change Includepkgs to IncludePkgs [SME:2049]
+
 * Thu Nov 30 2006 Greg Swallow <greg@runlevel7.ca> 1.2.0-23
 - Add includepkgs option to repository configuration [SME:2049]
 
@@ -710,6 +714,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 perl createlinks
