@@ -46,10 +46,10 @@ AutoReqProv: no
 
 %changelog
 * Thu Nov 30 2006 Greg Swallow <greg@runlevel7.ca> 1.2.0-24
-- Change Includepkgs to IncludePkgs [SME:2049]
+- Change Includepkgs to IncludePkgs [SME: 2049]
 
 * Thu Nov 30 2006 Greg Swallow <greg@runlevel7.ca> 1.2.0-23
-- Add includepkgs option to repository configuration [SME:2049]
+- Add includepkgs option to repository configuration [SME: 2049]
 
 * Thu Nov 30 2006 Gordon Rowell <gordonr@gormand.com.au> 1.2.0-22
 - Correct typos in last patch [SME: 2050]
