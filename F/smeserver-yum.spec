@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 25
+%define release 26
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -31,6 +31,7 @@ Patch18: smeserver-yum-1.2.0-SMEMirrorLists.patch2
 Patch19: smeserver-yum-1.2.0-includepkgs.patch
 Patch20: smeserver-yum-1.2.0-includepkgs.patch2
 Patch21: smeserver-yum-1.2.0-Notestingrepo.patch
+Patch22: smeserver-yum-1.2.0-httpcache.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -46,6 +47,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Dec 07 2006 Shad L. Lords <slords@mail.com> 1.2.0-26
+- Only allow upstream proxies to cache packages not metadata.
+
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
 - Update to new release naming.  No functional changes.
 - Make Packager generic
@@ -724,6 +728,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 perl createlinks
