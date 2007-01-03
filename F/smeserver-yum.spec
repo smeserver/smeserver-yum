@@ -47,7 +47,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Thu Dec 07 2006 Shad L. Lords <slords@mail.com> 1.2.0-26
+* Wed Jan 03 2007 Shad L. Lords <slords@mail.com> 1.2.0-26
 - Only allow upstream proxies to cache packages not metadata.
 
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
