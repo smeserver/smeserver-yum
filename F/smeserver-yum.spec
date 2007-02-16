@@ -2,7 +2,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 27
+%define release 28
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -33,6 +33,7 @@ Patch20: smeserver-yum-1.2.0-includepkgs.patch2
 Patch21: smeserver-yum-1.2.0-Notestingrepo.patch
 Patch22: smeserver-yum-1.2.0-httpcache.patch
 Patch23: smeserver-yum-1.2.0-dupkeys.patch
+Patch24: smeserver-yum-1.2.0-runit17.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -48,6 +49,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Feb 16 2007 Shad L. Lords <slords@mail.com> 1.2.0-28
+- Change runsvctrl to sv to support runit v1.7.x
+
 * Wed Jan 17 2007 Shad L. Lords <slords@mail.com> 1.2.0-27
 - Only import keys we don't already have [SME: 1174]
 
@@ -734,6 +738,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
+%patch24 -p1
 
 %build
 perl createlinks
