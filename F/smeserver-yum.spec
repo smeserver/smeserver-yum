@@ -1,3 +1,5 @@
+%define _unpackaged_files_terminate_build 0
+
 Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
