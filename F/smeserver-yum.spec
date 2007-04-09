@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 28
+%define release 29
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -51,6 +51,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Apr 09 2007 Stephen Noble <support@dungog.net> 1.2.0-29
+- add three more repositories to yum.repos.d/mirrors-sme* files
+
 * Fri Feb 16 2007 Shad L. Lords <slords@mail.com> 1.2.0-28
 - Change runsvctrl to sv to support runit v1.7.x
 
@@ -762,6 +765,9 @@ http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/7/$repo/\$b
 ftp://ftp.planetmirror.com/pub/smeserver/releases/7/$repo/\$basearch
 http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
 http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
+http://mirror.pacific.net.au/linux/smeserver/releases/7/$repo/\$basearch
+ftp://sunsite.icm.edu.pl/pub/Linux/sunsite.unc.edu/distributions/smeserver/releases/7/$repo/\$basearch
+ftp://ftp.gtlib.gatech.edu/pub/linux/distributions/smeserver/releases/releases/7/$repo/\$basearch
 END_OF_HERE
 
 done
