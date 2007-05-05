@@ -6,8 +6,7 @@ Name: %{name}
 %define version 1.2.0
 %define release 30
 Version: %{version}
-Release: %smerelease %{release}
-Packager: %{_packager}
+Release: %{release}%{?dist}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
@@ -45,12 +44,16 @@ Requires: rpm-python >= 4.0.4-7x.18
 Requires: yum >= 1.0.3-1_73 
 Provides: yumconf
 Requires: yum-plugin-fastestmirror
+BuildRequires: e-smith-devtools >= 1.13.1-03
 Conflicts: centos-yumconf
 AutoReqProv: no
 %description
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
+- Clean up spec so package can be built by koji/plague
+
 * Mon Apr 09 2007 Stephen Noble <support@dungog.net> 1.2.0-30
 - remove two of them, leaving pacific.net.au
 
