@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 30
+%define release 31
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -39,11 +39,17 @@ BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
 Requires: perl(CGI::FormMagick) >= 0.91-26
-Requires: rpmdb-CentOS
 Requires: rpm-python >= 4.0.4-7x.18
 Requires: yum >= 1.0.3-1_73 
 Provides: yumconf
+%if "%{?rhel}" == "5"
+Obsoletes: rpmdb-CentOS
+Obsoletes: yum-plugin-fastestmirror
+Requires: yum-fastestmirror
+%else
+Requires: rpmdb-CentOS
 Requires: yum-plugin-fastestmirror
+%endif
 BuildRequires: e-smith-devtools >= 1.13.1-03
 Conflicts: centos-yumconf
 AutoReqProv: no
@@ -51,6 +57,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed May 9 2007 Shad L. Lords <slords@mail.com> 1.2.0-31
+- Updates to support SME Server 8
+
 * Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
 - Clean up spec so package can be built by koji/plague
 
