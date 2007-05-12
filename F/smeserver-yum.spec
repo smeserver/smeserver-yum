@@ -70,7 +70,7 @@ AutoReqProv: no
 - add three more repositories to yum.repos.d/mirrors-sme* files [SME: 2763]
 
 * Fri Feb 16 2007 Shad L. Lords <slords@mail.com> 1.2.0-28
-- Change runsvctrl to sv to support runit v1.7.x
+- Change runsvctrl to sv to support runit v1.7.x [SME: 2486]
 
 * Wed Jan 17 2007 Shad L. Lords <slords@mail.com> 1.2.0-27
 - Only import keys we don't already have [SME: 1174]
