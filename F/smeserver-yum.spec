@@ -64,10 +64,10 @@ AutoReqProv: no
 - Clean up spec so package can be built by koji/plague
 
 * Mon Apr 09 2007 Stephen Noble <support@dungog.net> 1.2.0-30
-- remove two of them, leaving pacific.net.au
+- remove two of them, leaving pacific.net.au [SME: 2763]
 
 * Mon Apr 09 2007 Stephen Noble <support@dungog.net> 1.2.0-29
-- add three more repositories to yum.repos.d/mirrors-sme* files
+- add three more repositories to yum.repos.d/mirrors-sme* files [SME: 2763]
 
 * Fri Feb 16 2007 Shad L. Lords <slords@mail.com> 1.2.0-28
 - Change runsvctrl to sv to support runit v1.7.x
