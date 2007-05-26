@@ -58,6 +58,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri May 25 2007 Shad L. Lords <slords@mail.com> 1.2.0-32
+- Add rpm key for epel packages
+
 * Wed May 9 2007 Shad L. Lords <slords@mail.com> 1.2.0-31
 - Updates to support SME Server 8
 
