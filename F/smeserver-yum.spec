@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 34
+%define release 35
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -36,6 +36,7 @@ Patch22: smeserver-yum-1.2.0-httpcache.patch
 Patch23: smeserver-yum-1.2.0-dupkeys.patch
 Patch24: smeserver-yum-1.2.0-runit17.patch
 Patch25: smeserver-yum-1.2.0-epel_key.patch
+Patch26: smeserver-yum-1.2.0-restrictAvailable.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -58,6 +59,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sun Jun 10 2007 Stephen Noble <support@dungog.net> 1.2.0-35
+- Add db values to restrict available rpms or repos [SME: 2416]
+
 * Sun Jun 10 2007 Stephen Noble <support@dungog.net> 1.2.0-34
 - remove restrictAvailable patch [SME: 2416]
 
@@ -770,6 +774,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch23 -p1
 %patch24 -p1
 %patch25 -p1
+%patch26 -p1
 
 %build
 perl createlinks
