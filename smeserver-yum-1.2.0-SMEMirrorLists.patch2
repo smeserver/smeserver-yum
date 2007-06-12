@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories
+--- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-29 19:27:02.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-29 19:25:12.000000000 -0700
+@@ -15,7 +15,7 @@
+ 
+ 	if ( exists $props{MirrorList} )
+         {
+-            $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
++            $OUT .= 'mirrorlist=' . $props{MirrorList} . "\n";
+             $OUT .= '#baseurl=' . $props{BaseURL} . "\n";
+         }
+         else

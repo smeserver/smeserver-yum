@@ -1,0 +1,50 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/sbin/e-smith/yum_update_dbs mezzanine_patched_smeserver-yum-1.2.0/root/sbin/e-smith/yum_update_dbs
+--- smeserver-yum-1.2.0/root/sbin/e-smith/yum_update_dbs	2007-06-10 18:02:18.000000000 -0600
++++ mezzanine_patched_smeserver-yum-1.2.0/root/sbin/e-smith/yum_update_dbs	2007-06-10 18:01:41.000000000 -0600
+@@ -22,10 +22,6 @@
+ use esmith::ConfigDB;
+ 
+ my $db = esmith::ConfigDB->open_ro or die "Couldn't open ConfigDB\n";
+-my $RestrictRpm = $db->get_prop('yum', 'RestrictRpm') || 'no';
+-my $RestrictRepo = $db->get_prop('yum', 'RestrictRepo') || 'no';
+-my @rpms = split(/,/, $RestrictRpm);
+-my @repos = split(/,/, $RestrictRepo);
+ 
+ use constant YUM_CRON_FLAG => '/var/lock/subsys/yum';
+ 
+@@ -72,26 +68,18 @@
+ 
+         if ($list_option eq 'available')
+         {
+-          if (($RestrictRpm eq 'no') && ($RestrictRepo eq 'no'))
++          my $RestrictRpm = $db->get_prop('yum', 'RestrictRpm') || '';
++          my $RestrictRepo = $db->get_prop('yum', 'RestrictRepo') || '';
++          my @rpms = split(/,/, $RestrictRpm);
++          my @repos = split(/,/, $RestrictRepo);
++
++          if ( ($#rpms < 0 && $#repos < 0)
++               || (grep { $package =~ /$_/ } @rpms)
++               || (grep { $repo =~ /$_/ } @repos)
++             )
+           {
+             print DB "$package=package|Repo|$repo|Version|$version\n";
+           }
+-          else
+-          {
+-            my $match = ''; # test on a match so we don't get duplicate entries
+-            foreach (@rpms)
+-            {
+-              next if ($match eq 'yes');
+-              if ($package =~ /$_/)
+-              { print DB "$package=package|Repo|$repo|Version|$version\n"; $match='yes';}
+-            }
+-            foreach (@repos)
+-            {
+-              next if ($match eq 'yes');
+-              if ($repo =~ /$_/)
+-              { print DB "$package=package|Repo|$repo|Version|$version\n"; $match='yes';}
+-            }
+-          }
+         }
+         else
+         {
