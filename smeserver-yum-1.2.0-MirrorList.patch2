@@ -1,0 +1,33 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories
+--- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-09 18:58:20.675201808 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-09 18:57:33.078491877 +1100
+@@ -13,7 +13,7 @@
+         $OUT .= "enabled=" . (($repos->prop('status') eq 'enabled') ? 1 : 0)
+ 			 . "\n";
+ 
+-	for my $prop (qw(Name BaseURL MirrorList))
++	for my $prop (qw(Name BaseURL))
+ 	{
+ 	    $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
+ 	}
+@@ -23,6 +23,12 @@
+ 	    $OUT .= lc($prop) . '=' . ($props{$prop} eq "yes" ? 1 : 0) . "\n";
+ 	}
+ 
++	for my $prop (qw(MirrorList))
++        {
++	    next unless exists $props{$prop};
++            $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
++        }
++
+ 	if (exists $props{Exclude})
+ 	{
+ 	    $OUT .= "exclude=" . join(' ', split(/,/, $props{Exclude})) . "\n";
+@@ -33,6 +39,7 @@
+ 	    $OUT .= "gpgkey" . '=' . $props{GPGKey} . "\n";
+ 	} 
+ 
++
+ 	$OUT .= "\n";
+     }
+ }

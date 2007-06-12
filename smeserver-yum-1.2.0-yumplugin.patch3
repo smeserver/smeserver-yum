@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-11-17 12:50:53.586729188 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-11-17 12:50:41.680802880 +1100
+@@ -40,7 +40,7 @@
+     exit(0);
+ }
+ 
+-if ($f->get_prop('yum', 'PostUpgradeRequired'))
++if ($f->get_prop('yum', 'LogFile'))
+ {
+     $f->success('HEADER_POSTUPGRADE_REQUIRED', 'YUM_PAGE_POSTUPGRADE');
+ 

@@ -1,0 +1,15 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories
+--- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-30 16:08:01.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	2006-11-30 16:06:19.000000000 -0700
+@@ -38,6 +38,11 @@
+ 	    $OUT .= "exclude=" . join(' ', split(/,/, $props{Exclude})) . "\n";
+ 	}	
+ 
++        if (exists $props{Includepkgs})
++        {
++            $OUT .= "includepkgs=" . join(' ', split(/,/, $props{Includepkgs})) . "\n";
++        }
++
+ 	if (exists $props{GPGKey})
+ 	{
+ 	    $OUT .= "gpgkey" . '=' . $props{GPGKey} . "\n";

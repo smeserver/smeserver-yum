@@ -1,0 +1,43 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-04-18 18:34:57.847588106 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2006-04-18 18:31:49.351201334 +1000
+@@ -224,7 +224,7 @@
+     </page>
+ 
+     <page name="YUM_PAGE_POSTUPGRADE" 
+-	pre-event="turn_off_buttons()"
++	pre-event="print_status_message()"
+         post-event="post_upgrade_reboot()">
+ 
+ 	<field
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-04-18 18:34:57.848587933 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2006-04-18 18:34:46.765505564 +1000
+@@ -217,18 +217,21 @@
+ 	$db->set_prop("yum", $_, join(',', ($q->param($_) )));
+     }
+ 
+-    unless ( system( "/sbin/e-smith/signal-event", "yum-$function" ) == 0 )
+-    {
+-	$fm->error('ERROR_UPDATING');
+-	return undef;
+-    }
++    my $system_status = system("/sbin/e-smith/signal-event", "yum-$function");
+ 
+     $db->reload;
+ 
+     my $page = ($function eq 'modify') ? 'First' 
+ 				       : 'YUM_PAGE_POSTUPGRADE';
+ 
+-    $fm->success('SUCCESS', $page);
++    if ($system_status == 0)
++    {
++        $fm->success('SUCCESS', $page);
++    }
++    else
++    {
++        $fm->error('ERROR_UPDATING', $page);
++    }
+ }
+ 
+ sub package_functions_enabled

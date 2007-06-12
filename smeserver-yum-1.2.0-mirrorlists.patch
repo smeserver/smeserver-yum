@@ -1,0 +1,30 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList	2006-11-17 14:12:50.402351907 +1100
+@@ -0,0 +1 @@
++http://mirror.contribs.org/mirrorlists/smeaddons
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList	2006-11-17 14:12:50.402351907 +1100
+@@ -0,0 +1 @@
++http://mirror.contribs.org/mirrorlists/smedev
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList	2006-11-17 14:12:50.403351732 +1100
+@@ -0,0 +1 @@
++http://mirror.contribs.org/mirrorlists/smeos
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList	2006-11-17 14:12:50.403351732 +1100
+@@ -0,0 +1 @@
++http://mirror.contribs.org/mirrorlists/smetest
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList	2006-11-17 14:12:50.403351732 +1100
+@@ -0,0 +1 @@
++http://mirror.contribs.org/mirrorlists/smeupdates
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList	2006-11-17 14:12:50.403351732 +1100
+@@ -0,0 +1 @@
++http://mirror.contribs.org/mirrorlists/smeupdates-testing

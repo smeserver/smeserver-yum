@@ -1,0 +1,35 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/BaseURL mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/BaseURL
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/BaseURL	2006-03-16 17:22:21.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/BaseURL	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-http://mirror.centos.org/centos/4/testing/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/EnableGroups mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/EnableGroups
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/EnableGroups	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/EnableGroups	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-0
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck	2006-03-16 17:22:21.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Name mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Name
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Name	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Name	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-CentOS - testing
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/status mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/status
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/status	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/status	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-disabled
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/type mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/type
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/type	2005-09-26 12:30:54.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/type	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-repository
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible	2006-03-16 17:22:21.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/testing/Visible	1970-01-01 10:00:00.000000000 +1000
+@@ -1 +0,0 @@
+-no
