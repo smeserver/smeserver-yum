@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 36
+%define release 37
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -38,6 +38,7 @@ Patch24: smeserver-yum-1.2.0-runit17.patch
 Patch25: smeserver-yum-1.2.0-epel_key.patch
 Patch26: smeserver-yum-1.2.0-restrictAvailable.patch
 Patch27: smeserver-yum-1.2.0-restrictAvailable.patch2
+Patch28: smeserver-yum-1.2.0-gpgkeys.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -60,6 +61,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sat Jul 14 2007 Stephen Noble <support@dungog.net> 1.2.0-37
+- Add GPG keys for CentOS 5 [SME: 3160]
+
 * Sun Jun 10 2007 Stephen Noble <support@dungog.net> 1.2.0-36
 - Refine matching of rpms or repos [SME: 2416]
 
@@ -780,6 +784,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch25 -p1
 %patch26 -p1
 %patch27 -p1
+%patch28 -p1
 
 %build
 perl createlinks
