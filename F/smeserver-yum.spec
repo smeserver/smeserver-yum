@@ -61,7 +61,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Sat Jul 14 2007 Stephen Noble <support@dungog.net> 1.2.0-37
+* Sat Jul 14 2007 Shad L. Lords <slords@mail.com> 1.2.0-37
 - Add GPG keys for CentOS 5 [SME: 3160]
 
 * Sun Jun 10 2007 Stephen Noble <support@dungog.net> 1.2.0-36
