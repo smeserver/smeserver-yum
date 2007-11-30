@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 38
+%define release 39
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -40,6 +40,7 @@ Patch26: smeserver-yum-1.2.0-restrictAvailable.patch
 Patch27: smeserver-yum-1.2.0-restrictAvailable.patch2
 Patch28: smeserver-yum-1.2.0-gpgkeys.patch
 Patch29: smeserver-yum-1.2.0-FixUninitializedValue.patch
+Patch30: smeserver-yum-1.2.0-FixEnableGroups.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -62,8 +63,11 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Nov 30 2007 Gavin Weight <gweight@gmail.com> 1.2.0-39
+- Change EnableGroups value to no/yes instead of 0/1. [SME: 3607]
+
 * Fri Nov 30 2007 Gavin Weight <gweight@gmail.com> 1.2.0-38
-- Fix use of uninitialized value in migrate 10GPG_and_Groups.   [SME: 2491]
+- Fix use of uninitialized value in migrate 10GPG_and_Groups. [SME: 2491]
 
 * Sat Jul 14 2007 Shad L. Lords <slords@mail.com> 1.2.0-37
 - Add GPG keys for CentOS 5 [SME: 3160]
@@ -790,6 +794,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch27 -p1
 %patch28 -p1
 %patch29 -p1
+%patch30 -p1
 
 %build
 perl createlinks
