@@ -1,0 +1,28 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/10GPG_and_Groups mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/10GPG_and_Groups
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/10GPG_and_Groups	2005-09-26 03:30:54.000000000 +0100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/10GPG_and_Groups	2007-11-30 14:49:43.000000000 +0000
+@@ -1,14 +1,16 @@
+ {
+     for my $repo ($DB->get_all_by_prop(type => 'repository'))
+     {
+-	%props = $repo->props;
++        %props = $repo->props;
+ 
+-	$props{GPGCheck} = 'yes' if ($props{GPGCheck} =~ /1/);
+-	$props{GPGCheck} = 'no'  if ($props{GPGCheck} =~ /0/);
+-
+-	$props{EnableGroups} = 'yes'  if ($props{EnableGroups} =~ /1/);
+-	$props{EnableGroups} = 'no'   if ($props{EnableGroups} =~ /0/);
+-
+-	$repo->merge_props(%props);
++        if (defined $props{GPGCheck}) {
++        $props{GPGCheck} = 'yes' if ($props{GPGCheck} =~ /1/);
++        $props{GPGCheck} = 'no'  if ($props{GPGCheck} =~ /0/);
++    }
++        if (defined $props{EnableGroups}) {
++        $props{EnableGroups} = 'yes' if ($props{EnableGroups} =~ /1/);
++        $props{EnableGroups} = 'no'  if ($props{EnableGroups} =~ /0/);
++    }
++        $repo->merge_props(%props);
+     }
+ }
