@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 39
+%define release 40 
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -63,6 +63,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Dec 11 2007 Gavin Weight <gweight@gmail.com> 1.2.0-40
+- Remove bad mirror and add two new mirrors. [SME: 3636]
+
 * Fri Nov 30 2007 Gavin Weight <gweight@gmail.com> 1.2.0-39
 - Change EnableGroups value to no/yes instead of 0/1. [SME: 3607]
 
@@ -813,7 +816,8 @@ for repo in smeaddons smedev smeos smetest smeupdates smeupdates-testing
 do
     cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
 http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/7/$repo/\$basearch
-ftp://ftp.planetmirror.com/pub/smeserver/releases/7/$repo/\$basearch
+http://sme-mirror.voxteneo.com/releases/7/$repo/\$basearch
+http://smemirror.fullnet.co.uk/releases/7/$repo/\$basearch
 http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
 http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
 http://mirror.pacific.net.au/linux/smeserver/releases/7/$repo/\$basearch
