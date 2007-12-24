@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 40 
+%define release 41 
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -41,6 +41,7 @@ Patch27: smeserver-yum-1.2.0-restrictAvailable.patch2
 Patch28: smeserver-yum-1.2.0-gpgkeys.patch
 Patch29: smeserver-yum-1.2.0-FixUninitializedValue.patch
 Patch30: smeserver-yum-1.2.0-FixEnableGroups.patch
+Patch31: smeserver-yum-1.2.0-smecontribs.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -63,6 +64,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon  Dec 24 2007 Stephen Noble <support@dungog.net> 1.2.0-41
+- add smecontribs repo [SME: 3551]
+
 * Tue Dec 11 2007 Gavin Weight <gweight@gmail.com> 1.2.0-40
 - Remove bad mirror and add two new mirrors. [SME: 3636]
 
@@ -798,6 +802,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch28 -p1
 %patch29 -p1
 %patch30 -p1
+%patch31 -p1
 
 %build
 perl createlinks
@@ -812,7 +817,7 @@ mkdir -p root/var/log/yum
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 
 mkdir -p root/etc/yum.repos.d/
-for repo in smeaddons smedev smeos smetest smeupdates smeupdates-testing
+for repo in smeaddons smedev smeos smetest smeupdates smeupdates-testing smecontribs
 do
     cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
 http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/7/$repo/\$basearch
