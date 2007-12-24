@@ -1,0 +1,40 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/BaseURL mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/BaseURL
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/BaseURL	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/BaseURL	2007-12-23 21:55:08.000000000 -0700
+@@ -0,0 +1 @@
++http://mirror.contribs.org/pub/smeserver/releases/7/smecontribs/$basearch
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/EnableGroups mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/EnableGroups
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/EnableGroups	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/EnableGroups	2007-12-23 21:32:54.000000000 -0700
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/GPGCheck mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/GPGCheck
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/GPGCheck	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/GPGCheck	2006-03-15 23:22:21.000000000 -0700
+@@ -0,0 +1 @@
++yes
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList	2007-12-23 21:55:39.000000000 -0700
+@@ -0,0 +1 @@
++file:///etc/yum.repos.d/mirrors-smecontribs
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Name mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Name
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Name	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Name	2007-12-23 21:56:04.000000000 -0700
+@@ -0,0 +1 @@
++SME Server - contribs
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/status mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/status
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/status	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/status	2005-05-27 04:34:42.000000000 -0600
+@@ -0,0 +1 @@
++disabled
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/type mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/type
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/type	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/type	2005-05-27 04:34:42.000000000 -0600
+@@ -0,0 +1 @@
++repository
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Visible mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Visible
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Visible	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/Visible	2006-03-15 23:22:21.000000000 -0700
+@@ -0,0 +1 @@
++no
