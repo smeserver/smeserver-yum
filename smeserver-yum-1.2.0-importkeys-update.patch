@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/createlinks mezzanine_patched_smeserver-yum-1.2.0/createlinks
+--- smeserver-yum-1.2.0/createlinks	2008-01-06 23:43:34.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/createlinks	2008-01-06 23:42:02.000000000 -0700
+@@ -22,7 +22,7 @@
+     event_link("yum-update-dbs", "yum-$_", "90");
+ }
+ 
+-for ( qw(bootstrap-console-save) )
++for ( qw(bootstrap-console-save yum-update) )
+ {
+     event_link("yum-import-keys", $_, "10");
+ }
