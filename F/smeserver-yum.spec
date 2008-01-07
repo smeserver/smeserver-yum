@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 43
+%define release 44
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -44,6 +44,7 @@ Patch30: smeserver-yum-1.2.0-FixEnableGroups.patch
 Patch31: smeserver-yum-1.2.0-smecontribs.patch
 Patch32: smeserver-yum-1.2.0-importkeys-update.patch
 Patch33: smeserver-yum-1.2.0-check4updates.patch
+Patch34: smeserver-yum-1.2.0-yumlocal.patch 
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -67,6 +68,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Jan 7 2008 Stephen Noble <support@dungog.net> 1.2.0-44
+- safesymlink yum into local [SME: 3238]
+
 * Mon Jan 7 2008 Stephen Noble <support@dungog.net> 1.2.0-43
 - add check4updates cronjob, obsolete check4updates rpm [SME: 3250]
 
@@ -814,6 +818,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch31 -p1
 %patch32 -p1
 %patch33 -p1
+%patch34 -p1
 
 %build
 perl createlinks
