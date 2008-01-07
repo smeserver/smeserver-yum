@@ -1,0 +1,39 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/createlinks mezzanine_patched_smeserver-yum-1.2.0/createlinks
+--- smeserver-yum-1.2.0/createlinks	2008-01-07 03:32:53.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/createlinks	2008-01-07 03:31:47.000000000 -0700
+@@ -4,11 +4,10 @@
+ use File::Basename;
+ use File::Path;
+ 
+-templates2events("/etc/yum.conf",
+-			qw(
+-				yum-modify
+-				bootstrap-console-save
+-			));
++foreach my $file (qw(/etc/crontab /etc/yum.conf))
++{
++    templates2events($file, qw(yum-modify bootstrap-console-save));
++}
+ 
+ for ( qw(install remove update) )
+ {
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates
+--- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates	2008-01-07 03:23:06.000000000 -0700
+@@ -0,0 +1,16 @@
++{
++    return "\n# yum check for updates is disabled\n" unless $yum{status} eq 'enabled';
++
++    my $freq = $yum{check4updates} || 'daily';
++    my $min = int(rand(60));
++    my $hour = int(rand(5));
++    my $dow = substr(localtime,0,3);
++
++    if ($freq eq 'weekly') {
++        return "\n$min $hour * * $dow root check4updates -m\n";
++    } elsif ($freq eq 'monthly') {
++        return "\n$min $hour 15 * * root check4updates -m\n";
++    } else {
++        return "\n$min $hour * * * root check4updates -m\n"
++    }
++}
