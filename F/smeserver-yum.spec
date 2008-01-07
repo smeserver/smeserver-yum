@@ -65,7 +65,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Mon  Dec 24 2007 Stephen Noble <support@dungog.net> 1.2.0-42
+* Mon Jan 7 2008 Stephen Noble <support@dungog.net> 1.2.0-42
 - yum-import-keys action to yum-update event [SME: 3196]
 
 * Mon  Dec 24 2007 Stephen Noble <support@dungog.net> 1.2.0-41
