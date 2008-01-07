@@ -67,7 +67,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Mon Jan 7 2008 Stephen Noble <support@dungog.net> 1.2.0-42
+* Mon Jan 7 2008 Stephen Noble <support@dungog.net> 1.2.0-43
 - add check4updates cronjob, obsolete check4updates rpm [SME: 3250]
 
 * Mon Jan 7 2008 Stephen Noble <support@dungog.net> 1.2.0-42
