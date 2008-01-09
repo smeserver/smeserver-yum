@@ -1,0 +1,65 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-01-09 16:44:20.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-01-09 13:24:50.000000000 +1100
+@@ -66,6 +66,19 @@
+     </entry>
+ 
+     <entry>
++        <base>DESC_UPTODATE</base>
++        <trans>
++            <![CDATA[
++            <div class="success">
++                <h2>This system is up to date.</h2>
++
++                All updates have been installed.
++            </div>
++            ]]>
++        </trans>
++    </entry>
++
++    <entry>
+         <base>DESC_UPDATES_AVAILABLE</base>
+         <trans>
+             <![CDATA[
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2008-01-09 16:44:20.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2008-01-09 13:40:08.000000000 +1100
+@@ -65,6 +65,14 @@
+ 
+         <field
+             type="literal"
++            id="updates_installed"
++	    display="is_empty('updates')"
++            value="">
++            <description>DESC_UPTODATE</description>
++        </field>
++
++        <field
++            type="literal"
+             id="updates_available"
+ 	    display="non_empty('updates')"
+             value="">
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2008-01-09 16:44:20.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2008-01-09 16:39:44.000000000 +1100
+@@ -114,6 +114,20 @@
+     return defined $value ? $value : $default;
+ }
+ 
++sub is_empty
++{
++    my ($fm, $yumdb) = @_;
++
++    my $groups = $dbs{$yumdb}->get_all_by_prop(type => 'group') || 'none';
++    my $packages = $dbs{$yumdb}->get_all_by_prop(type => 'package') || 'none';
++
++    #Show no updates if both = none
++    return 1 if ($packages eq $groups);
++
++    #else return here
++    return;
++}
++
+ sub non_empty
+ {
+     my ($fm, $yumdb, $type) = @_;
