@@ -1,0 +1,51 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates
+--- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates	2008-01-11 11:27:57.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/crontab/check4updates	2008-01-11 11:27:30.000000000 -0700
+@@ -2,15 +2,12 @@
+     return "\n# yum check for updates is disabled\n" unless $yum{status} eq 'enabled';
+ 
+     my $freq = $yum{check4updates} || 'daily';
+-    my $min = int(rand(60));
+-    my $hour = int(rand(5));
+-    my $dow = substr(localtime,0,3);
+ 
+     if ($freq eq 'weekly') {
+-        return "\n$min $hour * * $dow root check4updates -m\n";
++        return "\n22 4 * * 0 root /sbin/e-smith/check4updates -m\n";
+     } elsif ($freq eq 'monthly') {
+-        return "\n$min $hour 15 * * root check4updates -m\n";
++        return "\n42 4 1 * * root /sbin/e-smith/check4updates -m\n";
+     } else {
+-        return "\n$min $hour * * * root check4updates -m\n"
++        return "\n02 4 * * * root /sbin/e-smith/check4updates -m\n"
+     }
+ }
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/sbin/e-smith/check4updates mezzanine_patched_smeserver-yum-1.2.0/root/sbin/e-smith/check4updates
+--- smeserver-yum-1.2.0/root/sbin/e-smith/check4updates	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_smeserver-yum-1.2.0/root/sbin/e-smith/check4updates	2008-01-11 11:24:47.000000000 -0700
+@@ -0,0 +1,25 @@
++#! /bin/bash
++
++mkdir -p /tmp/check4updates.$$
++TMPFILE=`mktemp /tmp/check4updates.$$/XXXXXXXXXX` || exit 1
++TMP1=`mktemp /tmp/check4updates.$$/XXXXXXXXXX` || exit 1
++
++MAILADDR=admin-yum
++
++yum -e 0 -d 0 check-update > $TMP1
++if [ $? = 100 ]; then
++  echo -e "===\n=== yum reports available updates:\n===" >> $TMPFILE
++  cat $TMP1 >> $TMPFILE
++fi
++
++if [ -s $TMPFILE ]; then
++  if [ "$1" = "-m" ]; then
++    mail $MAILADDR -s "Updates available for `hostname`" < $TMPFILE
++  else
++    echo "Updates available for `hostname`"
++    cat $TMPFILE
++  fi
++fi
++
++rm -f $TMPFILE $TMP1
++rm -fr /tmp/check4updates.*
