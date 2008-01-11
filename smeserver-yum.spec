@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 46
+%define release 47
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -48,6 +48,7 @@ Patch34: smeserver-yum-1.2.0-yumlocal.patch
 Patch35: smeserver-yum-1.2.0-removeSMEBaseURLs.patch
 Patch36: smeserver-yum-1.2.0-removeBaseURLs.patch
 Patch37: smeserver-yum-1.2.0-uptodate.patch
+Patch38: smeserver-yum-1.2.0-check4updates.patch2
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -58,6 +59,7 @@ Provides: yumconf
 %if "%{?rhel}" == "5"
 Obsoletes: rpmdb-CentOS
 Obsoletes: check4updates
+Provides: check4updates
 Obsoletes: yum-plugin-fastestmirror
 Requires: yum-fastestmirror
 %else
@@ -71,7 +73,10 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Wed Jan 09 2008 Stephen Noble <support@dungog.net>1.2.0-46
+* Fri Jan 11 2008 Shad L. Lords <slords@mail.com> 1.2.0-47
+- Add check4update script, make cronjob run same as scheduled dirs [SME: 3250]
+
+* Wed Jan 09 2008 Stephen Noble <support@dungog.net> 1.2.0-46
 - Add server is up to date message on panel [SME: 2512]
 
 * Mon Jan 7 2008 Stephen Noble <support@dungog.net> 1.2.0-45
@@ -831,6 +836,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch35 -p1
 %patch36 -p1
 %patch37 -p1
+%patch38 -p1
 
 %build
 perl createlinks
@@ -865,6 +871,7 @@ done
 /sbin/e-smith/genfilelist \
     --file '/sbin/e-smith/yum_update_dbs' 'attr(0700,root,root)' \
     --file '/sbin/e-smith/yum' 'attr(0755,root,root)' \
+    --file '/sbin/e-smith/check4updates' 'attr(0755,root,root)' \
     --file '/etc/cron.daily/smeserver-yum' 'attr(0700,root,root)' \
     --file /var/service/yum/down 'attr(0644,root,root)' \
     --file /var/service/yum/run 'attr(0755,root,root)' \
