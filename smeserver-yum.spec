@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 47
+%define release 48
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -56,10 +56,10 @@ Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpm-python >= 4.0.4-7x.18
 Requires: yum >= 1.0.3-1_73 
 Provides: yumconf
-%if "%{?rhel}" == "5"
-Obsoletes: rpmdb-CentOS
 Obsoletes: check4updates
 Provides: check4updates
+%if "%{?rhel}" == "5"
+Obsoletes: rpmdb-CentOS
 Obsoletes: yum-plugin-fastestmirror
 Requires: yum-fastestmirror
 %else
@@ -73,6 +73,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Jan 11 2008 Shad L. Lords <slords@mail.com> 1.2.0-48
+- Put check4updates obsoletes & provides in the right place [SME: 3250]
+
 * Fri Jan 11 2008 Shad L. Lords <slords@mail.com> 1.2.0-47
 - Add check4update script, make cronjob run same as scheduled dirs [SME: 3250]
 
