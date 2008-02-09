@@ -1,0 +1,32 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-02-10 09:29:42.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-02-10 09:25:50.000000000 +1100
+@@ -2,16 +2,6 @@
+     <!-- vim: ft=xml:
+     -->
+     <entry>
+-        <base>FORM_TITLE</base>
+-        <trans>Software installer</trans>
+-    </entry>
+-
+-    <entry>
+-	<base>Configuration</base>
+-	<trans>Configuration</trans>
+-    </entry>
+-
+-    <entry>
+ 	<base>Software installer</base>
+ 	<trans>Software installer</trans>
+     </entry>
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2008-02-10 09:29:42.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/web/functions/yum	2008-02-10 09:28:26.000000000 +1100
+@@ -57,7 +57,7 @@
+ 
+ __DATA__
+ <form
+-    title="FORM_TITLE"
++    title="Software installer"
+     header="/etc/e-smith/web/common/head.tmpl"
+     footer="/etc/e-smith/web/common/foot.tmpl">
+ 
