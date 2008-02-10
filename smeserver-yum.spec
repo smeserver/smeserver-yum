@@ -4,7 +4,7 @@ Summary: YUM, an rpm updater
 %define name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 48
+%define release 49
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -49,6 +49,7 @@ Patch35: smeserver-yum-1.2.0-removeSMEBaseURLs.patch
 Patch36: smeserver-yum-1.2.0-removeBaseURLs.patch
 Patch37: smeserver-yum-1.2.0-uptodate.patch
 Patch38: smeserver-yum-1.2.0-check4updates.patch2
+Patch39: smeserver-yum-1.2.0-rmFormTitle2.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick
@@ -73,6 +74,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sun Feb 10 2008 Stephen Noble <support@dungog.net> 1.2.0-49
+- Remove duplicate <base> entries [SME: 3889]
+
 * Fri Jan 11 2008 Shad L. Lords <slords@mail.com> 1.2.0-48
 - Put check4updates obsoletes & provides in the right place [SME: 3250]
 
@@ -840,6 +844,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch36 -p1
 %patch37 -p1
 %patch38 -p1
+%patch39 -p1
 
 %build
 perl createlinks
