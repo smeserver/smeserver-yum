@@ -1,0 +1,41 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
+--- smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-02-13 23:46:21.000000000 +1100
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-02-13 23:45:44.000000000 +1100
+@@ -225,15 +225,6 @@
+     </entry>
+ 
+     <entry>
+-        <base>DESC_SECTIONBAR</base>
+-        <trans>
+-            <![CDATA[
+-            <hr class="sectionbar"/>
+-            ]]>
+-        </trans>
+-    </entry>
+-
+-    <entry>
+ 	<base>HEADER_POSTUPGRADE_REQUIRED</base>
+ 	<trans>
+ 		<![CDATA[
+@@ -257,21 +248,6 @@
+     </entry>
+ 
+     <entry>
+-	<base>ENABLED</base>
+-	<trans>Enabled</trans>
+-    </entry>
+-
+-    <entry>
+-	<base>DISABLED</base>
+-	<trans>Disabled</trans>
+-    </entry>
+-
+-    <entry>
+-	<base>SAVE</base>
+-	<trans>Save</trans>
+-    </entry>
+-
+-    <entry>
+ 	<base>ERROR_UPDATING</base>
+ 	<trans>An error occurred while updating the system.</trans>
+     </entry>
