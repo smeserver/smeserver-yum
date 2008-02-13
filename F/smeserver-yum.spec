@@ -1,10 +1,9 @@
 %define _unpackaged_files_terminate_build 0
 
-Summary: YUM, an rpm updater
-%define name smeserver-yum
+Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 49
+%define release 50
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -50,9 +49,10 @@ Patch36: smeserver-yum-1.2.0-removeBaseURLs.patch
 Patch37: smeserver-yum-1.2.0-uptodate.patch
 Patch38: smeserver-yum-1.2.0-check4updates.patch2
 Patch39: smeserver-yum-1.2.0-rmFormTitle2.patch
+Patch40: smeserver-yum-1.2.0-tags2general.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
-Requires: e-smith-formmagick
+Requires: e-smith-formmagick >= 1.4.0-9
 Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpm-python >= 4.0.4-7x.18
 Requires: yum >= 1.0.3-1_73 
@@ -74,6 +74,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Feb 13 2008 Stephen Noble <support@dungog.net> 1.2.0-50
+- Remove <base> tags now in general [SME: 3914]
+
 * Sun Feb 10 2008 Stephen Noble <support@dungog.net> 1.2.0-49
 - Remove duplicate <base> entries [SME: 3889]
 
@@ -845,6 +848,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch37 -p1
 %patch38 -p1
 %patch39 -p1
+%patch40 -p1
 
 %build
 perl createlinks
