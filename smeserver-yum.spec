@@ -2,7 +2,7 @@
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 50
+%define release 51
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -49,6 +49,7 @@ Patch37: smeserver-yum-1.2.0-uptodate.patch
 Patch38: smeserver-yum-1.2.0-check4updates.patch2
 Patch39: smeserver-yum-1.2.0-rmFormTitle2.patch
 Patch40: smeserver-yum-1.2.0-tags2general.patch
+Patch41: smeserver-yum-1.2.0-cleanyum.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-9
@@ -73,6 +74,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Mar 14 2008 Shad L. Lords <slords@mail.com> 1.2.0-51
+- Clean up "rpm -qa" warnings in yum wrapper [SME: 4052]
+
 * Wed Feb 13 2008 Stephen Noble <support@dungog.net> 1.2.0-50
 - Remove <base> tags now in general [SME: 3914]
 
@@ -848,6 +852,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch38 -p1
 %patch39 -p1
 %patch40 -p1
+%patch41 -p1
 
 %build
 perl createlinks
