@@ -1,3 +1,7 @@
+%if "%{?rhel}" == "5"
+%define _unpackaged_files_terminate_build 0 
+%endif
+
 %define name smeserver-yum
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
