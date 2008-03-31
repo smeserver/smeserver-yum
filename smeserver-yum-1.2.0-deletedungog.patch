@@ -1,0 +1,8 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/30DeleteDungog mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/30DeleteDungog
+--- smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/30DeleteDungog	1970-01-01 10:00:00.000000000 +1000
++++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/db/yum_repositories/migrate/30DeleteDungog	2008-04-01 03:47:20.000000000 +1100
+@@ -0,0 +1,4 @@
++{
++    my $repo = $DB->get('dungog');
++    $repo->delete if $repo;
++}
