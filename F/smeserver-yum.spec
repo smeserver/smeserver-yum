@@ -6,7 +6,7 @@
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 51
+%define release 52
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -54,6 +54,7 @@ Patch38: smeserver-yum-1.2.0-check4updates.patch2
 Patch39: smeserver-yum-1.2.0-rmFormTitle2.patch
 Patch40: smeserver-yum-1.2.0-tags2general.patch
 Patch41: smeserver-yum-1.2.0-cleanyum.patch
+Patch42: smeserver-yum-1.2.0-deletedungog.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-9
@@ -78,6 +79,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Jan 09 2008 Stephen Noble <support@dungog.net> 1.2.0-52
+- Delete dungog repository [SME: 4097]
+
 * Fri Mar 14 2008 Shad L. Lords <slords@mail.com> 1.2.0-51
 - Clean up "rpm -qa" warnings in yum wrapper [SME: 4052]
 
@@ -857,6 +861,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch39 -p1
 %patch40 -p1
 %patch41 -p1
+%patch42 -p1
 
 %build
 perl createlinks
