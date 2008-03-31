@@ -6,7 +6,7 @@
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 52
+%define release 53
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -67,10 +67,12 @@ Provides: check4updates
 %if "%{?rhel}" == "5"
 Obsoletes: rpmdb-CentOS
 Obsoletes: yum-plugin-fastestmirror
+Obsoletes: yum-plugin-installonlyn
 Requires: yum-fastestmirror
 %else
 Requires: rpmdb-CentOS
 Requires: yum-plugin-fastestmirror
+Requires: yum-plugin-installonlyn
 %endif
 BuildRequires: e-smith-devtools >= 1.13.1-03
 Conflicts: centos-yumconf
@@ -79,7 +81,10 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Tue Apr 01 2008 Stephen Noble <support@dungog.net> 1.2.0-52
+* Mon Mar 31 2008 Shad L. Lords <slords@mail.com> 1.2.0-53
+- Include installonlyn plugin to manage kernels [SME: 2101]
+
+* Mon Mar 31 2008 Stephen Noble <support@dungog.net> 1.2.0-52
 - Delete dungog repository, reworked [SME: 4097]
 
 * Fri Mar 14 2008 Shad L. Lords <slords@mail.com> 1.2.0-51
