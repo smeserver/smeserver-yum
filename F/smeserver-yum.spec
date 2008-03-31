@@ -79,7 +79,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Wed Jan 09 2008 Stephen Noble <support@dungog.net> 1.2.0-52
+* Tue Apr 01 2008 Stephen Noble <support@dungog.net> 1.2.0-52
 - Delete dungog repository [SME: 4097]
 
 * Fri Mar 14 2008 Shad L. Lords <slords@mail.com> 1.2.0-51
