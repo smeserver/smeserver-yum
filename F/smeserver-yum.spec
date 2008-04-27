@@ -83,7 +83,7 @@ AutoReqProv: no
 
 %changelog
 * Sun Apr 27 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.2.0-54
-- Add common <base> tags to e-smith-formmagick's general
+- Add common <base> tags to e-smith-formmagick's general [SME: 4290]
 
 * Mon Mar 31 2008 Shad L. Lords <slords@mail.com> 1.2.0-53
 - Include installonlyn plugin to manage kernels [SME: 2101]
