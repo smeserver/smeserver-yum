@@ -58,7 +58,7 @@ Patch42: smeserver-yum-1.2.0-deletedungog.patch
 Patch43: smeserver-yum-1.2.0-add2general.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
-Requires: e-smith-formmagick >= 1.4.0-9
+Requires: e-smith-formmagick >= 1.4.0-12
 Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpm-python >= 4.0.4-7x.18
 Requires: yum >= 1.0.3-1_73 
