@@ -58,7 +58,7 @@ Patch42: smeserver-yum-1.2.0-deletedungog.patch
 Patch43: smeserver-yum-1.2.0-add2general.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
-Requires: e-smith-formmagick >= 1.4.0-9
+Requires: e-smith-formmagick >= 1.4.0-12
 Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpm-python >= 4.0.4-7x.18
 Requires: yum >= 1.0.3-1_73 
@@ -83,7 +83,7 @@ AutoReqProv: no
 
 %changelog
 * Sun Apr 27 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.2.0-54
-- Add common <base> tags to e-smith-formmagick's general
+- Add common <base> tags to e-smith-formmagick's general [SME: 4290]
 
 * Mon Mar 31 2008 Shad L. Lords <slords@mail.com> 1.2.0-53
 - Include installonlyn plugin to manage kernels [SME: 2101]
