@@ -46,3 +46,17 @@ diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functi
      </page>
  
  </form>
+--- smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum.add2general3	2008-07-04 23:22:42.000000000 +0200
++++ smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-07-04 23:25:52.000000000 +0200
+@@ -238,11 +238,6 @@
+      </entry>
+ 
+     <entry>
+-	<base>ERROR_UPDATING</base>
+-	<trans>An error occurred while updating the system.</trans>
+-    </entry>
+-
+-    <entry>
+ 	<base>SYSTEM_BEING_RECONFIGURED</base>
+ 	<trans>
+ 		Your system is being automatically rebooted to 
