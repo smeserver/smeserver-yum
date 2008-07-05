@@ -82,7 +82,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Fri Jul 4 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.2.0-55
+* Sat Jul 5 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.2.0-55
 - Add common <base> tags to e-smith-formmagick's general [SME: 4279]
 
 * Sun Apr 27 2008 Jonathan Martens 
