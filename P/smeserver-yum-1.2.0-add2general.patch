@@ -46,3 +46,28 @@ diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/web/functi
      </page>
  
  </form>
+--- smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum.add2general3	2008-07-04 23:22:42.000000000 +0200
++++ smeserver-yum-1.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-07-04 23:25:52.000000000 +0200
+@@ -238,11 +238,6 @@
+      </entry>
+ 
+     <entry>
+-	<base>ERROR_UPDATING</base>
+-	<trans>An error occurred while updating the system.</trans>
+-    </entry>
+-
+-    <entry>
+ 	<base>SYSTEM_BEING_RECONFIGURED</base>
+ 	<trans>
+ 		Your system is being automatically rebooted to 
+--- smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.add2general4	2008-07-05 18:29:50.000000000 +0200
++++ smeserver-yum-1.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2008-07-05 18:29:50.000000000 +0200
+@@ -214,7 +214,7 @@
+ 
+     unless ( system( "/sbin/e-smith/signal-event", "yum-modify" ) == 0 )
+     {
+-	$fm->error('ERROR_UPDATING');
++	$fm->error('ERROR_UPDATING_CONFIGURATION');
+ 	return undef;
+     }
+ 

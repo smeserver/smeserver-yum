@@ -6,7 +6,7 @@
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 54
+%define release 55
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -82,6 +82,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sat Jul 5 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.2.0-55
+- Add common <base> tags to e-smith-formmagick's general [SME: 4279]
+
 * Sun Apr 27 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.2.0-54
 - Add common <base> tags to e-smith-formmagick's general [SME: 4290]
 
