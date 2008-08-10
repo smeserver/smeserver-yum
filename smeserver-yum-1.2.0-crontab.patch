@@ -1,0 +1,18 @@
+diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/createlinks mezzanine_patched_smeserver-yum-1.2.0/createlinks
+--- smeserver-yum-1.2.0/createlinks	2008-08-10 09:32:49.000000000 -0600
++++ mezzanine_patched_smeserver-yum-1.2.0/createlinks	2008-08-10 09:32:27.000000000 -0600
+@@ -4,11 +4,13 @@
+ use File::Basename;
+ use File::Path;
+ 
+-foreach my $file (qw(/etc/crontab /etc/yum.conf))
++foreach my $file (qw(/etc/yum.conf))
+ {
+     templates2events($file, qw(yum-modify bootstrap-console-save));
+ }
+ 
++templates2events("/etc/crontab", "yum-modify");
++
+ for ( qw(install remove update) )
+ {
+     event_link("yum-action", "yum-$_", "20");
