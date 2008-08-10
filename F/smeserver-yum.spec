@@ -6,7 +6,7 @@
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 55
+%define release 56
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -56,9 +56,11 @@ Patch40: smeserver-yum-1.2.0-tags2general.patch
 Patch41: smeserver-yum-1.2.0-cleanyum.patch
 Patch42: smeserver-yum-1.2.0-deletedungog.patch
 Patch43: smeserver-yum-1.2.0-add2general.patch
+Patch44: smeserver-yum-1.2.0-crontab.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
+Requires: e-smith-base
 Requires: perl(CGI::FormMagick) >= 0.91-26
 Requires: rpm-python >= 4.0.4-7x.18
 Requires: yum >= 1.0.3-1_73 
@@ -82,6 +84,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sun Aug 10 2008 Shad L. Lords <slords@mail.com> 1.2.0-56
+- Remove links to crontab in bootstrap-console-save [SME: 4494]
+
 * Sat Jul 5 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.2.0-55
 - Add common <base> tags to e-smith-formmagick's general [SME: 4279]
 
@@ -875,6 +880,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch41 -p1
 %patch42 -p1
 %patch43 -p1
+%patch44 -p1
 
 %build
 perl createlinks
