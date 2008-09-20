@@ -6,7 +6,7 @@
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 56
+%define release 57
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -57,6 +57,7 @@ Patch41: smeserver-yum-1.2.0-cleanyum.patch
 Patch42: smeserver-yum-1.2.0-deletedungog.patch
 Patch43: smeserver-yum-1.2.0-add2general.patch
 Patch44: smeserver-yum-1.2.0-crontab.patch
+Patch45: smeserver-yum-1.2.0-smeextras.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -84,6 +85,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Sep 19 2008 Shad L. Lords <slords@mail.com> 1.2.0-57
+- Add smeextras repo database and information [SME: 4585]
+
 * Sun Aug 10 2008 Shad L. Lords <slords@mail.com> 1.2.0-56
 - Remove links to crontab in bootstrap-console-save [SME: 4494]
 
@@ -881,6 +885,7 @@ rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
 %patch42 -p1
 %patch43 -p1
 %patch44 -p1
+%patch45 -p1
 
 %build
 perl createlinks
@@ -895,7 +900,7 @@ mkdir -p root/var/log/yum
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 
 mkdir -p root/etc/yum.repos.d/
-for repo in smeaddons smedev smeos smetest smeupdates smeupdates-testing smecontribs
+for repo in smeaddons smecontribs smedev smeextras smeos smetest smeupdates smeupdates-testing
 do
     cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
 http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/7/$repo/\$basearch
