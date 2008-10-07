@@ -6,7 +6,7 @@
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 1.2.0
-%define release 57
+%define release 58
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -85,6 +85,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 1.2.0-58
+- Fix mirrorlist for sme8 [SME: 4508]
+
 * Fri Sep 19 2008 Shad L. Lords <slords@mail.com> 1.2.0-57
 - Add smeextras repo database and information [SME: 4585]
 
@@ -899,16 +902,23 @@ mkdir -p root/var/log/yum
 
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 
+%if "%{?rhel}" == "5"
+# TODO: Remove testing when released
+ver=testing/8
+%else
+ver=7
+%endif
+
 mkdir -p root/etc/yum.repos.d/
 for repo in smeaddons smecontribs smedev smeextras smeos smetest smeupdates smeupdates-testing
 do
     cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
-http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/7/$repo/\$basearch
-http://sme-mirror.voxteneo.com/releases/7/$repo/\$basearch
-http://smemirror.fullnet.co.uk/releases/7/$repo/\$basearch
-http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
-http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/7/$repo/\$basearch
-http://mirror.pacific.net.au/linux/smeserver/releases/7/$repo/\$basearch
+http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/$ver/$repo/\$basearch
+http://sme-mirror.voxteneo.com/releases/$ver/$repo/\$basearch
+http://smemirror.fullnet.co.uk/releases/$ver/$repo/\$basearch
+http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/$ver/$repo/\$basearch
+http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/$ver/$repo/\$basearch
+http://mirror.pacific.net.au/linux/smeserver/releases/$ver/$repo/\$basearch
 END_OF_HERE
 
 done
