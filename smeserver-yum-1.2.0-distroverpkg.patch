@@ -1,5 +1,0 @@
-diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_distroverpkg mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_distroverpkg
---- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_distroverpkg	1970-01-01 10:00:00.000000000 +1000
-+++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_distroverpkg	2006-11-14 13:28:26.434024998 +1100
-@@ -0,0 +1 @@
-+distroverpkg=centos-release

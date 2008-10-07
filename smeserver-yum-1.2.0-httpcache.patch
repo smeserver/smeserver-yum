@@ -1,5 +1,0 @@
-diff -Nur -x '*.orig' -x '*.rej' smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_httpcache mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_httpcache
---- smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_httpcache	1969-12-31 17:00:00.000000000 -0700
-+++ mezzanine_patched_smeserver-yum-1.2.0/root/etc/e-smith/templates/etc/yum.conf/10main_httpcache	2007-01-03 12:54:01.000000000 -0700
-@@ -0,0 +1 @@
-+http_caching=packages

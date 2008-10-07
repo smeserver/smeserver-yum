@@ -1,63 +1,15 @@
-%if "%{?rhel}" == "5"
-%define _unpackaged_files_terminate_build 0 
-%endif
+# $Id: smeserver-yum.spec,v 1.25 2008/10/07 14:47:51 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
-%define version 1.2.0
-%define release 58
+%define version 2.2.0
+%define release 1
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
-Patch0: smeserver-yum-1.2.0-DisplayStatus.patch
-Patch1: smeserver-yum-1.2.0-ModifyUpdateDBs.patch
-Patch2: smeserver-yum-1.2.0-DisplayStatus.patch2
-Patch3: smeserver-yum-1.2.0-quoting.patch
-Patch4: smeserver-yum-1.2.0-reposdir.patch
-Patch5: smeserver-yum-1.2.0-MirrorList.patch
-Patch6: smeserver-yum-1.2.0-MirrorList.patch2
-Patch7: smeserver-yum-1.2.0-distroverpkg.patch 
-Patch8: smeserver-yum-1.2.0-yumplugin.patch
-Patch9: smeserver-yum-1.2.0-yumplugin.patch2
-Patch10: smeserver-yum-1.2.0-yumplugin.patch3
-Patch11: smeserver-yum-1.2.0-mirrorlists.patch 
-Patch12: smeserver-yum-1.2.0-reconfigurepage.patch
-Patch13: smeserver-yum-1.2.0-reconfigurepage.patch2
-Patch14: smeserver-yum-1.2.0-wording.patch
-Patch15: smeserver-yum-1.2.0-centosrepos.patch
-Patch16: smeserver-yum-1.2.0-Refresh10.patch
-Patch17: smeserver-yum-1.2.0-SMEMirrorLists.patch
-Patch18: smeserver-yum-1.2.0-SMEMirrorLists.patch2
-Patch19: smeserver-yum-1.2.0-includepkgs.patch
-Patch20: smeserver-yum-1.2.0-includepkgs.patch2
-Patch21: smeserver-yum-1.2.0-Notestingrepo.patch
-Patch22: smeserver-yum-1.2.0-httpcache.patch
-Patch23: smeserver-yum-1.2.0-dupkeys.patch
-Patch24: smeserver-yum-1.2.0-runit17.patch
-Patch25: smeserver-yum-1.2.0-epel_key.patch
-Patch26: smeserver-yum-1.2.0-restrictAvailable.patch
-Patch27: smeserver-yum-1.2.0-restrictAvailable.patch2
-Patch28: smeserver-yum-1.2.0-gpgkeys.patch
-Patch29: smeserver-yum-1.2.0-FixUninitializedValue.patch
-Patch30: smeserver-yum-1.2.0-FixEnableGroups.patch
-Patch31: smeserver-yum-1.2.0-smecontribs.patch
-Patch32: smeserver-yum-1.2.0-importkeys-update.patch
-Patch33: smeserver-yum-1.2.0-check4updates.patch
-Patch34: smeserver-yum-1.2.0-yumlocal.patch 
-Patch35: smeserver-yum-1.2.0-removeSMEBaseURLs.patch
-Patch36: smeserver-yum-1.2.0-removeBaseURLs.patch
-Patch37: smeserver-yum-1.2.0-uptodate.patch
-Patch38: smeserver-yum-1.2.0-check4updates.patch2
-Patch39: smeserver-yum-1.2.0-rmFormTitle2.patch
-Patch40: smeserver-yum-1.2.0-tags2general.patch
-Patch41: smeserver-yum-1.2.0-cleanyum.patch
-Patch42: smeserver-yum-1.2.0-deletedungog.patch
-Patch43: smeserver-yum-1.2.0-add2general.patch
-Patch44: smeserver-yum-1.2.0-crontab.patch
-Patch45: smeserver-yum-1.2.0-smeextras.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -68,16 +20,10 @@ Requires: yum >= 1.0.3-1_73
 Provides: yumconf
 Obsoletes: check4updates
 Provides: check4updates
-%if "%{?rhel}" == "5"
 Obsoletes: rpmdb-CentOS
 Obsoletes: yum-plugin-fastestmirror
 Obsoletes: yum-plugin-installonlyn
 Requires: yum-fastestmirror
-%else
-Requires: rpmdb-CentOS
-Requires: yum-plugin-fastestmirror
-Requires: yum-plugin-installonlyn
-%endif
 BuildRequires: e-smith-devtools >= 1.13.1-03
 Conflicts: centos-yumconf
 AutoReqProv: no
@@ -85,6 +31,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.2.0-1.sme
+- Roll new stream to separate sme7/sme8 trees [SME: 4633]
+
 * Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 1.2.0-58
 - Fix mirrorlist for sme8 [SME: 4508]
 
@@ -842,53 +791,6 @@ AutoReqProv: no
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-rm root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch32 -p1
-%patch33 -p1
-%patch34 -p1
-%patch35 -p1
-%patch36 -p1
-%patch37 -p1
-%patch38 -p1
-%patch39 -p1
-%patch40 -p1
-%patch41 -p1
-%patch42 -p1
-%patch43 -p1
-%patch44 -p1
-%patch45 -p1
 
 %build
 perl createlinks
@@ -902,12 +804,8 @@ mkdir -p root/var/log/yum
 
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 
-%if "%{?rhel}" == "5"
 # TODO: Remove testing when released
 ver=testing/8
-%else
-ver=7
-%endif
 
 mkdir -p root/etc/yum.repos.d/
 for repo in smeaddons smecontribs smedev smeextras smeos smetest smeupdates smeupdates-testing
