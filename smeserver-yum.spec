@@ -1,4 +1,4 @@
-# $Id: smeserver-yum.spec,v 1.28 2008/10/13 14:58:50 slords Exp $
+# $Id: smeserver-yum.spec,v 1.29 2008/10/13 19:43:06 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
@@ -32,7 +32,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Mon Oct 13 2008 Shad L. Lords <slords@mail.com> 2.2.0-3.sme
+* Mon Oct 13 2008 Shad L. Lords <slords@mail.com> 2.0.0-3.sme
 - Move repos to repodir to fix yum bug [SME: 3676]
 
 * Sun Oct 12 2008 Shad L. Lords <slords@mail.com> 2.0.0-2.sme
