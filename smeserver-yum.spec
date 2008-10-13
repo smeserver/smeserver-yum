@@ -1,7 +1,7 @@
-# $Id: smeserver-yum.spec,v 1.26 2008/10/13 01:13:20 slords Exp $
+# $Id: smeserver-yum.spec,v 1.27 2008/10/13 03:12:24 dungog Exp $
 
 %define name smeserver-yum
-Summary: YUM, an rpm updaterdefine name smeserver-yum
+Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
 %define release 2
