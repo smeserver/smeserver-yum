@@ -1,0 +1,138 @@
+diff -ruN smeserver-yum-2.0.0.repodir/createlinks smeserver-yum-2.0.0/createlinks
+--- smeserver-yum-2.0.0.repodir/createlinks	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/createlinks	2008-10-13 08:21:19.000000000 -0600
+@@ -4,7 +4,7 @@
+ use File::Basename;
+ use File::Path;
+ 
+-foreach my $file (qw(/etc/yum.conf))
++foreach my $file (qw(/etc/yum.conf /etc/yum.smerepos.d/sme-base.repo))
+ {
+     templates2events($file, qw(yum-modify bootstrap-console-save));
+ }
+diff -ruN smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.conf/10main_installonlypkgs smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.conf/10main_installonlypkgs
+--- smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.conf/10main_installonlypkgs	2005-05-27 04:34:42.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.conf/10main_installonlypkgs	2008-10-13 08:27:10.000000000 -0600
+@@ -1 +1 @@
+-installonlypkgs=kernel kernel-smp kernel-hugemem kernel-enterprise kernel-debug kernel-unsupported kernel-smp-unsupported kernel-hugemem-unsupported
++installonlypkgs=kernel kernel-hugemem kernel-largesmp kernel-smp kernel-xenU
+diff -ruN smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.conf/10main_reposdir smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.conf/10main_reposdir
+--- smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.conf/10main_reposdir	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.conf/10main_reposdir	2008-10-13 08:22:31.000000000 -0600
+@@ -1 +1 @@
+-reposdir=
++reposdir=/etc/yum.smerepos.d
+diff -ruN smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.conf/20repositories smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.conf/20repositories
+--- smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.conf/20repositories	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.conf/20repositories	1969-12-31 17:00:00.000000000 -0700
+@@ -1,53 +0,0 @@
+-{
+-    my $ydb = esmith::ConfigDB->open_ro('yum_repositories') 
+-	or die "Couldn't open yum_repositories";
+-
+-    $OUT = "\n";
+-
+-    for my $repos ( $ydb->get_all_by_prop('type' => 'repository') )
+-    {
+-	my %props = ($DB->get('yum')->props(), $repos->props());
+-
+-	$OUT .= "[" . $repos->key . "]\n";
+-
+-        $OUT .= "enabled=" . (($repos->prop('status') eq 'enabled') ? 1 : 0)
+-			 . "\n";
+-
+-	if ( exists $props{MirrorList} )
+-        {
+-            $OUT .= 'mirrorlist=' . $props{MirrorList} . "\n";
+-        }
+-        else
+-        {
+-	    $OUT .= 'baseurl=' . $props{BaseURL} . "\n";
+-        }
+-
+-	for my $prop (qw(Name))
+-	{
+-	    $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
+-	}
+-
+-	for my $prop (qw(GPGCheck EnableGroups))
+-	{
+-	    $OUT .= lc($prop) . '=' . ($props{$prop} eq "yes" ? 1 : 0) . "\n";
+-	}
+-
+-	if (exists $props{Exclude})
+-	{
+-	    $OUT .= "exclude=" . join(' ', split(/,/, $props{Exclude})) . "\n";
+-	}	
+-
+-        if (exists $props{IncludePkgs})
+-        {
+-            $OUT .= "includepkgs=" . join(' ', split(/,/, $props{IncludePkgs})) . "\n";
+-        }
+-
+-	if (exists $props{GPGKey})
+-	{
+-	    $OUT .= "gpgkey" . '=' . $props{GPGKey} . "\n";
+-	} 
+-
+-
+-	$OUT .= "\n";
+-    }
+-}
+diff -ruN smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.smerepos.d/sme-base.repo/20repositories smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.smerepos.d/sme-base.repo/20repositories
+--- smeserver-yum-2.0.0.repodir/root/etc/e-smith/templates/etc/yum.smerepos.d/sme-base.repo/20repositories	1969-12-31 17:00:00.000000000 -0700
++++ smeserver-yum-2.0.0/root/etc/e-smith/templates/etc/yum.smerepos.d/sme-base.repo/20repositories	2008-10-07 08:21:29.000000000 -0600
+@@ -0,0 +1,53 @@
++{
++    my $ydb = esmith::ConfigDB->open_ro('yum_repositories') 
++	or die "Couldn't open yum_repositories";
++
++    $OUT = "\n";
++
++    for my $repos ( $ydb->get_all_by_prop('type' => 'repository') )
++    {
++	my %props = ($DB->get('yum')->props(), $repos->props());
++
++	$OUT .= "[" . $repos->key . "]\n";
++
++        $OUT .= "enabled=" . (($repos->prop('status') eq 'enabled') ? 1 : 0)
++			 . "\n";
++
++	if ( exists $props{MirrorList} )
++        {
++            $OUT .= 'mirrorlist=' . $props{MirrorList} . "\n";
++        }
++        else
++        {
++	    $OUT .= 'baseurl=' . $props{BaseURL} . "\n";
++        }
++
++	for my $prop (qw(Name))
++	{
++	    $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
++	}
++
++	for my $prop (qw(GPGCheck EnableGroups))
++	{
++	    $OUT .= lc($prop) . '=' . ($props{$prop} eq "yes" ? 1 : 0) . "\n";
++	}
++
++	if (exists $props{Exclude})
++	{
++	    $OUT .= "exclude=" . join(' ', split(/,/, $props{Exclude})) . "\n";
++	}	
++
++        if (exists $props{IncludePkgs})
++        {
++            $OUT .= "includepkgs=" . join(' ', split(/,/, $props{IncludePkgs})) . "\n";
++        }
++
++	if (exists $props{GPGKey})
++	{
++	    $OUT .= "gpgkey" . '=' . $props{GPGKey} . "\n";
++	} 
++
++
++	$OUT .= "\n";
++    }
++}

@@ -1,16 +1,17 @@
-# $Id: smeserver-yum.spec,v 1.27 2008/10/13 03:13:32 dungog Exp $
+# $Id: smeserver-yum.spec,v 1.28 2008/10/13 14:58:50 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.0.0
-%define release 2
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
 Patch1: smeserver-yum-2.0.0-extras.patch
+Patch2: smeserver-yum-2.0.0-repodir.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -31,6 +32,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon Oct 13 2008 Shad L. Lords <slords@mail.com> 2.2.0-3.sme
+- Move repos to repodir to fix yum bug [SME: 3676]
+
 * Sun Oct 12 2008 Shad L. Lords <slords@mail.com> 2.0.0-2.sme
 - Fix name for smeextras [SME: 4585]
 
@@ -792,6 +796,7 @@ AutoReqProv: no
 %prep
 %setup
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
@@ -807,7 +812,7 @@ mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 
 ver=7
 
-mkdir -p root/etc/yum.repos.d/
+mkdir -p root/etc/yum.repos.d/ root/etc/yum.smerepos.d/
 for repo in smeaddons smecontribs smedev smeextras smeos smetest smeupdates smeupdates-testing
 do
     cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
