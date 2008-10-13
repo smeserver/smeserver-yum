@@ -1,0 +1,5 @@
+--- smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeextras/Name.extras	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeextras/Name	2008-10-12 19:10:29.000000000 -0600
+@@ -1 +1 @@
+-SME Server - updates
++SME Server - extras

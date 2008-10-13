@@ -1,15 +1,16 @@
-# $Id: smeserver-yum.spec,v 1.25 2008/10/07 14:47:51 slords Exp $
+# $Id: smeserver-yum.spec,v 1.26 2008/10/13 01:13:20 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updaterdefine name smeserver-yum
 Name: %{name}
 %define version 2.2.0
-%define release 1
+%define release 2
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
+Patch1: smeserver-yum-2.2.0-extras.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -31,6 +32,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sun Oct 12 2008 Shad L. Lords <slords@mail.com> 2.2.0-2.sme
+- Fix name for smeextras [SME: 4585]
+
 * Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.2.0-1.sme
 - Roll new stream to separate sme7/sme8 trees [SME: 4633]
 
@@ -791,6 +795,7 @@ AutoReqProv: no
 
 %prep
 %setup
+%patch1 -p1
 
 %build
 perl createlinks
