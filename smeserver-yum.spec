@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.29 2008/10/13 19:43:06 slords Exp $
+# $Id: smeserver-yum.spec,v 1.30 2008/10/28 22:51:59 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.0.0
-%define release 3
+%define release 4
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -12,6 +12,7 @@ Group: SMEServer/addon
 Source: %{name}-%{version}.tar.gz
 Patch1: smeserver-yum-2.0.0-extras.patch
 Patch2: smeserver-yum-2.0.0-repodir.patch
+Patch3: smeserver-yum-2.0.0-buffer.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -32,6 +33,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Tue Oct 28 2008 Shad L. Lords <slords@mail.com> 2.0.0-4.sme
+- Make yum update unbuffered for web interface [SME: 4726]
+
 * Mon Oct 13 2008 Shad L. Lords <slords@mail.com> 2.0.0-3.sme
 - Move repos to repodir to fix yum bug [SME: 3676]
 
@@ -797,6 +801,7 @@ AutoReqProv: no
 %setup
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
