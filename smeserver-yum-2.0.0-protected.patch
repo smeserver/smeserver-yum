@@ -1,0 +1,19 @@
+--- smeserver-yum-2.2.0/root/etc/e-smith/templates/etc/sysconfig/protected-packages/template-begin.protected	2008-11-24 09:06:30.000000000 -0700
++++ smeserver-yum-2.2.0/root/etc/e-smith/templates/etc/sysconfig/protected-packages/template-begin	2008-11-24 09:06:30.000000000 -0700
+@@ -0,0 +1,4 @@
++{
++    $pkgs = $yum{Protected} || 'e-smith-base,smeserver-support';
++    $OUT = join "\n", split /[,;]/, $pkgs;
++}
+--- smeserver-yum-2.2.0/createlinks.protected	2008-11-24 09:02:03.000000000 -0700
++++ smeserver-yum-2.2.0/createlinks	2008-11-24 09:07:31.000000000 -0700
+@@ -4,7 +4,8 @@
+ use File::Basename;
+ use File::Path;
+ 
+-foreach my $file (qw(/etc/yum.conf /etc/yum.smerepos.d/sme-base.repo))
++foreach my $file (qw(/etc/yum.conf /etc/sysconfig/protected-packages
++                     /etc/yum.smerepos.d/sme-base.repo))
+ {
+     templates2events($file, qw(yum-modify bootstrap-console-save));
+ }
