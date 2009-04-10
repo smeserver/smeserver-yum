@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.30 2008/11/24 16:16:18 slords Exp $
+# $Id: smeserver-yum.spec,v 1.31 2009/04/10 14:46:31 snetram Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 5
+%define release 6
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -29,6 +29,7 @@ Obsoletes: rpmdb-CentOS
 Obsoletes: yum-plugin-fastestmirror
 Obsoletes: yum-plugin-installonlyn
 Requires: yum-fastestmirror
+Requries: mailx
 BuildRequires: e-smith-devtools >= 1.13.1-03
 Conflicts: centos-yumconf
 AutoReqProv: no
@@ -36,6 +37,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Fri Apr 10 2009 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-6.sme
+- Require mailx [SME: 5131]
+
 * Mon Nov 24 2008 Shad L. Lords <slords@mail.com> 2.2.0-5.sme
 - Add yum-protect-packages support to prevent removal of 
   needed pacakges [SME: 3133]
