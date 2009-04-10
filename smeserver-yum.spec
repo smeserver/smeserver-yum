@@ -1,4 +1,4 @@
-# $Id: smeserver-yum.spec,v 1.31 2009/04/10 14:46:31 snetram Exp $
+# $Id: smeserver-yum.spec,v 1.32 2009/04/10 14:48:51 snetram Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
@@ -29,7 +29,7 @@ Obsoletes: rpmdb-CentOS
 Obsoletes: yum-plugin-fastestmirror
 Obsoletes: yum-plugin-installonlyn
 Requires: yum-fastestmirror
-Requries: mailx
+Requires: mailx
 BuildRequires: e-smith-devtools >= 1.13.1-03
 Conflicts: centos-yumconf
 AutoReqProv: no
