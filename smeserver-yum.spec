@@ -1,4 +1,4 @@
-# $Id: smeserver-yum.spec,v 1.33 2009/05/18 14:16:47 slords Exp $
+# $Id: smeserver-yum.spec,v 1.34 2009/05/18 14:26:18 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
@@ -14,7 +14,7 @@ Patch1: smeserver-yum-2.2.0-extras.patch
 Patch2: smeserver-yum-2.2.0-repodir.patch
 Patch3: smeserver-yum-2.2.0-buffer.patch
 Patch4: smeserver-yum-2.2.0-protected.patch
-Patch5: smeserver-yum-2.0.0-mirrorlist.patch
+Patch5: smeserver-yum-2.2.0-mirrorlist.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
