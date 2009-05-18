@@ -1,0 +1,62 @@
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeaddons/MirrorList	2009-05-18 07:56:38.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smeaddons
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smeaddons-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smecontribs/MirrorList	2009-05-18 07:56:45.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smecontribs
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smecontribs-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smedev/MirrorList	2009-05-18 07:56:51.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smedev
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smedev-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeextras/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeextras/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeextras/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeextras/MirrorList	2009-05-18 07:56:57.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smeextras
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smeextras-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeos/MirrorList	2009-05-18 07:57:04.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smeos
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smeos-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smetest/MirrorList	2009-05-18 07:57:10.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smetest
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smetest-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates/MirrorList	2009-05-18 07:57:15.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smeupdates
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smeupdates-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/MirrorList	2009-05-18 07:57:21.000000000 -0600
+@@ -1 +1 @@
+-file:///etc/yum.repos.d/mirrors-smeupdates-testing
++http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/smeupdates-testing-7
+diff -ruN smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList
+--- smeserver-yum-2.0.0.old/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList	1969-12-31 17:00:00.000000000 -0700
++++ smeserver-yum-2.0.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList	2009-05-18 08:05:05.000000000 -0600
+@@ -0,0 +1,10 @@
++{
++    for my $name ( qw(smeaddons smecontribs smedev smeextras smeos smetest 
++                      smeupdates smeupdates-testing) )
++    {
++	my $repo = $DB->get($name) or next;
++
++        $repo->set_prop('MirrorList', "http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/$name-7")
++            if $repo->prop('MirrorList') =~ m{^file:///etc/yum.repos.d/mirrors-sme};
++    }
++}
