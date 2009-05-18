@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.32 2009/04/10 14:48:51 snetram Exp $
+# $Id: smeserver-yum.spec,v 1.33 2009/05/18 14:16:47 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 6
+%define release 7
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -14,6 +14,7 @@ Patch1: smeserver-yum-2.2.0-extras.patch
 Patch2: smeserver-yum-2.2.0-repodir.patch
 Patch3: smeserver-yum-2.2.0-buffer.patch
 Patch4: smeserver-yum-2.2.0-protected.patch
+Patch5: smeserver-yum-2.0.0-mirrorlist.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -37,6 +38,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon May 18 2009 Shad L. Lords <slords@mail.com> 2.2.0-7.sme
+- Change SME mirrorlists to point to ibiblio [SME: 5242]
+
 * Fri Apr 10 2009 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-6.sme
 - Require mailx [SME: 5131]
 
@@ -817,6 +821,7 @@ AutoReqProv: no
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks
@@ -829,23 +834,6 @@ mkdir -p root/var/service/yum/log/supervise
 mkdir -p root/var/log/yum
 
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
-
-# TODO: Remove testing when released
-ver=testing/8
-
-mkdir -p root/etc/yum.repos.d/ root/etc/yum.smerepos.d/
-for repo in smeaddons smecontribs smedev smeextras smeos smetest smeupdates smeupdates-testing
-do
-    cat > root/etc/yum.repos.d/mirrors-$repo <<END_OF_HERE
-http://distro.ibiblio.org/pub/linux/distributions/smeserver/releases/$ver/$repo/\$basearch
-http://sme-mirror.voxteneo.com/releases/$ver/$repo/\$basearch
-http://smemirror.fullnet.co.uk/releases/$ver/$repo/\$basearch
-http://ftp.nluug.nl/os/Linux/distr/smeserver/releases/$ver/$repo/\$basearch
-http://ftp.surfnet.nl/ftp/pub/os/Linux/distr/smeserver/releases/$ver/$repo/\$basearch
-http://mirror.pacific.net.au/linux/smeserver/releases/$ver/$repo/\$basearch
-END_OF_HERE
-
-done
 
 %install
 /bin/rm -rf $RPM_BUILD_ROOT
