@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.33 2009/05/18 14:16:47 slords Exp $
+# $Id: smeserver-yum.spec,v 1.34 2009/05/30 18:05:01 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.0.0
-%define release 7
+%define release 8
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -37,6 +37,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sat May 30 2009 Shad L. Lords <slords@mail.com> 2.0.0-8.sme
+- Add /etc/yum.smerepos.d to package [SME: 5306]
+
 * Mon May 18 2009 Shad L. Lords <slords@mail.com> 2.0.0-7.sme
 - Change SME mirrorlists to point to ibiblio [SME: 5242]
 
@@ -829,6 +832,7 @@ mkdir -p root/var/service/yum/supervise
 touch root/var/service/yum/down
 mkdir -p root/var/service/yum/log/supervise
 mkdir -p root/var/log/yum
+mkdir -p root/etc/yum.smerepos.d
 
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
 
