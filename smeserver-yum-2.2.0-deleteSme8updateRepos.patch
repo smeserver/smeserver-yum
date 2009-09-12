@@ -1,0 +1,10 @@
+diff -urN smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/30DeleteSme8update smeserver-yum-2.2.0.new/root/etc/e-smith/db/yum_repositories/migrate/30DeleteSme8update
+--- smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/30DeleteSme8update	1970-01-01 10:00:00.000000000 +1000
++++ smeserver-yum-2.2.0.new/root/etc/e-smith/db/yum_repositories/migrate/30DeleteSme8update	2009-09-12 18:46:32.000000000 +1000
+@@ -0,0 +1,6 @@
++{
++    my $repo = $DB->get('sme8os');
++    $repo->delete if $repo;
++    $repo = $DB->get('sme8updates');
++    $repo->delete if $repo;
++}
