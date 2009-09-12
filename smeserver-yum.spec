@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.35 2009/05/30 18:05:01 slords Exp $
+# $Id: smeserver-yum.spec,v 1.36 2009/09/12 08:28:02 dungog Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 8
+%define release 9
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -15,6 +15,7 @@ Patch2: smeserver-yum-2.2.0-repodir.patch
 Patch3: smeserver-yum-2.2.0-buffer.patch
 Patch4: smeserver-yum-2.2.0-protected.patch
 Patch5: smeserver-yum-2.2.0-mirrorlist.patch
+Patch6: smeserver-yum-2.2.0-updatetoggle.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -38,6 +39,10 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sat Sep 12 2009 Stephen Noble <support@dungog.net> 2.2.0-9.sme
+- Add frequency of updates toggle [SME: 3764]
+- remove stray files and directories
+
 * Sat May 30 2009 Shad L. Lords <slords@mail.com> 2.2.0-8.sme
 - Add /etc/yum.smerepos.d to package [SME: 5305]
 
@@ -825,6 +830,7 @@ AutoReqProv: no
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 perl createlinks
