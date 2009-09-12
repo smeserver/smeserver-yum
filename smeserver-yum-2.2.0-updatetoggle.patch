@@ -1,0 +1,312 @@
+diff -urN smeserver-yum-2.2.0/root/etc/e-smith/db/configuration/migrate/yumCheck4updates smeserver-yum-2.2.0.new/root/etc/e-smith/db/configuration/migrate/yumCheck4updates
+--- smeserver-yum-2.2.0/root/etc/e-smith/db/configuration/migrate/yumCheck4updates	1970-01-01 10:00:00.000000000 +1000
++++ smeserver-yum-2.2.0.new/root/etc/e-smith/db/configuration/migrate/yumCheck4updates	2009-09-12 18:01:37.000000000 +1000
+@@ -0,0 +1,12 @@
++{
++   my $yum = $DB->get("yum");
++   return if ($yum->prop('check4updates'));
++   if ($yum->prop('status') eq 'disabled')
++   {
++      $yum->set_prop('check4updates', 'disabled');
++   }
++   else
++   {
++      $yum->set_prop('check4updates', 'daily');
++   }
++}
+diff -urN smeserver-yum-2.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum smeserver-yum-2.2.0.new/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
+--- smeserver-yum-2.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-10-08 01:25:45.000000000 +1100
++++ smeserver-yum-2.2.0.new/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2009-09-12 18:04:01.000000000 +1000
+@@ -13,7 +13,7 @@
+ 
+     <entry>
+         <base>LABEL_YUM_STATUS</base>
+-        <trans>Check for updates daily</trans>
++        <trans>Check for updates</trans>
+     </entry>
+ 
+     <entry>
+@@ -245,4 +245,19 @@
+ 	</trans>
+     </entry>
+ 
++    <entry>
++      <base>1DAILY</base>
++      <trans>Daily</trans>
++    </entry>
++
++    <entry>
++      <base>2WEEKLY</base>
++      <trans>Weekly</trans>
++    </entry>
++
++    <entry>
++      <base>3MONTHLY</base>
++      <trans>Monthly</trans>
++    </entry>
++ 
+ </lexicon>
+diff -urN smeserver-yum-2.2.0/root/etc/e-smith/web/functions/yum smeserver-yum-2.2.0.new/root/etc/e-smith/web/functions/yum
+--- smeserver-yum-2.2.0/root/etc/e-smith/web/functions/yum	2008-10-08 01:25:45.000000000 +1100
++++ smeserver-yum-2.2.0.new/root/etc/e-smith/web/functions/yum	2009-09-12 18:06:39.000000000 +1000
+@@ -221,9 +221,9 @@
+ 
+ 	<field
+             type="select"
+-            id="yum_status"
+-	    options="'disabled' => 'DISABLED', 'enabled' => 'ENABLED'"
+-            value="get_status('status')">
++            id="yum_check4updates"
++	    options="'disabled' => 'DISABLED', 'daily' => '1DAILY', 'weekly' => '2WEEKLY', 'monthly' => '3MONTHLY'"
++            value="get_status('check4updates')">
+             <label>LABEL_YUM_STATUS</label>
+         </field>
+ 
+diff -urN smeserver-yum-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm smeserver-yum-2.2.0.new/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+--- smeserver-yum-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2008-10-08 01:25:45.000000000 +1100
++++ smeserver-yum-2.2.0.new/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm	2009-09-12 18:14:24.000000000 +1000
+@@ -193,13 +193,20 @@
+     my $q = $fm->{'cgi'};
+ 
+     for my $param ( qw(
+-			status 
+ 			PackageFunctions
+             	) )
+     {
+ 	$db->set_prop('yum', $param, $q->param("yum_$param"));
+     }
+ 
++    my $check4updates = $q->param("yum_check4updates");
++    my $status = 'disabled';
++
++    if ($check4updates ne 'disabled') { $status = 'enabled'; }
++
++    $db->set_prop('yum', 'check4updates', $check4updates);
++    $db->set_prop('yum', 'status', $status);
++
+     my %selected = map {$_ => 1} $q->param('SelectedRepositories');
+ 
+     foreach my $repos (
+diff -urN smeserver-yum-2.2.0/smeserver-yum-1.1.2-26-filelist smeserver-yum-2.2.0.new/smeserver-yum-1.1.2-26-filelist
+--- smeserver-yum-2.2.0/smeserver-yum-1.1.2-26-filelist	2006-03-16 17:22:22.000000000 +1100
++++ smeserver-yum-2.2.0.new/smeserver-yum-1.1.2-26-filelist	1970-01-01 10:00:00.000000000 +1000
+@@ -1,219 +0,0 @@
+-%dir %attr(0755,root,root) /service
+-%dir %attr(0755,root,root) /service/yum
+-%dir %attr(0755,root,root) /usr/lib/perl5/site_perl/esmith
+-%dir %attr(0755,root,root) /usr/lib/perl5/site_perl/esmith/FormMagick
+-%dir %attr(0755,root,root) /usr/lib/perl5/site_perl/esmith/FormMagick/Panel
+-%attr(0644,root,root) /usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm.orig
+-%attr(0644,root,root) /usr/lib/perl5/site_perl/esmith/FormMagick/Panel/yum.pm
+-%dir %attr(0755,root,root) /usr/share/rpm-gpg-keys
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-rawhide
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY.dag.txt
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-beta
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-fedora-rawhide
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY.dries.txt
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-fedora-test
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-SMEServer7
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-3
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-CentOS-4
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-freshrpms
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY.atrpms
+-/usr/share/rpm-gpg-keys/RPM-GPG-KEY-fedora
+-%attr(0700,root,root) /etc/cron.daily/smeserver-yum
+-%dir %attr(0755,root,root) /etc/e-smith
+-%dir %attr(0755,root,root) /etc/e-smith/web
+-%dir %attr(0550,root,admin) /etc/e-smith/web/panels
+-%dir %attr(0755,root,root) /etc/e-smith/web/panels/manager
+-%dir %attr(0755,root,root) /etc/e-smith/web/panels/manager/cgi-bin
+-/etc/e-smith/web/panels/manager/cgi-bin/yum
+-%dir %attr(0550,root,admin) /etc/e-smith/web/functions
+-%attr(04750,root,admin) /etc/e-smith/web/functions/yum
+-%dir %attr(0755,root,root) /etc/e-smith/templates
+-%dir %attr(0755,root,root) /etc/e-smith/templates/etc
+-%dir %attr(0755,root,root) /etc/e-smith/templates/etc/yum.conf
+-/etc/e-smith/templates/etc/yum.conf/10main_debuglevel
+-/etc/e-smith/templates/etc/yum.conf/10main_installonlypkgs
+-/etc/e-smith/templates/etc/yum.conf/10main_cachedir
+-/etc/e-smith/templates/etc/yum.conf/10main_exactarch
+-/etc/e-smith/templates/etc/yum.conf/10main_logfile
+-/etc/e-smith/templates/etc/yum.conf/10main
+-/etc/e-smith/templates/etc/yum.conf/10main_obsoletes
+-/etc/e-smith/templates/etc/yum.conf/20repositories
+-/etc/e-smith/templates/etc/yum.conf/10main_tolerant
+-%dir %attr(0755,root,root) /etc/e-smith/locale
+-%dir %attr(0755,root,root) /etc/e-smith/locale/en-us
+-%dir %attr(0755,root,root) /etc/e-smith/locale/en-us/etc
+-%dir %attr(0755,root,root) /etc/e-smith/locale/en-us/etc/e-smith
+-%dir %attr(0755,root,root) /etc/e-smith/locale/en-us/etc/e-smith/web
+-%dir %attr(0755,root,root) /etc/e-smith/locale/en-us/etc/e-smith/web/functions
+-/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
+-%dir %attr(0755,root,root) /etc/e-smith/db
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/migrate
+-/etc/e-smith/db/yum_repositories/migrate/20SMERepos
+-/etc/e-smith/db/yum_repositories/migrate/00openRW
+-/etc/e-smith/db/yum_repositories/migrate/10GPG_and_Groups
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/centosplus
+-/etc/e-smith/db/yum_repositories/defaults/centosplus/type
+-/etc/e-smith/db/yum_repositories/defaults/centosplus/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/centosplus/status
+-/etc/e-smith/db/yum_repositories/defaults/centosplus/Name
+-/etc/e-smith/db/yum_repositories/defaults/centosplus/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/centosplus/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/centosplus/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/extras
+-/etc/e-smith/db/yum_repositories/defaults/extras/type
+-/etc/e-smith/db/yum_repositories/defaults/extras/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/extras/status
+-/etc/e-smith/db/yum_repositories/defaults/extras/Name
+-/etc/e-smith/db/yum_repositories/defaults/extras/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/extras/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/extras/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/base
+-/etc/e-smith/db/yum_repositories/defaults/base/type
+-/etc/e-smith/db/yum_repositories/defaults/base/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/base/status
+-/etc/e-smith/db/yum_repositories/defaults/base/Name
+-/etc/e-smith/db/yum_repositories/defaults/base/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/base/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/base/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/smeupdates
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates/type
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates/status
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates/Name
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/updates
+-/etc/e-smith/db/yum_repositories/defaults/updates/type
+-/etc/e-smith/db/yum_repositories/defaults/updates/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/updates/status
+-/etc/e-smith/db/yum_repositories/defaults/updates/Name
+-/etc/e-smith/db/yum_repositories/defaults/updates/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/updates/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/updates/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/contrib
+-/etc/e-smith/db/yum_repositories/defaults/contrib/type
+-/etc/e-smith/db/yum_repositories/defaults/contrib/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/contrib/status
+-/etc/e-smith/db/yum_repositories/defaults/contrib/Name
+-/etc/e-smith/db/yum_repositories/defaults/contrib/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/contrib/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/contrib/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/addons
+-/etc/e-smith/db/yum_repositories/defaults/addons/type
+-/etc/e-smith/db/yum_repositories/defaults/addons/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/addons/status
+-/etc/e-smith/db/yum_repositories/defaults/addons/Name
+-/etc/e-smith/db/yum_repositories/defaults/addons/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/addons/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/addons/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/smeos
+-/etc/e-smith/db/yum_repositories/defaults/smeos/type
+-/etc/e-smith/db/yum_repositories/defaults/smeos/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/smeos/status
+-/etc/e-smith/db/yum_repositories/defaults/smeos/Name
+-/etc/e-smith/db/yum_repositories/defaults/smeos/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/smeos/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/smeos/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/smeaddons
+-/etc/e-smith/db/yum_repositories/defaults/smeaddons/type
+-/etc/e-smith/db/yum_repositories/defaults/smeaddons/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/smeaddons/status
+-/etc/e-smith/db/yum_repositories/defaults/smeaddons/Name
+-/etc/e-smith/db/yum_repositories/defaults/smeaddons/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/smeaddons/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/smeaddons/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/smeupdates-testing
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/type
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/status
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Name
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/smeupdates-testing/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/testing
+-/etc/e-smith/db/yum_repositories/defaults/testing/type
+-/etc/e-smith/db/yum_repositories/defaults/testing/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/testing/status
+-/etc/e-smith/db/yum_repositories/defaults/testing/Name
+-/etc/e-smith/db/yum_repositories/defaults/testing/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/testing/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/testing/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/smetest
+-/etc/e-smith/db/yum_repositories/defaults/smetest/type
+-/etc/e-smith/db/yum_repositories/defaults/smetest/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/smetest/status
+-/etc/e-smith/db/yum_repositories/defaults/smetest/Name
+-/etc/e-smith/db/yum_repositories/defaults/smetest/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/smetest/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/smetest/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_repositories/defaults/smedev
+-/etc/e-smith/db/yum_repositories/defaults/smedev/type
+-/etc/e-smith/db/yum_repositories/defaults/smedev/BaseURL
+-/etc/e-smith/db/yum_repositories/defaults/smedev/status
+-/etc/e-smith/db/yum_repositories/defaults/smedev/Name
+-/etc/e-smith/db/yum_repositories/defaults/smedev/GPGCheck
+-/etc/e-smith/db/yum_repositories/defaults/smedev/EnableGroups
+-/etc/e-smith/db/yum_repositories/defaults/smedev/Visible
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_updates
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_available
+-%dir %attr(0755,root,root) /etc/e-smith/db/yum_installed
+-%dir %attr(0755,root,root) /etc/e-smith/db/configuration
+-%dir %attr(0755,root,root) /etc/e-smith/db/configuration/defaults
+-%dir %attr(0755,root,root) /etc/e-smith/db/configuration/defaults/yum
+-/etc/e-smith/db/configuration/defaults/yum/type
+-/etc/e-smith/db/configuration/defaults/yum/RandomDelay
+-/etc/e-smith/db/configuration/defaults/yum/status
+-/etc/e-smith/db/configuration/defaults/yum/GPGCheck
+-/etc/e-smith/db/configuration/defaults/yum/PackageFunctions
+-/etc/e-smith/db/configuration/defaults/yum/EnableGroups
+-/etc/e-smith/db/configuration/defaults/yum/AutoInstallUpdates
+-%dir %attr(0755,root,root) /etc/e-smith/db/configuration/force
+-%dir %attr(0755,root,root) /etc/e-smith/db/configuration/force/yum
+-/etc/e-smith/db/configuration/force/yum/AutoInstallUpdates
+-%dir %attr(0755,root,root) /etc/e-smith/events
+-%dir %attr(0755,root,root) /etc/e-smith/events/actions
+-%attr(0554,root,root) /etc/e-smith/events/actions/yum-import-keys
+-%attr(0554,root,root) /etc/e-smith/events/actions/yum-update-dbs
+-%attr(0554,root,root) /etc/e-smith/events/actions/yum-action
+-%dir %attr(0755,root,root) /etc/e-smith/events/yum-remove
+-/etc/e-smith/events/yum-remove/S50initialize-default-databases
+-/etc/e-smith/events/yum-remove/S20yum-action
+-/etc/e-smith/events/yum-remove/S90yum-update-dbs
+-/etc/e-smith/events/yum-remove/S80navigation-conf
+-%dir %attr(0755,root,root) /etc/e-smith/events/local
+-/etc/e-smith/events/local/S90yum-update-dbs
+-%dir %attr(0755,root,root) /etc/e-smith/events/bootstrap-console-save
+-/etc/e-smith/events/bootstrap-console-save/S10yum-import-keys
+-%dir %attr(0755,root,root) /etc/e-smith/events/bootstrap-console-save/templates2expand
+-%dir %attr(0755,root,root) /etc/e-smith/events/bootstrap-console-save/templates2expand/etc
+-/etc/e-smith/events/bootstrap-console-save/templates2expand/etc/yum.conf
+-%dir %attr(0755,root,root) /etc/e-smith/events/yum-modify
+-%dir %attr(0755,root,root) /etc/e-smith/events/yum-modify/templates2expand
+-%dir %attr(0755,root,root) /etc/e-smith/events/yum-modify/templates2expand/etc
+-/etc/e-smith/events/yum-modify/templates2expand/etc/yum.conf
+-%dir %attr(0755,root,root) /etc/e-smith/events/yum-install
+-/etc/e-smith/events/yum-install/S50initialize-default-databases
+-/etc/e-smith/events/yum-install/S20yum-action
+-/etc/e-smith/events/yum-install/S90yum-update-dbs
+-/etc/e-smith/events/yum-install/S80navigation-conf
+-%dir %attr(0755,root,root) /etc/e-smith/events/yum-update
+-/etc/e-smith/events/yum-update/S50initialize-default-databases
+-/etc/e-smith/events/yum-update/S20yum-action
+-/etc/e-smith/events/yum-update/S90yum-update-dbs
+-/etc/e-smith/events/yum-update/S80navigation-conf
+-%dir %attr(0755,root,root) /var/service
+-%dir %attr(0755,root,root) /var/service/yum
+-%attr(0644,root,root) /var/service/yum/down
+-%attr(0755,root,root) /var/service/yum/run
+-%dir %attr(0700,root,root) /var/service/yum/supervise
+-%dir %attr(0755,root,root) /var/service/yum/log
+-%attr(0755,root,root) /var/service/yum/log/run
+-%dir %attr(0700,root,root) /var/service/yum/log/supervise
+-%dir %attr(2750,smelog,smelog) /var/log/yum
+-%dir %attr(0755,root,root) /sbin/e-smith
+-%attr(0755,root,root) /sbin/e-smith/yum
+-%attr(0700,root,root) /sbin/e-smith/yum_update_dbs
