@@ -1,4 +1,4 @@
-# $Id: smeserver-yum.spec,v 1.37 2009/09/12 08:52:19 dungog Exp $
+# $Id: smeserver-yum.spec,v 1.38 2009/09/15 16:43:50 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
@@ -16,7 +16,8 @@ Patch3: smeserver-yum-2.2.0-buffer.patch
 Patch4: smeserver-yum-2.2.0-protected.patch
 Patch5: smeserver-yum-2.2.0-mirrorlist.patch
 Patch6: smeserver-yum-2.2.0-updatetoggle.patch
-Patch7: smeserver-yum-2.2.0-deleteSme8updateRepos.patch
+Patch7: smeserver-yum-2.2.0-nosemi.patch
+Patch8: smeserver-yum-2.2.0-unsavedchanges.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -40,10 +41,13 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Sat Sep 12 2009 Stephen Noble <support@dungog.net> 2.2.0-10.sme
-- Remove repo db's used to update from sme 7 [SME: 5202]
+* Tue Sep 15 2009 Shad L. Lords <slords@mail.com> 2.2.0-10.sme
+- set unsaved changes in yum event [SME: 5475]
+- move yum warming to sme yum plugin [SME: 5474]
+- ensure file exists before unlinking [SME: 5476]
+- remove semicolons from yum plugin
 
-* Sat Sep 12 2009 Stephen Noble <support@dungog.net> 2.2.0-9.sme
+* Tue Sep 15 2009 Shad L. Lords <slords@mail.com> 2.2.0-9.sme
 - Add frequency of updates toggle [SME: 3764]
 - remove stray file
 
@@ -836,6 +840,7 @@ AutoReqProv: no
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 perl createlinks

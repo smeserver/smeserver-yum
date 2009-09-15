@@ -1,0 +1,82 @@
+--- smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py.nosemi	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py	2009-09-15 10:04:46.000000000 -0600
+@@ -8,58 +8,58 @@
+ requires_api_version = '2.1'
+ plugin_type = (TYPE_CORE,)
+ 
+-events_path  = '/etc/e-smith/events';
+-initialize_database = events_path + '/actions/initialize-default-databases';
+-navigation_conf = events_path + '/actions/navigation-conf';
+-signal_event = '/sbin/e-smith/signal-event';
+-status_file  = '/var/run/yum.status';
++events_path  = '/etc/e-smith/events'
++initialize_database = events_path + '/actions/initialize-default-databases'
++navigation_conf = events_path + '/actions/navigation-conf'
++signal_event = '/sbin/e-smith/signal-event'
++status_file  = '/var/run/yum.status'
+ 
+ def report_yum_status(status):
+-	fileHandle = open(status_file, 'w');
+-	fileHandle.write(status);
+-	fileHandle.close();
++	fileHandle = open(status_file, 'w')
++	fileHandle.write(status)
++	fileHandle.close()
+ 
+ def config_hook(conduit):
+-	report_yum_status('config');
++	report_yum_status('config')
+ 
+ def init_hook(conduit):
+-	report_yum_status('init');
++	report_yum_status('init')
+ 
+ def predownload_hook(conduit):
+-	report_yum_status('predownload');
++	report_yum_status('predownload')
+ 
+ def postdownload_hook(conduit):
+-	report_yum_status('postdownload');
++	report_yum_status('postdownload')
+ 
+ def prereposetup_hook(conduit):
+-	report_yum_status('prereposetup');
++	report_yum_status('prereposetup')
+ 
+ def postreposetup_hook(conduit):
+-	report_yum_status('postreposetup');
++	report_yum_status('postreposetup')
+ 
+ def exclude_hook(conduit):
+-	report_yum_status('exclude');
++	report_yum_status('exclude')
+ 
+ def preresolve_hook(conduit):
+-	report_yum_status('preresolve');
++	report_yum_status('preresolve')
+ 
+ def postresolve_hook(conduit):
+-	report_yum_status('postresolve');
++	report_yum_status('postresolve')
+ 
+ def pretrans_hook(conduit):
+-	report_yum_status('pretrans');
++	report_yum_status('pretrans')
+ 	ts = conduit.getTsInfo()
+ 	for tsmem in ts.getMembers():
+ 		print "smeserver trap pre-install: " + tsmem.name
+ 
+ def posttrans_hook(conduit):
+-	report_yum_status('posttrans');
++	report_yum_status('posttrans')
+ 	os.spawnl(os.P_WAIT, initialize_database, initialize_database)
+-	os.spawnl(os.P_WAIT, navigation_conf, navigation_conf);
++	os.spawnl(os.P_WAIT, navigation_conf, navigation_conf)
+ 	ts = conduit.getTsInfo()
+ 	for tsmem in ts.getMembers():
+ 		print "smeserver trap post-install: " + tsmem.name
+-		smeevent = 'yum-reconfigure-' + tsmem.name;
++		smeevent = 'yum-reconfigure-' + tsmem.name
+ 		if os.path.isdir(events_path + '/' + smeevent):
+ 			print "smeservers signal-event: " + smeevent
+ 			os.spawnl(os.P_WAIT,

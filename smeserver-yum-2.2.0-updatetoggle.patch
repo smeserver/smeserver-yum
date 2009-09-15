@@ -1,19 +1,7 @@
-diff -urN smeserver-yum-2.2.0/root/etc/e-smith/db/configuration/migrate/yumCheck4updates smeserver-yum-2.2.0.new/root/etc/e-smith/db/configuration/migrate/yumCheck4updates
---- smeserver-yum-2.2.0/root/etc/e-smith/db/configuration/migrate/yumCheck4updates	1970-01-01 10:00:00.000000000 +1000
-+++ smeserver-yum-2.2.0.new/root/etc/e-smith/db/configuration/migrate/yumCheck4updates	2009-09-12 18:01:37.000000000 +1000
-@@ -0,0 +1,12 @@
-+{
-+   my $yum = $DB->get("yum");
-+   return if ($yum->prop('check4updates'));
-+   if ($yum->prop('status') eq 'disabled')
-+   {
-+      $yum->set_prop('check4updates', 'disabled');
-+   }
-+   else
-+   {
-+      $yum->set_prop('check4updates', 'daily');
-+   }
-+}
+--- smeserver-yum-2.2.0/root/etc/e-smith/db/configuration/defaults/yum/check4updates.d	2009-09-15 10:19:24.000000000 -0600
++++ smeserver-yum-2.2.0/root/etc/e-smith/db/configuration/defaults/yum/check4updates	2009-09-15 10:19:30.000000000 -0600
+@@ -0,0 +1 @@
++daily
 diff -urN smeserver-yum-2.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum smeserver-yum-2.2.0.new/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum
 --- smeserver-yum-2.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2008-10-08 01:25:45.000000000 +1100
 +++ smeserver-yum-2.2.0.new/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/yum	2009-09-12 18:04:01.000000000 +1000
