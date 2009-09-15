@@ -1,0 +1,85 @@
+--- smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py.unsavedchanges	2009-09-15 10:04:46.000000000 -0600
++++ smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py	2009-09-15 10:05:44.000000000 -0600
+@@ -12,8 +12,11 @@
+ initialize_database = events_path + '/actions/initialize-default-databases'
+ navigation_conf = events_path + '/actions/navigation-conf'
+ signal_event = '/sbin/e-smith/signal-event'
++config_set = '/sbin/e-smith/config'
+ status_file  = '/var/run/yum.status'
+ 
++smechange = False
++
+ def report_yum_status(status):
+ 	fileHandle = open(status_file, 'w')
+ 	fileHandle.write(status)
+@@ -53,9 +56,8 @@
+ 		print "smeserver trap pre-install: " + tsmem.name
+ 
+ def posttrans_hook(conduit):
++	global smechange
+ 	report_yum_status('posttrans')
+-	os.spawnl(os.P_WAIT, initialize_database, initialize_database)
+-	os.spawnl(os.P_WAIT, navigation_conf, navigation_conf)
+ 	ts = conduit.getTsInfo()
+ 	for tsmem in ts.getMembers():
+ 		print "smeserver trap post-install: " + tsmem.name
+@@ -65,6 +67,25 @@
+ 			os.spawnl(os.P_WAIT,
+ 				signal_event, signal_event, smeevent)
+ 
++		(n, a, e, v, r) = tsmem.po.pkgtup
++		if n.startswith('sme') or n.startswith('e-smith') or r.endswith('sme'):
++			smechange = True
++
++	if smechange:
++		os.spawnl(os.P_WAIT, config_set, config_set, 'set', 'UnsavedChanges', 'yes')
++		os.spawnl(os.P_WAIT, initialize_database, initialize_database)
++		os.spawnl(os.P_WAIT, navigation_conf, navigation_conf)
++
+ def close_hook(conduit):
+-	os.unlink('/var/run/yum.status')
++	if os.path.isfile('/var/run/yum.status'):
++		os.unlink('/var/run/yum.status')
++
++	if smechange:
++		print "\n=============================================================="
++		print "WARNING: You now need to run BOTH of the following commands"
++		print "to ensure consistent system state:\n"
++		print "signal-event post-upgrade; signal-event reboot\n"
++		print "You should run these commands unless you are certain that"
++		print "yum made no changes to your system."
++		print "=============================================================="
+ 
+--- smeserver-yum-2.0.0/root/sbin/e-smith/yum.unsavedchanges	2008-10-07 08:21:29.000000000 -0600
++++ smeserver-yum-2.0.0/root/sbin/e-smith/yum	1970-01-01 10:00:00.000000000 +1000
+@@ -1,30 +0,0 @@
+-#!/bin/sh
+-
+-echo "=============================================================="
+-echo "WARNING: Additional commands may be required after running yum"
+-echo "=============================================================="
+-
+-BEFORE=$(rpm -qa 2>&1 | sed '/skipping V4 signature/d' | md5sum)
+-
+-/usr/bin/yum "$@"
+-status=$?
+-
+-AFTER=$(rpm -qa 2>&1 | sed '/skipping V4 signature/d' | md5sum)
+-if [ "$BEFORE" = "$AFTER" ]
+-then
+-  echo "================================================================"
+-  echo "No new rpms were installed. No additional commands are required."
+-  echo "================================================================"
+-else
+-  echo "=============================================================="
+-  echo "WARNING: You now need to run BOTH of the following commands"
+-  echo "to ensure consistent system state:"
+-  echo
+-  echo "signal-event post-upgrade; signal-event reboot"
+-  echo
+-  echo "You should run these commands unless you are certain that"
+-  echo "yum made no changes to your system."
+-  echo "=============================================================="
+-fi
+-
+-exit $status
