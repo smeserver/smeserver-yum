@@ -1,4 +1,4 @@
-# $Id: smeserver-yum.spec,v 1.35 2009/09/15 16:37:04 slords Exp $
+# $Id: smeserver-yum.spec,v 1.34 2009/05/30 18:05:01 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
@@ -16,9 +16,6 @@ Patch3: smeserver-yum-2.0.0-buffer.patch
 Patch4: smeserver-yum-2.0.0-yumremove.patch
 Patch5: smeserver-yum-2.0.0-protected.patch
 Patch6: smeserver-yum-2.0.0-mirrorlist.patch
-Patch7: smeserver-yum-2.0.0-updatetoggle.patch
-Patch8: smeserver-yum-2.0.0-nosemi.patch
-Patch9: smeserver-yum-2.0.0-unsavedchanges.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -40,16 +37,6 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Tue Sep 15 2009 Shad L. Lords <slords@mail.com> 2.0.0-10.sme
-- set unsaved changes in yum event [SME: 2081]
-- move yum warming to sme yum plugin [SME: 5472]
-- ensure file exists before unlinking [SME: 4169]
-- remove semicolons from yum plugin
-
-* Tue Sep 15 2009 Shad L. Lords <slords@mail.com> 2.0.0-9.sme
-- Add frequency of updates toggle [SME: 5473]
-- remove stray file
-
 * Sat May 30 2009 Shad L. Lords <slords@mail.com> 2.0.0-8.sme
 - Add /etc/yum.smerepos.d to package [SME: 5306]
 
@@ -835,9 +822,6 @@ AutoReqProv: no
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
 
 %build
 perl createlinks
