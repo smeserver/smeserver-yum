@@ -1,0 +1,16 @@
+diff -up smeserver-yum-2.2.0/root/etc/e-smith/events/actions/yum-import-keys.import-keys smeserver-yum-2.2.0/root/etc/e-smith/events/actions/yum-import-keys
+--- smeserver-yum-2.2.0/root/etc/e-smith/events/actions/yum-import-keys.import-keys	2008-10-07 16:25:45.000000000 +0200
++++ smeserver-yum-2.2.0/root/etc/e-smith/events/actions/yum-import-keys	2009-10-14 13:06:49.000000000 +0200
+@@ -37,7 +37,11 @@ sub parse_key {
+ 			next;
+ 		}
+ 
+-		return $key if m#END PGP PUBLIC KEY BLOCK#;
++		if (m#END PGP PUBLIC KEY BLOCK#) {
++			$key .= $1 if (m/^(.+)-----END PGP PUBLIC KEY BLOCK/);
++			return $key;
++		}
++
+ 
+ 		$key .= $_ if m#^\S+$# && $good;
+ 	}
