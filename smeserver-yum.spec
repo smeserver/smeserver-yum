@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.36 2009/09/15 16:37:40 slords Exp $
+# $Id: smeserver-yum.spec,v 1.37 2009/11/05 18:43:13 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.0.0
-%define release 10
+%define release 11
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -19,6 +19,7 @@ Patch6: smeserver-yum-2.0.0-mirrorlist.patch
 Patch7: smeserver-yum-2.0.0-updatetoggle.patch
 Patch8: smeserver-yum-2.0.0-nosemi.patch
 Patch9: smeserver-yum-2.0.0-unsavedchanges.patch
+Patch10: smeserver-yum-2.0.0-fixremove.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -40,6 +41,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Nov 5 2009 Shad L. Lords <slords@mail.com> 2.0.0-11.sme
+- only unlink file if we created it [SME: 4169]
+
 * Tue Sep 15 2009 Shad L. Lords <slords@mail.com> 2.0.0-10.sme
 - set unsaved changes in yum event [SME: 2081]
 - move yum warming to sme yum plugin [SME: 5472]
@@ -838,6 +842,7 @@ AutoReqProv: no
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 perl createlinks

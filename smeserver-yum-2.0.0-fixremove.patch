@@ -1,0 +1,59 @@
+diff -up smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py.fixremove smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py
+diff -up smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py.fixremove smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py
+diff -up smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py.fixremove smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py
+--- smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py.fixremove	2009-11-05 11:39:13.000000000 -0700
++++ smeserver-yum-2.0.0/root/usr/lib/yum-plugins/smeserver.py	2009-11-05 11:39:53.000000000 -0700
+@@ -16,18 +16,13 @@ config_set = '/sbin/e-smith/config'
+ status_file  = '/var/run/yum.status'
+ 
+ smechange = False
++ourfile = False
+ 
+ def report_yum_status(status):
+ 	fileHandle = open(status_file, 'w')
+ 	fileHandle.write(status)
+ 	fileHandle.close()
+ 
+-def config_hook(conduit):
+-	report_yum_status('config')
+-
+-def init_hook(conduit):
+-	report_yum_status('init')
+-
+ def predownload_hook(conduit):
+ 	report_yum_status('predownload')
+ 
+@@ -35,6 +30,8 @@ def postdownload_hook(conduit):
+ 	report_yum_status('postdownload')
+ 
+ def prereposetup_hook(conduit):
++	global ourfile
++	ourfile = True
+ 	report_yum_status('prereposetup')
+ 
+ def postreposetup_hook(conduit):
+@@ -52,15 +49,12 @@ def postresolve_hook(conduit):
+ def pretrans_hook(conduit):
+ 	report_yum_status('pretrans')
+ 	ts = conduit.getTsInfo()
+-	for tsmem in ts.getMembers():
+-		print "smeserver trap pre-install: " + tsmem.name
+ 
+ def posttrans_hook(conduit):
+ 	global smechange
+ 	report_yum_status('posttrans')
+ 	ts = conduit.getTsInfo()
+ 	for tsmem in ts.getMembers():
+-		print "smeserver trap post-install: " + tsmem.name
+ 		smeevent = 'yum-reconfigure-' + tsmem.name
+ 		if os.path.isdir(events_path + '/' + smeevent):
+ 			print "smeservers signal-event: " + smeevent
+@@ -77,7 +71,7 @@ def posttrans_hook(conduit):
+ 		os.spawnl(os.P_WAIT, navigation_conf, navigation_conf)
+ 
+ def close_hook(conduit):
+-	if os.path.isfile('/var/run/yum.status'):
++	if ourfile and os.path.isfile('/var/run/yum.status'):
+ 		os.unlink('/var/run/yum.status')
+ 
+ 	if smechange:
