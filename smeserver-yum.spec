@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.39 2009/10/14 11:20:46 filippocarletti Exp $
+# $Id: smeserver-yum.spec,v 1.40 2009/11/05 18:43:13 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 11
+%define release 12
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -19,6 +19,7 @@ Patch6: smeserver-yum-2.2.0-updatetoggle.patch
 Patch7: smeserver-yum-2.2.0-nosemi.patch
 Patch8: smeserver-yum-2.2.0-unsavedchanges.patch
 Patch9: smeserver-yum-2.2.0-import-keys.patch
+Patch10: smeserver-yum-2.2.0-fixremove.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -42,6 +43,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Thu Nov 5 2009 Shad L. Lords <slords@mail.com> 2.2.0-12.sme
+- only unlink file if we created it [SME: 5476]
+
 * Wed Oct 14 2009 Filipo Carletti <filippo.carletti@gmail.com> 2.2.0-11.sme
 - Import only keys not already imported [SME: 5507]
 
@@ -846,6 +850,7 @@ AutoReqProv: no
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 perl createlinks
