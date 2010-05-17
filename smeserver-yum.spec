@@ -1,18 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.41 2010/05/17 18:45:54 snetram Exp $
+# $Id: smeserver-yum.spec,v 1.42 2010/05/17 19:15:50 snetram Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 13
-
-# These packages come from CentOS, but wee need to use care when
-# updating them - either we've patched them, or we need to do something
-# prior to taking the update
-
-# TODO: check mkinitrd,mdadm to see if needed
-%define centos_excludes initscripts
-
+%define release 14
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -51,6 +43,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Mon May 17 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-14.sme
+- Revert previous change [SME: 5962]
+
 * Mon May 17 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-13.sme
 - Migrate CentOS Exclude property default values to smeserver-yum [SME: 5962]
 
@@ -875,13 +870,6 @@ mkdir -p root/var/log/yum
 mkdir -p root/etc/yum.smerepos.d
 
 mkdir -p root/etc/e-smith/db/yum_{available,installed,updates}
-
-YUM_REPOS=root/etc/e-smith/db/yum_repositories/
-for dir in base updates
-do
-    mkdir -p $YUM_REPOS/defaults/$dir
-    echo %{centos_excludes} > $YUM_REPOS/defaults/$dir/Exclude
-done
 
 %install
 /bin/rm -rf $RPM_BUILD_ROOT
