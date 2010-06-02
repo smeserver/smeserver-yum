@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.43 2010/06/02 16:41:28 slords Exp $
+# $Id: smeserver-yum.spec,v 1.44 2010/06/02 17:10:51 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 15
+%define release 16
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -44,9 +44,12 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Jun 02 2010 Shad L. Lords <slords@mail.com> 2.2.0-16.sme
+- Fix yum database removal (missing one) [SME: 5707]
+
 * Wed Jun 02 2010 Shad L. Lords <slords@mail.com> 2.2.0-15.sme
 - Migrate MirrorList properties to sme8 repos [SME: 5705]
-- Remove BaseURL properties if migrating to sme8 repos
+- Remove BaseURL properties if migrating to sme8 repos [SME: 5949]
 - Remove yum databases and repodata if migrating to sme8 repos [SME: 5998]
 
 * Mon May 17 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-14.sme

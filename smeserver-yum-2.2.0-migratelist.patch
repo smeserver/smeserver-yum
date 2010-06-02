@@ -1,7 +1,7 @@
 diff -up smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList.migratelist smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList
 --- smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList.migratelist	2010-06-02 09:40:54.000000000 -0600
 +++ smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList	2010-06-02 10:09:05.000000000 -0600
-@@ -4,7 +4,19 @@
+@@ -4,7 +4,16 @@
      {
  	my $repo = $DB->get($name) or next;
  
@@ -12,13 +12,10 @@ diff -up smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40Glob
 +        {
 +            $repo->delete_prop('MirrorList');
 +            $repo->delete_prop('BaseURL');
-+            unlink "/var/cache/yum/$name/repomd.xml" if -f "/var/cache/yum/$name/repomd.xml";
-+            unlink "/var/cache/yum/$name/mirrorlist.txt" if -f "/var/cache/yum/$name/mirrorlist.txt";
++            unlink "/var/cache/yum/$name/$_" foreach qw(repomd.xml mirrorlist.txt);
 +            if ($repo->prop('status') eq 'enabled')
 +            {
-+                unlink '/home/e-smith/db/yum_available' if -f '/home/e-smith/db/yum_available';
-+                unlink '/home/e-smith/db/yum_updates' if -f '/home/e-smith/db/yum_updates';
-+                unlink '/home/e-smith/db/yum_updates' if -f '/home/e-smith/db/yum_updates';
++                unlink "/home/e-smith/db/yum_$_" foreach qw(available updates installed);
 +            }
 +        }
      }
