@@ -1,0 +1,25 @@
+diff -up smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList.migratelist smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList
+--- smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList.migratelist	2010-06-02 09:40:54.000000000 -0600
++++ smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList	2010-06-02 10:09:05.000000000 -0600
+@@ -4,7 +4,19 @@
+     {
+ 	my $repo = $DB->get($name) or next;
+ 
+-        $repo->set_prop('MirrorList', "http://distro.ibiblio.org/pub/linux/distributions/smeserver/mirrorlist/$name-8")
+-            if $repo->prop('MirrorList') =~ m{^file:///etc/yum.repos.d/mirrors-sme};
++        if ($repo->prop('MirrorList') =~ m{/7/|/sme.*-7$} || $repo->prop('BaseURL') =~ m{/7/|/sme.*-7$} || 
++            $repo->prop('MirrorList') =~ m{^file:///etc/yum.repos.d/mirrors-sme})
++        {
++            $repo->delete_prop('MirrorList');
++            $repo->delete_prop('BaseURL');
++            unlink "/var/cache/yum/$name/repomd.xml" if -f "/var/cache/yum/$name/repomd.xml";
++            unlink "/var/cache/yum/$name/mirrorlist.txt" if -f "/var/cache/yum/$name/mirrorlist.txt";
++            if ($repo->prop('status') eq 'enabled')
++            {
++                unlink '/home/e-smith/db/yum_available' if -f '/home/e-smith/db/yum_available';
++                unlink '/home/e-smith/db/yum_updates' if -f '/home/e-smith/db/yum_updates';
++                unlink '/home/e-smith/db/yum_updates' if -f '/home/e-smith/db/yum_updates';
++            }
++        }
+     }
+ }

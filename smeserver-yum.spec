@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.42 2010/05/17 19:15:50 snetram Exp $
+# $Id: smeserver-yum.spec,v 1.43 2010/06/02 16:41:28 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 14
+%define release 15
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -20,6 +20,7 @@ Patch7: smeserver-yum-2.2.0-nosemi.patch
 Patch8: smeserver-yum-2.2.0-unsavedchanges.patch
 Patch9: smeserver-yum-2.2.0-import-keys.patch
 Patch10: smeserver-yum-2.2.0-fixremove.patch
+Patch11: smeserver-yum-2.2.0-migratelist.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -43,6 +44,11 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Wed Jun 02 2010 Shad L. Lords <slords@mail.com> 2.2.0-15.sme
+- Migrate MirrorList properties to sme8 repos [SME: 5705]
+- Remove BaseURL properties if migrating to sme8 repos
+- Remove yum databases and repodata if migrating to sme8 repos [SME: 5998]
+
 * Mon May 17 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-14.sme
 - Revert previous change [SME: 5962]
 
@@ -857,6 +863,7 @@ AutoReqProv: no
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 perl createlinks
