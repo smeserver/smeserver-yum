@@ -1,4 +1,4 @@
-# $Id: smeserver-yum.spec,v 1.44 2010/06/02 17:10:51 slords Exp $
+# $Id: smeserver-yum.spec,v 1.45 2010/06/02 17:11:34 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
@@ -45,7 +45,7 @@ AutoReqProv: no
 
 %changelog
 * Wed Jun 02 2010 Shad L. Lords <slords@mail.com> 2.2.0-16.sme
-- Fix yum database removal (missing one) [SME: 5707]
+- Fix yum database removal (missing one) [SME: 5705]
 
 * Wed Jun 02 2010 Shad L. Lords <slords@mail.com> 2.2.0-15.sme
 - Migrate MirrorList properties to sme8 repos [SME: 5705]
