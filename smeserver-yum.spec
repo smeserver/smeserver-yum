@@ -1,10 +1,10 @@
-# $Id: smeserver-yum.spec,v 1.45 2010/06/02 17:11:34 slords Exp $
+# $Id: smeserver-yum.spec,v 1.46 2010/06/12 21:55:35 slords Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
 Name: %{name}
 %define version 2.2.0
-%define release 16
+%define release 17
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -21,6 +21,7 @@ Patch8: smeserver-yum-2.2.0-unsavedchanges.patch
 Patch9: smeserver-yum-2.2.0-import-keys.patch
 Patch10: smeserver-yum-2.2.0-fixremove.patch
 Patch11: smeserver-yum-2.2.0-migratelist.patch
+Patch12: smeserver-yum-2.2.0-migrate_undefined.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-formmagick >= 1.4.0-12
@@ -44,6 +45,9 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
+* Sat Jun 12 2010 Shad L. Lords <slords@mail.com> 2.2.0-17.sme
+- Fix migrate fragment to not throw warnings [SME: 5705]
+
 * Wed Jun 02 2010 Shad L. Lords <slords@mail.com> 2.2.0-16.sme
 - Fix yum database removal (missing one) [SME: 5705]
 
@@ -867,6 +871,7 @@ AutoReqProv: no
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 perl createlinks

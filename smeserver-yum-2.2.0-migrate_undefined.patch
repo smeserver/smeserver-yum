@@ -1,0 +1,16 @@
+diff -up smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList.migrate_undefined smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList
+--- smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList.migrate_undefined	2010-06-12 15:51:54.000000000 -0600
++++ smeserver-yum-2.2.0/root/etc/e-smith/db/yum_repositories/migrate/40GlobalMirrorList	2010-06-12 15:51:25.000000000 -0600
+@@ -4,8 +4,10 @@
+     {
+ 	my $repo = $DB->get($name) or next;
+ 
+-        if ($repo->prop('MirrorList') =~ m{/7/|/sme.*-7$} || $repo->prop('BaseURL') =~ m{/7/|/sme.*-7$} || 
+-            $repo->prop('MirrorList') =~ m{^file:///etc/yum.repos.d/mirrors-sme})
++        my $mirrorlist = $repo->prop('MirrorList') || '';
++        my $baseurl =  $repo->prop('BaseURL') || '';
++
++        if ($mirrorlist =~ m{^file:///etc/yum.repos.d/mirrors-sme|/7/|/sme.*-7$} || $baseurl =~ m{/7/|/sme.*-7$})
+         {
+             $repo->delete_prop('MirrorList');
+             $repo->delete_prop('BaseURL');
