@@ -1,4 +1,4 @@
-# $Id: smeserver-yum.spec,v 1.47 2010/10/01 05:29:11 snetram Exp $
+# $Id: smeserver-yum.spec,v 1.48 2010/10/01 05:30:13 snetram Exp $
 
 %define name smeserver-yum
 Summary: YUM, an rpm updater
@@ -46,7 +46,7 @@ AutoReqProv: no
 %name is an implementation of http://linux.duke.edu/projects/yum on SME Server
 
 %changelog
-* Sat Oct 1 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-18.sme
+* Fri Oct 1 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-18.sme
 - Trigger post-upgrade and reboot on kernel updates [SME: 6166]
 
 * Sat Jun 12 2010 Shad L. Lords <slords@mail.com> 2.2.0-17.sme
