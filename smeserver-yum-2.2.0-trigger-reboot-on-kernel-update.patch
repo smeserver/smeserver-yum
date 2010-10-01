@@ -1,0 +1,12 @@
+diff -up smeserver-yum-2.2.0/root/usr/lib/yum-plugins/smeserver.py.trigger-reboot-on-kernel-update smeserver-yum-2.2.0/root/usr/lib/yum-plugins/smeserver.py
+--- smeserver-yum-2.2.0/root/usr/lib/yum-plugins/smeserver.py.trigger-reboot-on-kernel-update	2010-10-01 07:21:18.000000000 +0200
++++ smeserver-yum-2.2.0/root/usr/lib/yum-plugins/smeserver.py	2010-10-01 07:26:24.000000000 +0200
+@@ -62,7 +62,7 @@ def posttrans_hook(conduit):
+ 				signal_event, signal_event, smeevent)
+ 
+ 		(n, a, e, v, r) = tsmem.po.pkgtup
+-		if n.startswith('sme') or n.startswith('e-smith') or r.endswith('sme'):
++		if n.startswith('sme') or n.startswith('e-smith') or n.startswith('kernel') or r.endswith('sme'):
+ 			smechange = True
+ 
+ 	if smechange:
